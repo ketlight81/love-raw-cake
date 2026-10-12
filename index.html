@@ -848,7 +848,7 @@
       <button class="tab active" data-tab="full">Cakes</button>
       <button class="tab" data-tab="mini">Small Cakes</button>
       <button class="tab" data-tab="friday">Friday Box</button>
-      <p class="info-lines">A simple pricing system, for your comfort. <button type="button" class="info-pill" data-open-prices>Prices &amp; Delivery</button></p>
+      <p class="info-lines">Clear, simple pricing. <button type="button" class="info-pill" data-open-prices>Prices &amp; Delivery</button></p>
     </div>
 
     <!-- CAKES & TARTS -->
@@ -998,7 +998,21 @@
         <span class="eyebrow">Courses</span>
         <h2>Learn to make them yourself.</h2>
         <p class="lead">I love passing on what I know. Raw cakes are simpler than they look — and there’s real joy in making something this good with your own hands. Courses are on the way. Want first access?</p>
-        <a href="#order" class="btn btn-ghost mt" data-order="Course — join the waitlist">Join the course waitlist</a>
+        <!-- Course waitlist: its own small form (name + email only) so people don't have to fill in
+             the cake-order fields. Goes to Katya through FormSubmit, like the order form. -->
+        <form class="waitlist mt" action="https://formsubmit.co/ketlight@gmail.com" method="POST">
+          <input type="hidden" name="_subject" value="Course waitlist — Love Raw Cake" />
+          <input type="hidden" name="_template" value="table" />
+          <input type="hidden" name="_cc" value="me.mermina@gmail.com" />
+          <input type="hidden" name="_autoresponse" value="Thank you for joining the waitlist for my raw-cake courses! I&#39;ll write to you as soon as the first dates are set. With love, Katya · Love Raw Cake · @love.raw.cake" />
+          <input type="hidden" name="request" value="Course waitlist" />
+          <div class="waitlist-row">
+            <input type="text" name="name" required placeholder="Your name" aria-label="Your name" autocomplete="name" />
+            <input type="email" name="email" required placeholder="Your email" aria-label="Your email" autocomplete="email" />
+            <button type="submit" class="btn btn-primary">Join the waitlist</button>
+          </div>
+          <small class="muted">I&#39;ll only email you about courses.</small>
+        </form>
       </div>
     </div>
   </div>
@@ -1014,9 +1028,7 @@
       <figure class="quote"><div class="stars">★★★★★</div><p>“The most beautiful cake I’ve ever ordered — and somehow it’s actually good for you. My guests couldn’t believe it was vegan.”</p><figcaption class="who">— Elín G., Reykjavík</figcaption></figure>
       <figure class="quote"><div class="stars">★★★★★</div><p>“Katya made a gluten-free birthday cake my daughter could finally eat. It made her day.”</p><figcaption class="who">— Sigrún H., birthday order</figcaption></figure>
       <figure class="quote"><div class="stars">★★★★★</div><p>“Ordered for our office and the vegan team felt so thought of. We’ll absolutely order again.”</p><figcaption class="who">— Anna Katrín B., corporate event</figcaption></figure>
-    </div>
-    <p class="menu-note">⭐ Ordered before? Leaving a review on Google helps more people find healthy cake — thank you.</p>
-  </div>
+    </div></div>
 </section>
 
 <section class="order" id="order">
@@ -1025,13 +1037,13 @@
     <h2>Let’s make your cake.</h2>
     <div class="order-grid mt">
       <div>
-        <p class="lead">No carts, no checkout — just a quick message. I like to talk it through so your cake is exactly right (and so I can confirm I’m available — I do travel sometimes!).</p>
+        <p class="lead">There is no online checkout — simply send me a message. I prefer to discuss each order personally, so your cake is exactly right and I can confirm that I am available on your date.</p>
         <div class="steps">
-          <div class="step"><span class="n">1</span><p><b>Get in touch</b> — tell me the cake, the date, and how many.</p></div>
-          <div class="step"><span class="n">2</span><p><b>I confirm</b> availability, details and price.</p></div>
-          <div class="step"><span class="n">3</span><p><b>Pick up or delivery</b> — and enjoy.</p></div>
+          <div class="step"><span class="n">1</span><p><b>Send a request</b> — the cake, the date and the quantity.</p></div>
+          <div class="step"><span class="n">2</span><p><b>I confirm</b> availability, the details and the price.</p></div>
+          <div class="step"><span class="n">3</span><p><b>Collection or delivery</b> — on the agreed day.</p></div>
         </div>
-        <p class="info-lines">A simple pricing system, for your comfort. <button type="button" class="info-pill" data-open-prices>Prices &amp; Delivery</button></p>
+        <p class="info-lines">Clear, simple pricing. <button type="button" class="info-pill" data-open-prices>Prices &amp; Delivery</button></p>
         <div class="direct">
           <span>Prefer to message directly?</span>
           <!-- email + phone removed 26 Aug: ask Katya how she wants people to reach her (see TASKS.md [P6]) -->
@@ -1045,8 +1057,11 @@
         <input type="hidden" name="_template" value="table" />
         <input type="hidden" name="_cc" value="me.mermina@gmail.com" />
         <input type="hidden" name="_autoresponse" value="Hi! Thank you so much for your cake request — I&#39;ve got it. I&#39;ll get back to you soon to confirm the date, the price and how you&#39;d like to receive your cake. With love, Katya · Love Raw Cake · @love.raw.cake" />
+        <div class="field-row">
         <div class="field"><label>Your name</label><input type="text" name="name" required placeholder="Name" /></div>
         <div class="field"><label>Your email</label><input type="email" name="email" required autocomplete="email" placeholder="you@example.com" /></div>
+        </div>
+        <div class="field-row">
         <div class="field"><label>Your phone</label><input type="tel" name="phone" required autocomplete="tel" inputmode="tel" pattern="\+?[0-9 ]{7,20}" title="Please enter a phone number (at least 7 digits)." placeholder="+354 …" /></div>
         <div class="field"><label>Which cake?</label>
           <select id="orderSelect" name="cake" required>
@@ -1059,14 +1074,17 @@
             </optgroup>
             <optgroup label="Other">
               <option>Friday Box</option><option>Event / large order</option>
-              <option>Course — join the waitlist</option><option>Not sure — help me choose</option>
+              <option>Not sure — help me choose</option>
             </optgroup>
           </select></div>
+        </div>
+        <div class="field-row">
         <div class="field"><label>Quantity</label><input type="number" name="quantity" min="1" max="200" step="1" value="1" required inputmode="numeric" />
           <small class="muted" id="qtyHint">Number of whole cakes.</small></div>
         <div class="field"><label>When do you need it?</label><input type="date" id="orderDate" name="date_needed" required />
-          <small class="muted">Please allow at least 3 days — every cake is made to order.</small></div>
-        <div class="field"><label>Anything else?</label><textarea name="message" required placeholder="Another cake too? Allergies, occasion…"></textarea></div>
+          <small class="muted">At least 3 days ahead.</small></div>
+        </div>
+        <div class="field"><label>Anything else?</label><textarea name="message" rows="3" required placeholder="Another cake too? Allergies, occasion…"></textarea></div>
         <button type="submit" class="btn btn-primary" style="width:100%">Send my request</button>
       </form>
     </div>
