@@ -1,5 +1,5 @@
 # Pages CMS — what Katya sees in the editor (app.pagescms.org).
-# Labels are in Russian for Katya; field names stay English because build.py reads them.
+# Labels in English, matching the site. Field names must stay as they are — build.py reads them.
 # After every "Save" GitHub runs build.py (.github/workflows/build.yml) and the site updates in ~1–2 min.
 
 media:
@@ -9,7 +9,7 @@ media:
 
 content:
   - name: cakes
-    label: Торты
+    label: Cakes
     type: collection
     path: content/cakes
     format: yaml-frontmatter
@@ -20,88 +20,88 @@ content:
       sort: position
     fields:
       - name: title
-        label: Название
+        label: Name
         type: string
         required: true
-        description: "Как на сайте, по-английски: Carrot Cake"
+        description: "As shown on the site, e.g. Carrot Cake"
       - name: section
-        label: Где показывать
+        label: Section
         type: select
         required: true
         default: cakes
         options:
           values:
             - name: cakes
-              label: Торты (Cakes)
+              label: Cakes
             - name: small
-              label: Маленькие торты (Small Cakes)
+              label: Small Cakes
             - name: friday
               label: Friday Box
       - name: position
-        label: Порядок в разделе
+        label: Position
         type: number
-        description: "1 = первый. Чтобы поставить торт между 2 и 3, напиши 2.5"
+        description: "1 = first. To place a cake between 2 and 3, use 2.5"
       - name: show
-        label: Показывать на сайте
+        label: Show on site
         type: boolean
         default: true
-        description: "Выключи — торт исчезнет с сайта и из формы заказа, но не удалится"
+        description: "Off = hidden from the site and the order form, but not deleted"
       - name: card_text
-        label: Коротко (на карточке)
+        label: Card text
         type: text
         required: true
-        description: "Одно предложение. Его же видит Google"
+        description: "One sentence, shown on the card (and to Google)"
       - name: description
-        label: Подробно (в окне торта)
+        label: Description
         type: text
-        description: "2–3 предложения. Если пусто — берётся текст с карточки"
+        description: "2–3 sentences in the cake pop-up. Empty = card text is used"
       - name: ingredients
-        label: Состав
+        label: Ingredients
         type: text
-        description: "Через запятую, с точкой в конце"
+        description: "Comma-separated, ending with a full stop"
       - name: vegan
-        label: Значок «Vegan»
+        label: Vegan badge
         type: boolean
         default: true
       - name: gluten_free
-        label: Значок «Gluten-free»
+        label: Gluten-free badge
         type: boolean
         default: true
       - name: allergen
-        label: Значок аллергена
+        label: Allergen badge
         type: string
-        description: "Напр.: Contains nuts · Peanut · Pistachio · nuts. Пусто — без значка"
+        description: "e.g. Contains nuts · Peanut · Pistachio · nuts. Empty = no badge"
       - name: note
-        label: Дополнительный значок
+        label: Extra badge
         type: string
-        description: "Необязательно. Напр.: New · Seasonal"
+        description: "Optional, e.g. New · Seasonal"
       - name: price_per_100g
-        label: Цена за 100 г (ISK)
+        label: Price per 100 g (ISK)
         type: number
-        description: "Только число, напр. 1100. Для Google; на сайте цены — в окне Prices & Delivery"
+        description: "Number only, e.g. 1100. Used for Google; customers see prices in Prices & Delivery"
       - name: protein
-        label: Белки, г на 100 г
+        label: Protein (g per 100 g)
         type: number
-        description: "Пищевая ценность — только твои собственные цифры. Заполни все четыре или ни одного"
+        description: "Nutrition — only your own measured figures. Fill all four or none"
       - name: fat
-        label: Жиры, г на 100 г
+        label: Fat (g per 100 g)
         type: number
       - name: carbs
-        label: Углеводы, г на 100 г
+        label: Carbs (g per 100 g)
         type: number
       - name: kcal
-        label: Ккал на 100 г
+        label: Kcal per 100 g
         type: number
       - name: card_image
-        label: Фото для карточки
+        label: Card photo
         type: image
-        description: "Горизонтальное 4:3. Если пусто — берётся первое фото галереи"
+        description: "Landscape, about 4:3. Empty = first gallery photo is used"
       - name: card_alt
-        label: Что на фото (для поиска и незрячих)
+        label: Card photo description
         type: string
-        description: "Напр.: Raw carrot cake with cashew cream and pecans"
+        description: "What the photo shows, e.g. Raw carrot cake with pecans (for Google and screen readers)"
       - name: photos
-        label: Галерея в окне торта
+        label: Gallery
         type: object
         list:
           collapsible:
@@ -109,16 +109,16 @@ content:
             summary: "{fields.caption}"
         fields:
           - name: image
-            label: Фото
+            label: Photo
             type: image
             required: true
           - name: caption
-            label: Подпись
+            label: Caption
             type: string
-            description: "Коротко: The whole cake · A slice · From the side"
+            description: "Short: The whole cake · A slice · From the side"
 
   - name: blog
-    label: Блог
+    label: Blog
     type: collection
     path: content/blog
     format: yaml-frontmatter
@@ -130,33 +130,33 @@ content:
       order: desc
     fields:
       - name: title
-        label: Заголовок
+        label: Title
         type: string
         required: true
       - name: date
-        label: Дата
+        label: Date
         type: date
         required: true
       - name: show
-        label: Показывать на сайте
+        label: Show on site
         type: boolean
         default: true
-        description: "Выключи, пока статья — черновик"
+        description: "Off while the post is a draft"
       - name: excerpt
-        label: Коротко (в списке статей)
+        label: Excerpt
         type: text
         required: true
-        description: "1–2 предложения"
+        description: "1–2 sentences shown in the blog list"
       - name: description
-        label: Описание для Google
+        label: Google description
         type: text
-        description: "Одно предложение. Если пусто — берётся текст «Коротко»"
+        description: "One sentence for search results. Empty = excerpt is used"
       - name: image
-        label: Главное фото
+        label: Main photo
         type: image
       - name: image_alt
-        label: Что на фото
+        label: Photo description
         type: string
       - name: body
-        label: Текст статьи
+        label: Text
         type: rich-text
