@@ -1,0 +1,382 @@
+{#- ============================================================================
+    TEMPLATE for index.html. Edit THIS file, never index.html (index.html is generated).
+    Cake cards, the order-form cake list and the Google product data come from
+    content/cakes/*.md. After editing: `python3 build.py`, check, then push.
+    ============================================================================ -#}
+{%- macro card(c) -%}
+<article class="card"{% if c.key == 'fridaybox' %} id="fridaybox"{% endif %} data-cake="{{ c.key }}"><div class="pic"><img src="{{ c.card_image }}" alt="{{ c.card_alt }}" loading="lazy" /></div><div class="body">
+        <h3>{{ c.title }}</h3><p class="desc">{{ c.card_text }}</p>
+        <div class="badges">{% for b in c.badges %}<span class="badge{{ b.cls }}">{{ b.label }}</span>{% endfor %}</div></div></article>
+{%- endmacro -%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Love Raw Cake — healthy raw cakes made with love · Reykjavík</title>
+<meta name="description" content="Vegan, gluten-free raw cakes handmade in Reykjavík with whole, real ingredients. Cake as nourishment — no guilt, no waste, made with love." />
+
+<script type="application/ld+json">
+{{ schema_json|safe }}
+  </script>
+
+<!--
+=====================================================================
+  RawCakes website — VERSION 2026-08-12
+  • Menu rebuilt to match Katya's own "Ingredients" doc: her exact cake
+    names, real ingredient lists and nutrition (per 100 g) where given.
+  • Real cake photos from Katya's Drive + Telegram; "photo coming soon"
+    where she hasn't shared a shot yet.
+  • Tap any cake -> square note with description, ingredients, nutrition,
+    a swipeable photo gallery, and an Order button.
+  Placeholders still to confirm: [P1]colours [P2]logo [P4]prices
+  [P6]contact/order channel [P7]cakes-made count. Photos to add: the
+  cakes marked "photo coming".
+=====================================================================
+-->
+
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Love Raw Cake — healthy raw cakes, made with love · Reykjavík" />
+<meta property="og:description" content="Vegan, gluten-free raw cakes handmade in Reykjavík from whole, real ingredients. Pleasure without the guilt." />
+  <link rel="icon" type="image/png" sizes="32x32" href="images/logo-32.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="images/logo-192.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="images/logo-180.png" />
+  <meta property="og:image" content="{{ site.url }}/images/chocbanana-2.jpg" />
+{% if not site.draft %}<link rel="canonical" href="{{ site.url }}/" />
+{% endif %}<meta property="og:url" content="{{ site.url }}/" />
+<meta property="og:locale" content="en_GB" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Love Raw Cake — healthy raw cakes, made with love · Reykjavík" />
+<meta name="twitter:description" content="Vegan, gluten-free raw cakes handmade in Reykjavík. Pleasure without the guilt." />
+<meta name="twitter:image" content="{{ site.url }}/images/chocbanana-2.jpg" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&family=Neucha&display=swap" rel="stylesheet" />
+
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a href="#top" class="logo"><img src="images/logo-192.png" alt="" class="logo-mark" />Love<span>·</span>Raw<span>·</span>Cake</a>
+    <nav class="nav-links" id="navlinks">
+      <a href="#about">My story</a>
+      <a href="#cakes">Cakes</a>
+      <a href="#smallcakes">Small Cakes</a>
+      <a href="#fridaybox">Friday Box</a>
+      <a href="#events">Events</a>
+      <a href="#courses">Courses</a>
+      <a href="blog.html">Blog</a>
+            <a class="nav-ig" href="https://instagram.com/love.raw.cake" target="_blank" rel="noopener" aria-label="Love Raw Cake on Instagram" title="@love.raw.cake"><svg viewBox="0 0 24 24" aria-hidden="true"><defs><radialGradient id="igGrad" cx="30%" cy="107%" r="150%"><stop offset="0%" stop-color="#fdf497"/><stop offset="5%" stop-color="#fdf497"/><stop offset="45%" stop-color="#fd5949"/><stop offset="60%" stop-color="#d6249f"/><stop offset="90%" stop-color="#285aeb"/></radialGradient></defs><rect x="1" y="1" width="22" height="22" rx="6.4" fill="url(#igGrad)"/><circle cx="12" cy="12" r="4.6" fill="none" stroke="#fff" stroke-width="1.9"/><circle cx="17.7" cy="6.4" r="1.3" fill="#fff"/></svg></a>
+      <a href="#order" class="btn btn-primary" style="padding:.55rem 1.1rem">Order a cake</a>
+    </nav>
+    <button class="nav-toggle" id="navtoggle" aria-label="Menu">☰</button>
+  </div>
+</header>
+
+<section class="hero" id="top">
+  <div class="hero-media" id="heroMedia">
+    <div class="slide s1 active"></div>
+    <div class="slide s2"></div>
+    <div class="slide s3"></div>
+    <div class="slide s4"></div>
+    <div class="slide s5"></div>
+    <div class="slide s6"></div>
+    <div class="slide s7"></div>
+    <div class="slide s8"></div>
+  </div>
+  <div class="wrap">
+    <h1>Cake that loves you back.</h1>
+    <p>Handmade raw cakes in Reykjavík — vegan, gluten-free, and made only from whole, real ingredients. Pleasure without the guilt.</p>
+    <div style="display:flex;gap:.8rem;flex-wrap:wrap">
+      <a href="#order" class="btn btn-primary">I want cake :)</a>
+      <a href="#cakes" class="btn btn-ghost">See the cakes</a>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap">
+    <div class="split rev">
+      <img class="about-photo" src="images/katya.png" alt="Katya, founder of Love Raw Cake" loading="lazy" />
+      <div class="txt">
+        <span class="eyebrow">My story</span>
+        <h2>Made by someone who really cares.</h2>
+        <p class="lead">My name is Katya. I love people and their stories. I’m a trained raw-cake crafter and I’m training as a coach because I care about both how we treat our bodies and how we treat our minds — they’re connected.</p>
+        <div class="story-expand" id="storyExpand" role="button" tabindex="0" aria-expanded="false" aria-label="Read the rest of Katya’s story">
+          <p>My first impulse was to learn to make raw cakes for my own and my family’s health. Then I thought of everyone who can’t eat the usual cakes — allergies, sugar, dairy — and wanted them to have a beautiful, healthier choice too.<span class="more-inline"> That’s when I realised I wanted to change how cake is seen. For most of us, “cake” means sugar, guilt, something to regret later. I truly believe it can mean the opposite: real nourishment that happens to taste incredible.</span><span class="dots"> …</span> <span class="story-toggle more-label">more</span></p>
+          <p class="more-block">Raw Love Cakes are built from good ingredients — and good ingredients are the only way to a good result. That’s what goes into every box: healthy ingredients, care for the person who’ll open it, and no waste behind it — in raw-cake making it’s easy to use every last ingredient, so it’s care twice over: for you and for the planet. <span class="story-toggle less-label">less</span></p>
+        </div>
+        <p class="story-blog">If you’d like to learn more about Katya and her cakes, please see the <a href="blog.html">Blog</a>.</p>
+      </div>
+    </div>
+    <div class="values">
+      <div class="value"><span class="dot">•</span><h3>Whole &amp; real</h3><p>Plant milks I make myself from soaked nuts, cacao butter, fruit and berries — no refined sugar, no flour, no dairy, no eggs.</p></div>
+      <div class="value"><span class="dot">•</span><h3>Nothing wasted</h3><p>Even the pulp left from making nut milk goes back into the cake. Made to order, frozen beautifully, never thrown away.</p></div>
+      <div class="value"><span class="dot">•</span><h3>Made with love</h3><p>I believe only something made with love can truly do you good. That belief is in the name.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="menu" id="cakes">
+  <div class="wrap">
+    <span class="eyebrow">Cakes</span>
+    <h2>Choose your cake.</h2>
+    <p class="lead">Katya’s real range — each one built from whole, raw ingredients. <b>Tap any cake</b> to see it up close, with its full ingredient list and nutrition.</p>
+
+    <div class="tabs">
+      <button class="tab active" data-tab="full">Cakes</button>
+      <button class="tab" data-tab="mini">Small Cakes</button>
+      <button class="tab" data-tab="friday">Friday Box</button>
+      <p class="info-lines">A simple pricing system, for your comfort. <button type="button" class="info-pill" data-open-prices>Prices &amp; Delivery</button></p>
+    </div>
+
+    <!-- CAKES & TARTS -->
+    <div class="grid" id="grid-full">
+{% for c in cakes %}
+      {{ card(c) }}
+
+{% endfor %}
+      <article class="card smallcakes-card" data-goto-tab="mini" tabindex="0"><div class="pic"><img src="images/images_20.08.2026/smallcakes_buffet_web.jpeg" alt="Raw mini-cakes plated on a buffet table" loading="lazy" /></div><div class="body">
+        <h3>Small Cakes</h3><p class="desc">Individual portions by the plate — matcha ananas, blackcurrant banana and salted peanut balls. Made for events and sharing.</p>
+        <div class="badges"><span class="badge">Vegan</span><span class="badge">Gluten-free</span></div>
+        <p class="desc smallcakes-cta"><b>See all small cakes →</b></p></div></article>
+      <article class="card smallcakes-card" data-goto-tab="friday" tabindex="0"><div class="pic"><img src="images/images_20.08.2026/fridaybox_card.jpeg" alt="A Friday Box of four raw mini-cakes" loading="lazy" /></div><div class="body">
+        <h3>Friday Box</h3><p class="desc">{{ friday_text }}</p>
+        <div class="badges"><span class="badge">Vegan</span><span class="badge">Gluten-free</span></div>
+        <p class="desc smallcakes-cta"><b>See the Friday Box →</b></p></div></article>
+    </div>
+
+    <!-- SMALL CAKES -->
+    <div class="grid hide" id="grid-mini">
+      <div class="mini-strip">
+        <div class="shots">
+          <img src="images/images_20.08.2026/smallcakes_fingers_web.jpeg" alt="A board of raw mini-cakes with berries" loading="lazy" />
+          <img src="images/images_20.08.2026/smallcakes_main_web.jpeg" alt="Board of raw mini-cakes with berries" loading="lazy" />
+          <img src="images/images_20.08.2026/smallcakes_square1_web.jpeg" alt="Raw mini-cakes with strawberries on plates" loading="lazy" />
+          <img src="images/images_20.08.2026/smallcakes_buffet_web.jpeg" alt="Raw mini-cakes plated on a buffet table at an event" loading="lazy" />
+        </div>
+        <p>Small cakes are made by the plate — mix and match any of the flavours below. Platters from 6 pieces.</p>
+      </div>
+
+
+{% for c in small %}
+      {{ card(c) }}
+
+{% endfor %}
+    </div>
+
+    <div class="grid hide" id="grid-friday">
+{% for c in friday %}
+      {{ card(c) }}
+{% endfor %}
+    </div>
+
+
+    <p class="menu-note">🕒 Please order <b>at least 3 days ahead</b> — every cake is made to order (some, like fermented-cashew recipes, need 24h to ferment). Whole cakes, or small cakes by the plate. <button type="button" class="info-pill" data-open-prices>Prices &amp; Delivery</button></p>
+  </div>
+</section>
+
+<div class="counter">
+  <div class="wrap">
+    <div class="num" id="cakeCount">0</div>
+    <!-- PLACEHOLDER: 842 is an invented figure. Ask Katya for the real count before launch. -->
+    <p>cakes made with love since 2020 — and counting</p>
+  </div>
+</div>
+
+<section id="events">
+  <div class="wrap split">
+    <div class="txt">
+      <span class="eyebrow">For events</span>
+      <h2>Beautiful, healthy treats for any gathering.</h2>
+      <p class="lead">Got vegan or health-conscious guests? Make sure they’re thought of. I cater corporate events, receptions and celebrations with finger-food minis and platters — the same real ingredients, scaled up.</p>
+      <div class="steps">
+        <div class="step"><span class="n">•</span><p>Mini-cakes &amp; finger-food in reception-friendly sizes</p></div>
+        <div class="step"><span class="n">•</span><p>Platters from 6 pieces; larger orders from ~50 pieces</p></div>
+        <div class="step"><span class="n">•</span><p>Trusted by <b>Nordic House</b>, <b>Vigdís House</b>, the <b>University of Iceland</b> café and <b>Iðnó</b></p></div>
+      </div>
+      <a href="#order" class="btn btn-primary mt" data-order="Event / large order">Plan an event order</a>
+    </div>
+    <div class="carousel" id="eventCarousel">
+      <img class="active" src="images/event-p1.jpg" alt="Raw dessert platter and mini-cakes at an event" loading="lazy" />
+      <img src="images/event-p2.jpg" alt="Mini raw cakes on wooden boards for a reception" loading="lazy" />
+      <img src="images/event-p3.jpg" alt="Finger-food raw desserts spread for a gathering" loading="lazy" />
+      <img src="images/event-p4.jpg" alt="Chocolate-dipped strawberries and treats on a platter" loading="lazy" />
+      <img src="images/event-p5.jpg" alt="Raw mini-cakes and chocolate treats catering spread" loading="lazy" />
+      <div class="dots"></div>
+    </div>
+  </div>
+</section>
+
+<section class="courses" id="courses">
+  <div class="wrap">
+    <div class="split rev">
+      <img class="about-photo" src="images/courses.jpg" alt="Katya teaching how to make raw cakes" loading="lazy" />
+      <div class="txt">
+        <span class="eyebrow">Courses</span>
+        <h2>Learn to make them yourself.</h2>
+        <p class="lead">I love passing on what I know. Raw cakes are simpler than they look — and there’s real joy in making something this good with your own hands. Courses are on the way. Want first access?</p>
+        <a href="#order" class="btn btn-ghost mt" data-order="Course — join the waitlist">Join the course waitlist</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="reviews">
+  <div class="wrap">
+    <span class="eyebrow">Kind words</span>
+    <h2>Loved by customers since 2020.</h2>
+    <p class="lead">Real words from real people.</p>
+    <!-- PLACEHOLDER: names and quotes below are stand-ins. Replace with Katya's real reviews before the site goes live. -->
+    <div class="quotes">
+      <figure class="quote"><div class="stars">★★★★★</div><p>“The most beautiful cake I’ve ever ordered — and somehow it’s actually good for you. My guests couldn’t believe it was vegan.”</p><figcaption class="who">— Elín G., Reykjavík</figcaption></figure>
+      <figure class="quote"><div class="stars">★★★★★</div><p>“Katya made a gluten-free birthday cake my daughter could finally eat. It made her day.”</p><figcaption class="who">— Sigrún H., birthday order</figcaption></figure>
+      <figure class="quote"><div class="stars">★★★★★</div><p>“Ordered for our office and the vegan team felt so thought of. We’ll absolutely order again.”</p><figcaption class="who">— Anna Katrín B., corporate event</figcaption></figure>
+    </div>
+    <p class="menu-note">⭐ Ordered before? Leaving a review on Google helps more people find healthy cake — thank you.</p>
+  </div>
+</section>
+
+<section class="order" id="order">
+  <div class="wrap">
+    <span class="eyebrow">How to order</span>
+    <h2>Let’s make your cake.</h2>
+    <div class="order-grid mt">
+      <div>
+        <p class="lead">No carts, no checkout — just a quick message. I like to talk it through so your cake is exactly right (and so I can confirm I’m available — I do travel sometimes!).</p>
+        <div class="steps">
+          <div class="step"><span class="n">1</span><p><b>Get in touch</b> — tell me the cake, the date, and how many.</p></div>
+          <div class="step"><span class="n">2</span><p><b>I confirm</b> availability, details and price.</p></div>
+          <div class="step"><span class="n">3</span><p><b>Pick up or delivery</b> — and enjoy.</p></div>
+        </div>
+        <p class="info-lines">A simple pricing system, for your comfort. <button type="button" class="info-pill" data-open-prices>Prices &amp; Delivery</button></p>
+        <div class="direct">
+          <span>Prefer to message directly?</span>
+          <!-- email + phone removed 26 Aug: ask Katya how she wants people to reach her (see TASKS.md [P6]) -->
+          <a href="https://instagram.com/love.raw.cake" target="_blank" rel="noopener">⌾ @love.raw.cake</a>
+        </div>
+      </div>
+      <form class="contact-card" action="https://formsubmit.co/ketlight@gmail.com" method="POST">
+        <!-- FormSubmit (no account). First real submission sends Katya a one-time activation email; nothing arrives until she clicks it.
+             After activation FormSubmit offers a random alias — swap it in for the address above to hide the email from spam bots. -->
+        <input type="hidden" name="_subject" value="New cake request — loverawcake.com" />
+        <input type="hidden" name="_template" value="table" />
+        <input type="hidden" name="_cc" value="me.mermina@gmail.com" />
+        <input type="hidden" name="_autoresponse" value="Hi! Thank you so much for your cake request — I&#39;ve got it. I&#39;ll get back to you soon to confirm the date, the price and how you&#39;d like to receive your cake. With love, Katya · Love Raw Cake · @love.raw.cake" />
+        <div class="field"><label>Your name</label><input type="text" name="name" required placeholder="Name" /></div>
+        <div class="field"><label>Your email</label><input type="email" name="email" required autocomplete="email" placeholder="you@example.com" /></div>
+        <div class="field"><label>Your phone</label><input type="tel" name="phone" required autocomplete="tel" inputmode="tel" pattern="\+?[0-9 ]{7,20}" title="Please enter a phone number (at least 7 digits)." placeholder="+354 …" /></div>
+        <div class="field"><label>Which cake?</label>
+          <select id="orderSelect" name="cake" required>
+            <option value="" disabled selected>Choose a cake…</option>
+            <optgroup label="Cakes">
+              {% for c in cakes %}<option>{{ c.order_name }}</option>{% endfor %}
+            </optgroup>
+            <optgroup label="Small cakes">
+              {% for c in small %}<option>{{ c.order_name }}</option>{% endfor %}<option>Mixed small-cakes plate</option>
+            </optgroup>
+            <optgroup label="Other">
+              {% for c in friday %}<option>{{ c.order_name }}</option>{% endfor %}<option>Event / large order</option>
+              <option>Course — join the waitlist</option><option>Not sure — help me choose</option>
+            </optgroup>
+          </select></div>
+        <div class="field"><label>Quantity</label><input type="number" name="quantity" min="1" max="200" step="1" value="1" required inputmode="numeric" />
+          <small class="muted" id="qtyHint">Number of whole cakes.</small></div>
+        <div class="field"><label>When do you need it?</label><input type="date" id="orderDate" name="date_needed" required />
+          <small class="muted">Please allow at least 3 days — every cake is made to order.</small></div>
+        <div class="field"><label>Anything else?</label><textarea name="message" required placeholder="Another cake too? Allergies, occasion…"></textarea></div>
+        <button type="submit" class="btn btn-primary" style="width:100%">Send my request</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap" style="max-width:760px">
+    <span class="eyebrow">Good to know</span>
+    <h2>Questions, answered.</h2>
+    <div class="mt">
+      <details open><summary>Are the cakes really healthy?</summary><p>Yes — they’re built from whole, real ingredients: home-made plant milks, nuts, fruit, berries, cacao and coconut butter. No refined sugar, no flour, no dairy, no eggs. Naturally vegan and gluten-free.</p></details>
+      <details><summary>Do you cater to nut allergies?</summary><p>Honestly, no — nuts are a core ingredient in almost everything I make, so if you have a serious nut allergy these cakes aren’t safe for you, and I’d never want to risk it.</p></details>
+      <details><summary>How much notice do you need?</summary><p>At least 3 days. Every cake is made to order, and some recipes ferment for 24 hours. For events, the more notice the better.</p></details>
+      <details><summary>How do I pay and collect?</summary><p>Pickup or delivery — the delivery costs are in <button type="button" class="link-btn" data-open-prices>Prices &amp; Delivery</button> above. We agree the day, the time and how you’d like to pay when you get in touch.<!-- payment method still to confirm with Katya — see TASKS.md [P6] --></p></details>
+      <details><summary>Can I order for a company or event?</summary><p>Absolutely — see the <a href="#events">events section</a>. Finger-food minis, platters, and larger orders from ~50 pieces.</p></details>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-grid">
+    <div>
+      <div class="logo on-dark" style="color:var(--cream)">Love<span>·</span>Raw<span>·</span>Cake</div>
+      <p class="muted" style="margin-top:.6rem;max-width:30ch">Healthy raw cakes, handmade with love in Reykjavík.</p>
+    </div>
+    <div class="foot-links">
+      <a href="#about">My story</a>
+      <a href="#cakes">Cakes</a>
+      <a href="#smallcakes">Small Cakes</a>
+      <a href="#fridaybox">Friday Box</a>
+      <a href="#events">Events</a>
+      <a href="#courses">Courses</a>
+      <a href="blog.html">Blog</a>
+      <a href="https://instagram.com/love.raw.cake" target="_blank" rel="noopener">Instagram</a>
+      <a href="#order">Order a cake</a>
+    </div>
+    <img class="foot-mark" src="images/logo.svg" alt="Love Raw Cake logo" />
+  </div>
+  <div class="wrap" style="margin-top:2rem"><p class="muted">© <span id="yr"></span> Love Raw Cake · Reykjavík, Iceland{% if site.draft %} · Draft site · {{ site.version }}{% endif %}</p></div>
+</footer>
+
+<div class="modal" id="priceModal" aria-hidden="true">
+  <div class="modal-backdrop" data-info-close></div>
+  <div class="note" role="dialog" aria-modal="true" aria-labelledby="priceTitle">
+    <button class="note-close" data-info-close aria-label="Close">×</button>
+    <div class="note-body">
+      <span class="eyebrow">Prices &amp; Delivery</span>
+      <h3 id="priceTitle">Simple pricing, by weight.</h3>
+      <ul class="price-list">
+        <li><b>Cakes — from 1,100 ISK per 100 g.</b> A whole cake is usually 800–1,200 g.</li>
+        <li><b>Small cakes — from 1,100 ISK per 100 g.</b> S / M / L (30 g · 50 g · 100 g). Minimum order 600 g of one kind.</li>
+        <li><b>Writing on the cake — from 1,500 ISK.</b></li>
+      </ul>
+      <p class="note-nutr">Prices may change if the cost of ingredients rises at the time of your order.</p>
+      <h4>Delivery</h4>
+      <ul class="price-list">
+        <li><b>Free</b> in the Reykjavík capital area on orders of <b>15,000 ISK and over</b>.</li>
+        <li>Otherwise, delivery is <b>from 2,000 ISK</b>, depending on where you are.</li>
+      </ul>
+      <a href="#order" class="btn btn-primary note-order" data-info-close>Order a cake →</a>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="cakeModal" aria-hidden="true">
+  <div class="modal-backdrop" data-close></div>
+  <div class="note" role="dialog" aria-modal="true" aria-labelledby="noteTitle">
+    <button class="note-close" data-close aria-label="Close">×</button>
+    <div class="gallery">
+      <div class="gal-track" id="galTrack"></div>
+      <span class="gal-cap" id="galCap"></span>
+      <button class="gal-arrow prev" id="galPrev" aria-label="Previous photo">‹</button>
+      <button class="gal-arrow next" id="galNext" aria-label="Next photo">›</button>
+      <div class="gal-dots" id="galDots"></div>
+    </div>
+    <div class="note-body">
+      <p class="note-photo">The photos show how this cake usually comes out. Every cake is made by hand, so decoration varies with the season and what I have that week — yours may look a little different.</p>
+      <h3 id="noteTitle"></h3>
+      <p class="note-desc" id="noteDesc"></p>
+      <div class="badges" id="noteBadges"></div>
+      <p class="note-ing" id="noteIng"></p>
+      <p class="note-nutr" id="noteNutr"></p>
+      <a href="#order" class="btn btn-primary note-order" id="noteOrder">Order this cake →</a>
+    </div>
+  </div>
+</div>
+
+<script src="cakes-data.js"></script>
+<script src="site.js"></script>
+</body>
+</html>

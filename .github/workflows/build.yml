@@ -1,0 +1,53 @@
+# Rebuild the site whenever content or design changes — including every "Save" in Pages CMS.
+# build.py turns content/*.md + templates/ into index.html, blog.html, blog/*.html, cakes-data.js,
+# sitemap.xml and robots.txt, and this workflow commits those generated files back to main.
+# GitHub Pages then publishes main as usual (Settings → Pages → Deploy from a branch → main / root).
+name: Build site
+on:
+  push:
+    branches: [main]
+    paths:
+      - "content/**"
+      - "templates/**"
+      - "images/uploads/**"
+      - "site.yml"
+      - "build.py"
+      - "site.js"
+  workflow_dispatch:
+permissions:
+  contents: write
+  pages: write
+concurrency:
+  group: build-site
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install jinja2 pyyaml markdown pillow
+      - name: Build
+        run: python build.py
+      - name: Commit generated files
+        run: |
+          git config user.name "site-builder"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A index.html blog.html blog cakes-data.js sitemap.xml robots.txt images/uploads
+          if git diff --cached --quiet; then
+            echo "Nothing to commit — site already up to date."
+            echo "CHANGED=no" >> "$GITHUB_ENV"
+          else
+            git commit -m "Rebuild site (${GITHUB_SHA::7})"
+            git push
+            echo "CHANGED=yes" >> "$GITHUB_ENV"
+          fi
+      # Commits pushed by this workflow don't always start a Pages deploy on their own,
+      # so ask for one explicitly. Harmless if a deploy was already queued.
+      - name: Publish to GitHub Pages
+        if: env.CHANGED == 'yes'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api -X POST "repos/${{ github.repository }}/pages/builds" || echo "Pages build request failed — the deploy may still run on its own."

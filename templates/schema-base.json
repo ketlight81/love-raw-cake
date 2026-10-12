@@ -1,0 +1,94 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": [
+        "Bakery",
+        "LocalBusiness"
+      ],
+      "@id": "__SITE_URL__/#business",
+      "name": "Love Raw Cake",
+      "description": "Vegan, gluten-free raw cakes handmade in Reykjavík, Iceland, from whole, real ingredients — no refined sugar, flour, dairy or eggs. Founded by Katya in 2020.",
+      "url": "__SITE_URL__/",
+      "image": "__SITE_URL__/images/chocbanana-2.jpg",
+      "founder": {
+        "@type": "Person",
+        "name": "Katya",
+        "jobTitle": "Raw-cake crafter"
+      },
+      "foundingDate": "2020",
+      "servesCuisine": [
+        "Raw",
+        "Vegan",
+        "Gluten-free desserts"
+      ],
+      "areaServed": {
+        "@type": "City",
+        "name": "Reykjavík"
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Reykjavík",
+        "addressCountry": "IS"
+      },
+      "email": "__EMAIL__",
+      "priceRange": "8800-13200 ISK",
+      "sameAs": [
+        "https://instagram.com/love.raw.cake"
+      ],
+      "knowsAbout": [
+        "Raw cakes",
+        "Vegan cakes",
+        "Gluten-free cakes",
+        "Healthy desserts",
+        "Event catering"
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "__SITE_URL__/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Are the raw cakes really healthy?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. They are built from whole, real ingredients: home-made plant milks, nuts, fruit, berries, cacao and coconut butter. No refined sugar, no flour, no dairy, no eggs. Naturally vegan and gluten-free."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do you cater to nut allergies?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Nuts are a core ingredient in almost everything, so these cakes are not safe for anyone with a serious nut allergy."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How much notice do you need to order a cake?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "At least 3 days. Every cake is made to order, and some recipes ferment for 24 hours. For events, the more notice the better."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I pay and collect my order?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Pickup or delivery. Delivery is free in the Reykjavik capital area on orders of 15,000 ISK and over, otherwise from 2,000 ISK. The day, time and payment are agreed when you get in touch."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I order raw cakes for a company or event?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Finger-food minis, platters, and larger orders from around 50 pieces. Love Raw Cake has catered Nordic House, Vigdis House, the University of Iceland cafe and Idno."
+          }
+        }
+      ]
+    }
+  ]
+}

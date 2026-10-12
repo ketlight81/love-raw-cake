@@ -30,7 +30,7 @@ ASSET_RE = re.compile(
     re.I,
 )
 SCAN_EXT = (".html", ".css", ".js")
-SKIP_DIRS = {".git", "_to_delete", "node_modules", ".embed_tmp"}
+SKIP_DIRS = {".git", "_to_delete", "node_modules", ".embed_tmp", "templates"}
 
 
 def tracked_files():
@@ -63,9 +63,12 @@ def scan(tracked):
                 target = m.group(1)
                 if target.startswith(("http", "//", "data:")):
                     continue
-                resolved = os.path.normpath(
-                    os.path.join(os.path.dirname(rel_src), target)
-                )
+                if target.startswith("/"):          # root-absolute (404.html)
+                    resolved = os.path.normpath(target.lstrip("/"))
+                else:
+                    resolved = os.path.normpath(
+                        os.path.join(os.path.dirname(rel_src), target)
+                    )
                 refs.setdefault(resolved, set()).add(rel_src)
     return refs
 

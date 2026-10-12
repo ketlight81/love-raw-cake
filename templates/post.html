@@ -1,13 +1,12 @@
+{#- TEMPLATE for every blog post page (blog/*.html). Text comes from content/blog/*.md. -#}
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<!-- ① TITLE — shows in the browser tab and in Google results -->
-<title>Your post title — Love Raw Cake</title>
-<!-- ② DESCRIPTION — one sentence, this is what Google shows under the title -->
-<meta name="description" content="One sentence describing the post." />
+<title>{{ p.title }} — Love Raw Cake</title>
+<meta name="description" content="{{ p.description }}" />
 
 <link rel="icon" type="image/png" sizes="32x32" href="../images/logo-32.png" />
 <link rel="icon" type="image/png" sizes="192x192" href="../images/logo-192.png" />
@@ -16,8 +15,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&family=Neucha&display=swap" rel="stylesheet" />
 
-<!-- NOTE the ../ — post pages sit one folder down, so every link to the
-     main site needs ../ in front of it. Don't remove it. -->
 <link rel="stylesheet" href="../styles.css" />
 </head>
 <body>
@@ -41,35 +38,13 @@
 
 <article class="wrap post">
 
-  <!-- ③ DATE -->
-  <div class="meta">1 September 2026</div>
+  <div class="meta">{{ p.date_text }}</div>
 
-  <!-- ④ HEADLINE — the same words you used in the title above -->
-  <h1>Your post title</h1>
-
-  <!-- ⑤ MAIN PHOTO — any file from the images folder -->
-  <img class="hero-img" src="../images/images_20.08.2026/chocbanana_card.jpeg" alt="Describe the photo in a few words" />
-
-  <!-- ═══ WRITE FROM HERE ═══
-       Every paragraph goes inside its own <p>…</p>.
-       A subheading is <h2>…</h2>. A list is <ul><li>…</li></ul>.
-       That is all the HTML you need. -->
-
-  <p>Your opening paragraph. Say the interesting thing first — most people
-     decide in one sentence whether to keep reading.</p>
-
-  <p>A second paragraph.</p>
-
-  <h2>A subheading</h2>
-
-  <p>More writing under the subheading.</p>
-
-  <ul>
-    <li>A bullet point</li>
-    <li>Another one</li>
-  </ul>
-
-  <!-- ═══ STOP WRITING HERE ═══ -->
+  <h1>{{ p.title }}</h1>
+{% if p.image %}
+  <img class="hero-img" src="../{{ p.image }}" alt="{{ p.image_alt }}" />
+{% endif %}
+  {{ p.body_html|safe }}
 
   <a class="back" href="../blog.html">← All posts</a>
 </article>

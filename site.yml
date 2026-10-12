@@ -1,0 +1,6 @@
+# Site settings — Marina only. After changing anything here: python3 build.py, then push.
+url: https://loverawcake.is                         # official address (Google data, link previews)
+public_url: https://mermina.github.io/love-raw-cake # where the site actually answers today (sitemap)
+email: hello@loverawcake.is                         # public business email in Google's data
+draft: true                                         # true = footer says "Draft site"
+version: v2026-08-26

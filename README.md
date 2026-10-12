@@ -37,7 +37,7 @@ description of the business and every cake, written in
 [schema.org](https://schema.org/) vocabulary.
 
 - **`LocalBusiness` / `Bakery`** — who Katya is, where she bakes, since when
-- **14 `Product` nodes** — every cake, with its description, photograph and
+- **A `Product` node per cake** — every cake, with its description, photograph and
   category, all pointing back to one business identity
 - **`Offer` with `UnitPriceSpecification`** — 1,100 ISK *per 100 g*, not a flat
   price, because that is what she actually charges. Plus the 600 g minimum on
@@ -56,27 +56,46 @@ Full write-up: [`FOUNDABILITY-guide.md`](../docs/FOUNDABILITY-guide.md)
 
 ## About the site
 
-A single page of hand-written HTML and CSS — no framework, no build step, no
-dependencies. It covers Katya's story, the full cake range with ingredients and
-nutrition, small cakes and the Friday Box, catering for events, and the courses
-to come.
+A static site — HTML, CSS and a little JavaScript, built with AI assistance (Claude). It covers
+Katya's story, the full cake range with ingredients and nutrition, small cakes and the Friday Box,
+catering for events, and the courses to come.
+
+Since October 2026 the content is separate from the design, so Katya can edit cakes, photos and
+blog posts herself in **[Pages CMS](https://pagescms.org)** without touching code.
 
 ## Structure
 
 ```
-index.html                        the site
-styles.css                        all styling
-site.js                           gallery, tabs, modals
-blog.html  ·  blog/               blog index and posts
-images/                           photos and logo
-images/images_20.08.2026/         current photo set (card / gallery / hero crops)
+content/cakes/*.md      one file per cake      ← Katya edits these in Pages CMS
+content/blog/*.md       one file per post      ← Katya edits these in Pages CMS
+images/uploads/         photos uploaded through Pages CMS (shrunk to 2000 px by build.py)
+site.yml                address, public email, draft flag
+templates/              page design: index.html, blog.html, post.html, schema, robots
+build.py                content + templates → the files below
+.pages.yml              what Katya sees in the editor
+.github/workflows/      runs build.py after every save and commits the result
+
+index.html · blog.html · blog/*.html · cakes-data.js · sitemap.xml · robots.txt
+                        GENERATED — never edit these by hand, edits are overwritten
+styles.css · site.js    styling and behaviour (edit directly)
+images/images_20.08.2026/  original photo set (card / gallery / hero crops)
 ```
 
 ## How to update
 
-1. Edit `index.html`, `styles.css` or `site.js`
-2. Commit and push to `main`
-3. GitHub Pages redeploys within about a minute — hard-refresh to see it
+**Katya:** app.pagescms.org → change → Save. The site updates in 1–2 minutes.
+
+**Marina (design):**
+
+```bash
+git pull                       # always first — Katya's saves change the repo
+# edit templates/, styles.css or site.js
+python3 build.py               # regenerate the pages
+python3 check-assets.py        # must print ✅
+git add -A && git commit -m "…" && git push origin main
+```
+
+Needs once: `pip3 install jinja2 pyyaml markdown pillow`.
 
 Image naming: `<cake>_main` is the master; `_card` (4:3), `_gal` (1:1) and
 `_hero` are the web-sized crops cut from it.
@@ -86,7 +105,8 @@ check that only looks at `src` and `href` in the HTML will miss them.
 
 ## Built with
 
-Plain HTML, CSS and JavaScript, hosted on GitHub Pages.
+HTML, CSS and JavaScript, a small Python build script and Pages CMS, hosted on GitHub Pages.
+Built with AI assistance.
 
 ---
 
