@@ -1,43 +1,27 @@
-{#- TEMPLATE for blog.html. Edit this, not blog.html. -#}
+{#- TEMPLATE for blog.html (English) and is/blog.html (Icelandic). Edit this, not the generated files. Words: BLOG_T in build.py. -#}
+{% import "_blog_parts.html" as parts -%}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ T.lang }}">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Blog — Love Raw Cake</title>
-<meta name="description" content="Notes on raw cakes, ingredients and the small things behind them — from Katya at Love Raw Cake in Reykjavík." />
-<link rel="icon" type="image/png" sizes="32x32" href="images/logo-32.png" />
-<link rel="icon" type="image/png" sizes="192x192" href="images/logo-192.png" />
-<link rel="apple-touch-icon" sizes="180x180" href="images/logo-180.png" />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&family=Neucha&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="styles.css" />
+<title>{{ T.title }}</title>
+<meta name="description" content="{{ T.desc }}" />
+<link rel="canonical" href="{{ canonical }}" />
+<link rel="alternate" hreflang="en" href="{{ alt_en }}" />
+<link rel="alternate" hreflang="is" href="{{ alt_is }}" />
+<link rel="alternate" hreflang="x-default" href="{{ alt_en }}" />
+{{ parts.head_common(r) }}
 </head>
 <body>
 
-<header class="nav">
-  <div class="wrap nav-inner">
-    <a href="index.html#top" class="logo"><img src="images/logo-192.png" alt="" class="logo-mark" />Love<span>·</span>Raw<span>·</span>Cake</a>
-    <nav class="nav-links" id="navlinks">
-      <a href="index.html#about">My story</a>
-      <a href="index.html#cakes">Cakes</a>
-      <a href="index.html#smallcakes">Small Cakes</a>
-      <a href="index.html#fridaybox">Friday Box</a>
-      <a href="index.html#events">Events</a>
-      <a href="index.html#courses">Courses</a>
-      <a href="blog.html">Blog</a>
-      <a href="index.html#order" class="btn btn-primary" style="padding:.55rem 1.1rem">Order a cake</a>
-    </nav>
-    <button class="nav-toggle" id="navtoggle" aria-label="Menu">☰</button>
-  </div>
-</header>
+{{ parts.header(T, r, home, switch, "blog.html") }}
 
 <section class="page-head">
   <div class="wrap">
-    <span class="eyebrow">Blog</span>
-    <h1>Notes from the kitchen.</h1>
-    <p class="lead">Recipes, ingredients and the thinking behind the cakes — written by Katya.</p>
+    <span class="eyebrow">{{ T.eyebrow }}</span>
+    <h1>{{ T.h1 }}</h1>
+    <p class="lead">{{ T.lead }}</p>
   </div>
 </section>
 
@@ -47,46 +31,26 @@
     <!-- Posts are generated from content/blog/*.md by build.py, newest first. -->
     <div class="posts">
 
-{% for p in posts %}
-      <a class="post-card" href="blog/{{ p.slug }}.html">
-        <div class="pic"><img src="{{ p.image }}" alt="{{ p.image_alt }}" loading="lazy" /></div>
+{% for c in cards %}
+      <a class="post-card" href="{{ c.href }}"{% if c.in_en %} hreflang="en"{% endif %}>
+        <div class="pic"><img src="{{ c.image }}" alt="{{ c.v.image_alt }}" loading="lazy" /></div>
         <div class="body">
-          <div class="meta">{{ p.date_text }}</div>
-          <h2>{{ p.title }}</h2>
-          <p>{{ p.excerpt }}</p>
-          <div class="more">Read the post →</div>
+          <div class="meta">{{ c.v.date_text }}{% if c.in_en %} · {{ c.in_en }}{% endif %}</div>
+          <h2{% if c.in_en %} lang="en"{% endif %}>{{ c.v.title }}</h2>
+          <p{% if c.in_en %} lang="en"{% endif %}>{{ c.v.excerpt }}</p>
+          <div class="more">{{ T.read }}</div>
         </div>
       </a>
 
 {% endfor %}
     </div>
 
-    <p class="muted" style="padding:1.5rem 0 4rem">More posts coming soon.</p>
+    <p class="muted" style="padding:1.5rem 0 4rem">{{ T.more }}</p>
   </div>
 </section>
 
-<footer>
-  <div class="wrap foot-grid">
-    <div>
-      <div class="logo on-dark" style="color:var(--cream)">Love<span>·</span>Raw<span>·</span>Cake</div>
-      <p class="muted" style="margin-top:.6rem;max-width:30ch">Healthy raw cakes, handmade with love in Reykjavík.</p>
-    </div>
-    <div class="foot-links">
-      <a href="index.html#about">My story</a>
-      <a href="index.html#cakes">Cakes</a>
-      <a href="index.html#smallcakes">Small Cakes</a>
-      <a href="index.html#fridaybox">Friday Box</a>
-      <a href="index.html#events">Events</a>
-      <a href="index.html#courses">Courses</a>
-      <a href="blog.html">Blog</a>
-      <a href="https://instagram.com/love.raw.cake" target="_blank" rel="noopener">Instagram</a>
-      <a href="index.html#order">Order a cake</a>
-    </div>
-    <img class="foot-mark" src="images/logo.svg" alt="Love Raw Cake logo" />
-  </div>
-  <div class="wrap" style="margin-top:2rem"><p class="muted">© <span id="yr"></span> Love Raw Cake · Reykjavík, Iceland</p></div>
-</footer>
+{{ parts.footer(T, r, home, "blog.html") }}
 
-<script src="site.js"></script>
+<script src="{{ r }}site.js"></script>
 </body>
 </html>

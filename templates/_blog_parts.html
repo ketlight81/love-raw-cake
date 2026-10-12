@@ -1,0 +1,51 @@
+{#- Shared header/footer for the blog pages (both languages). r = path to the site root, home = this language's main page. -#}
+{% macro header(T, r, home, switch, blog) -%}
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a href="{{ home }}#top" class="logo"><img src="{{ r }}images/logo-192.png" alt="" class="logo-mark" />Love<span>·</span>Raw<span>·</span>Cake</a>
+    <nav class="nav-links" id="navlinks">
+{% for id, label in T.nav %}
+      <a href="{{ home }}#{{ id }}">{{ label }}</a>
+{% endfor %}
+      <a href="{{ blog }}">{{ T.blog }}</a>
+      <a href="{{ home }}#order" class="btn btn-primary" style="padding:.55rem 1.1rem">{{ T.order }}</a>
+    </nav>
+    <div class="lang-switch" aria-label="{{ T.switch_label }}">
+      {%- if switch["en"] %}<a href="{{ switch["en"] }}" hreflang="en" lang="en" title="English">EN</a>{% else %}<b aria-current="true">EN</b>{% endif -%}
+      {%- if switch["is"] %}<a href="{{ switch["is"] }}" hreflang="is" lang="is" title="Íslenska">IS</a>{% else %}<b aria-current="true">IS</b>{% endif -%}
+    </div>
+    <button class="nav-toggle" id="navtoggle" aria-label="{{ T.menu }}">☰</button>
+  </div>
+</header>
+{%- endmacro %}
+
+{% macro footer(T, r, home, blog) -%}
+<footer>
+  <div class="wrap foot-grid">
+    <div>
+      <div class="logo on-dark" style="color:var(--cream)">Love<span>·</span>Raw<span>·</span>Cake</div>
+      <p class="muted" style="margin-top:.6rem;max-width:30ch">{{ T.tagline }}</p>
+    </div>
+    <div class="foot-links">
+{% for id, label in T.nav %}
+      <a href="{{ home }}#{{ id }}">{{ label }}</a>
+{% endfor %}
+      <a href="{{ blog }}">{{ T.blog }}</a>
+      <a href="https://instagram.com/love.raw.cake" target="_blank" rel="noopener">Instagram</a>
+      <a href="{{ home }}#order">{{ T.order }}</a>
+    </div>
+    <img class="foot-mark" src="{{ r }}images/logo.svg" alt="Love Raw Cake logo" />
+  </div>
+  <div class="wrap" style="margin-top:2rem"><p class="muted">© <span id="yr"></span> Love Raw Cake · Reykjavík, Iceland</p></div>
+</footer>
+{%- endmacro %}
+
+{% macro head_common(r) -%}
+<link rel="icon" type="image/png" sizes="32x32" href="{{ r }}images/logo-32.png" />
+<link rel="icon" type="image/png" sizes="192x192" href="{{ r }}images/logo-192.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="{{ r }}images/logo-180.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&family=Neucha&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="{{ r }}styles.css" />
+{%- endmacro %}

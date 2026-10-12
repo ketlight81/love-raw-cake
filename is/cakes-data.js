@@ -376,7 +376,7 @@ window.CAKES = {
   ]
  },
  "fridaybox": {
-  "title": "Friday Box",
+  "title": "Föstudagsbox",
   "order": "Friday Box",
   "desc": "[Texti frá Katyu — hvað er í boxinu, hversu margir bitar og verð.]",
   "badges": [

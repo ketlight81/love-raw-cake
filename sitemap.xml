@@ -16,12 +16,27 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://ketlight81.github.io/love-raw-cake/is/blog.html</loc>
+    <lastmod>2026-08-26</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://ketlight81.github.io/love-raw-cake/blog/2026-08-how-it-started.html</loc>
     <lastmod>2026-08-26</lastmod>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://ketlight81.github.io/love-raw-cake/blog/2026-08-why-raw.html</loc>
+    <lastmod>2026-08-22</lastmod>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://ketlight81.github.io/love-raw-cake/is/blog/2026-08-how-it-started.html</loc>
+    <lastmod>2026-08-26</lastmod>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://ketlight81.github.io/love-raw-cake/is/blog/2026-08-why-raw.html</loc>
     <lastmod>2026-08-22</lastmod>
     <priority>0.5</priority>
   </url>

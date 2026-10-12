@@ -127,7 +127,7 @@ def load_cakes(lang="en"):
         if not card_image and lang == "en":
             warn(f"{f.name}: no card photo")
         cakes.append({
-            "key": key, "title": title, "section": sec,
+            "key": key, "title": t(d, "title") or title, "section": sec,
             "position": num(d.get("position")) or 999,
             "card_text": t(d, "card_text"),
             # Icelandic page: own description, else own card text (not the English description)
@@ -137,12 +137,12 @@ def load_cakes(lang="en"):
             "nutr": nutr,
             "price": num(d.get("price_per_100g")),
             "card_image": card_image,
-            "card_alt": t(d, "card_alt") or title,
+            "card_alt": t(d, "card_alt") or t(d, "title") or title,
             "photos": photos,
             "badges": [{"label": l, "type": t, "cls": ["", " nut", " tag"][t]} for l, t in badges],
             # the form always sends the English name, so Katya's emails look the same in both languages
             "order_name": title + (" (small)" if sec == "small" else ""),
-            "order_label": title + (L["small"] if sec == "small" else ""),
+            "order_label": (t(d, "title") or title) + (L["small"] if sec == "small" else ""),
         })
     cakes.sort(key=lambda c: (SECTIONS.index(c["section"]), c["position"], c["title"]))
     names = [c["order_name"] for c in cakes]
@@ -202,9 +202,42 @@ def schema(cakes, site):
 
 
 # ---------------------------------------------------------------- blog
+MONTHS_IS = ["janúar", "febrúar", "mars", "apríl", "maí", "júní", "júlí", "ágúst",
+             "september", "október", "nóvember", "desember"]
+
+# Words on the blog pages, per language
+BLOG_T = {
+    "en": {"lang": "en", "title": "Blog — Love Raw Cake",
+           "desc": "Notes on raw cakes, ingredients and the small things behind them — from Katya at Love Raw Cake in Reykjavík.",
+           "eyebrow": "Blog", "h1": "Notes from the kitchen.",
+           "lead": "Recipes, ingredients and the thinking behind the cakes — written by Katya.",
+           "read": "Read the post →", "more": "More posts coming soon.", "all": "← All posts",
+           "in_en": "", "menu": "Menu", "tagline": "Healthy raw cakes, handmade with love in Reykjavík.",
+           "nav": [("about", "My story"), ("cakes", "Cakes"), ("smallcakes", "Small Cakes"),
+                   ("fridaybox", "Friday Box"), ("events", "Events"), ("courses", "Courses")],
+           "blog": "Blog", "order": "Order a cake", "switch_label": "Language / Tungumál"},
+    "is": {"lang": "is", "title": "Blogg — Love Raw Cake",
+           "desc": "Hugleiðingar um hrákökur, hráefni og smáatriðin á bak við þær — frá Katyu hjá Love Raw Cake í Reykjavík.",
+           "eyebrow": "Blogg", "h1": "Úr eldhúsinu.",
+           "lead": "Uppskriftir, hráefni og hugsunin á bak við kökurnar — Katya skrifar.",
+           "read": "Lesa færsluna →", "more": "Fleiri færslur væntanlegar.", "all": "← Allar færslur",
+           "in_en": "Á ensku", "menu": "Valmynd", "tagline": "Hollar hrákökur, handgerðar af ást í Reykjavík.",
+           "nav": [("about", "Sagan mín"), ("cakes", "Kökur"), ("smallcakes", "Litlar kökur"),
+                   ("fridaybox", "Föstudagsbox"), ("events", "Viðburðir"), ("courses", "Námskeið")],
+           "blog": "Blogg", "order": "Panta köku", "switch_label": "Tungumál / Language"},
+}
+
+
 def load_posts():
+    """Every visible post, with its English text and (if written) its Icelandic text.
+    A post counts as translated when it has both an Icelandic title and Icelandic text."""
     posts = []
     md = markdown.Markdown(extensions=["extra", "sane_lists"])
+
+    def to_html(text):
+        md.reset()
+        return md.convert((text or "").strip())
+
     for f in sorted((ROOT / "content" / "blog").glob("*.md")):
         d, body = read_md(f)
         if not d or d.get("show") is False:
@@ -214,22 +247,74 @@ def load_posts():
         except ValueError:
             warn(f"{f.name}: date must look like 2026-10-12 — skipped")
             continue
-        md.reset()
-        body_html = md.convert(body.strip())
-        # images/links written relative to the site root work from blog/ too
-        body_html = re.sub(r'(src|href)="(?!https?:|mailto:|#|/|\.\./)([^"]+)"', r'\1="../\2"', body_html)
-        body_html = re.sub(r'(src|href)="/(?!/)', r'\1="../', body_html)
-        title = (d.get("title") or "").strip()
-        posts.append({
-            "slug": f.stem, "title": title, "date": date,
-            "date_text": f"{date.day} {date.strftime('%B %Y')}",
-            "excerpt": (d.get("excerpt") or "").strip(),
-            "description": (d.get("description") or d.get("excerpt") or "").strip(),
-            "image": img(d.get("image")), "image_alt": (d.get("image_alt") or title).strip(),
-            "body_html": "\n\n  ".join(body_html.split("\n\n")),
-        })
+        g = lambda k: str(d.get(k) or "").strip()
+        title = g("title")
+        p = {"slug": f.stem, "date": date, "image": img(d.get("image")),
+             "en": {"title": title,
+                    "date_text": f"{date.day} {date.strftime('%B %Y')}",
+                    "excerpt": g("excerpt"),
+                    "description": g("description") or g("excerpt"),
+                    "image_alt": g("image_alt") or title,
+                    "body": to_html(body)}}
+        if g("title_is") and g("body_is"):
+            p["is"] = {"title": g("title_is"),
+                       "date_text": f"{date.day}. {MONTHS_IS[date.month - 1]} {date.year}",
+                       "excerpt": g("excerpt_is") or g("excerpt"),
+                       "description": g("description_is") or g("excerpt_is") or g("description") or g("excerpt"),
+                       "image_alt": g("image_alt_is") or g("title_is"),
+                       "body": to_html(d.get("body_is"))}
+        elif g("title_is") or g("body_is"):
+            warn(f"{f.name}: Icelandic version needs both Icelandic title and Icelandic text — shown in English on the Icelandic blog")
+        posts.append(p)
     posts.sort(key=lambda p: p["date"], reverse=True)
     return posts
+
+
+def fix_links(body_html, up):
+    """Links/images written relative to the site root work from a post page `up` folders deep."""
+    body_html = re.sub(r'(src|href)="(?!https?:|mailto:|tel:|#|/|\.\./)([^"]+)"', r'\1="' + up + r'\2"', body_html)
+    body_html = re.sub(r'(src|href)="/(?!/)', r'\1="' + up, body_html)
+    return "\n\n  ".join(body_html.split("\n\n"))
+
+
+def render_blog(env, site, posts):
+    """blog.html, blog/*.html (English) and is/blog.html, is/blog/*.html (Icelandic)."""
+    out = {}
+    list_t, post_t = env.get_template("blog.html"), env.get_template("post.html")
+    for lang in ("en", "is"):
+        T = BLOG_T[lang]
+        is_ = lang == "is"
+        # paths seen from the blog list page
+        r = "../" if is_ else ""
+        cards = []
+        for p in posts:
+            v = p.get(lang) or p["en"]
+            own = lang in p
+            href = f"blog/{p['slug']}.html" if own else f"../blog/{p['slug']}.html"
+            cards.append({"href": href, "image": r + p["image"] if p["image"] else "", "v": v,
+                          "in_en": "" if own else T["in_en"]})
+        out[("is/" if is_ else "") + "blog.html"] = list_t.render(
+            site=site, T=T, r=r, home="index.html", cards=cards,
+            switch={"en": "../blog.html", "is": None} if is_ else {"en": None, "is": "is/blog.html"},
+            canonical=site["url"] + ("/is/blog.html" if is_ else "/blog.html"),
+            alt_en=site["url"] + "/blog.html", alt_is=site["url"] + "/is/blog.html")
+        for p in posts:
+            if lang not in p:
+                continue
+            v = p[lang]
+            r = "../../" if is_ else "../"
+            if is_:
+                switch = {"en": f"../../blog/{p['slug']}.html", "is": None}
+            else:
+                switch = {"en": None, "is": f"../is/blog/{p['slug']}.html" if "is" in p else "../is/blog.html"}
+            out[("is/" if is_ else "") + f"blog/{p['slug']}.html"] = post_t.render(
+                site=site, T=T, r=r, home="../index.html", v=v,
+                image=r + p["image"] if p["image"] else "", body=fix_links(v["body"], r),
+                switch=switch,
+                canonical=site["url"] + ("/is" if is_ else "") + f"/blog/{p['slug']}.html",
+                alt_en=site["url"] + f"/blog/{p['slug']}.html",
+                alt_is=(site["url"] + f"/is/blog/{p['slug']}.html") if "is" in p else "")
+    return out
 
 
 # ---------------------------------------------------------------- photos
@@ -276,7 +361,6 @@ def main():
         "index.html": env.get_template("index.html").render(
             site=site, cakes=by["cakes"], small=by["small"], friday=by["friday"],
             friday_text=friday, schema_json=schema(cakes, site), root="", lang="en"),
-        "blog.html": env.get_template("blog.html").render(site=site, posts=posts),
         "cakes-data.js": cakes_js(cakes),
     }
     # Icelandic main page → is/index.html (+ its own cake data with Icelandic texts)
@@ -287,13 +371,13 @@ def main():
         friday_text=by_is["friday"][0]["card_text"] if by_is["friday"] else "",
         schema_json="", root="../", lang="is")
     out["is/cakes-data.js"] = cakes_js(cakes_is, prefix="../", i18n=I18N_IS)
-    post_t = env.get_template("post.html")
-    for p in posts:
-        out[f"blog/{p['slug']}.html"] = post_t.render(site=site, p=p)
+    out.update(render_blog(env, site, posts))
 
     newest = max([p["date"] for p in posts] + [datetime.date(2026, 8, 26)]).isoformat()
-    urls = [("", newest, "1.0"), ("is/", newest, "0.9"), ("blog.html", newest, "0.7")] + \
-           [(f"blog/{p['slug']}.html", p["date"].isoformat(), "0.5") for p in posts]
+    urls = [("", newest, "1.0"), ("is/", newest, "0.9"), ("blog.html", newest, "0.7"),
+            ("is/blog.html", newest, "0.6")] + \
+           [(f"blog/{p['slug']}.html", p["date"].isoformat(), "0.5") for p in posts] + \
+           [(f"is/blog/{p['slug']}.html", p["date"].isoformat(), "0.5") for p in posts if "is" in p]
     out["sitemap.xml"] = ('<?xml version="1.0" encoding="UTF-8"?>\n'
                           '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
                           "".join(f"  <url>\n    <loc>{site['public_url']}/{u}</loc>\n"

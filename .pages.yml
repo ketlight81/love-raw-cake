@@ -24,6 +24,10 @@ content:
         type: string
         required: true
         description: "As shown on the site, e.g. Carrot Cake"
+      - name: title_is
+        label: Name (Icelandic)
+        type: string
+        description: "Optional. Empty = the English name is used on the Icelandic page too"
       - name: section
         label: Section
         type: select
@@ -185,4 +189,24 @@ content:
         type: string
       - name: body
         label: Text
+        type: rich-text
+      # ---- Icelandic version (optional). The post appears in Icelandic on the IS blog once
+      #      BOTH "Title (Icelandic)" and "Text (Icelandic)" are filled; until then it is listed there in English.
+      - name: title_is
+        label: Title (Icelandic)
+        type: string
+        description: "Fill this and Text (Icelandic) to publish the Icelandic version"
+      - name: excerpt_is
+        label: Excerpt (Icelandic)
+        type: text
+        description: "Empty = English excerpt"
+      - name: description_is
+        label: Google description (Icelandic)
+        type: text
+        description: "Empty = Icelandic excerpt"
+      - name: image_alt_is
+        label: Photo description (Icelandic)
+        type: string
+      - name: body_is
+        label: Text (Icelandic)
         type: rich-text

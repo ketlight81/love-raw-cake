@@ -1,5 +1,6 @@
 ---
 title: Friday Box
+title_is: Föstudagsbox
 section: friday
 position: 1
 show: true
