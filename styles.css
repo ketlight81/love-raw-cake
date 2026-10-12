@@ -295,3 +295,13 @@
   .contact-card .field textarea{min-height:64px}
   .contact-card .field small{font-size:.75rem}
   .contact-card .btn{padding:.7rem 1.2rem}
+
+  /* language switch EN / IS — a small two-part pill, far right of the top bar, always visible (also on phones) */
+  .nav-inner>nav{margin-left:auto}
+  .lang-switch{display:inline-flex;margin-left:1.1rem;border:1.5px solid var(--berry);border-radius:999px;overflow:hidden;flex-shrink:0}
+  .lang-switch a,.lang-switch b{display:inline-block;padding:.42rem .8rem;font-size:.82rem;font-weight:700;letter-spacing:.06em;line-height:1}
+  .lang-switch b{background:var(--berry);color:#fff}
+  .lang-switch a{color:var(--berry);transition:background .2s}
+  .lang-switch a:hover{background:rgba(126,74,92,.12)}
+  @media(max-width:1060px){.lang-switch{margin-left:auto;margin-right:.8rem}}
+  @media(max-width:480px){.lang-switch{margin-left:.5rem;margin-right:.5rem}.lang-switch a,.lang-switch b{padding:.34rem .55rem;font-size:.72rem}.nav-inner .logo{font-size:1.15rem}}

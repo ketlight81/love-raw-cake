@@ -64,7 +64,34 @@ def num(v):
 
 
 # ---------------------------------------------------------------- cakes
-def load_cakes():
+# Interface words that differ between the English and the Icelandic page.
+LANG = {
+    "en": {"gluten_free": "Gluten-free", "small": " (small)",
+           "nutr": "Per 100 g — Protein {0} g · Fat {1} g · Carbs {2} g · {3} kcal"},
+    "is": {"gluten_free": "Glútenlaust", "small": " (lítil)",
+           "nutr": "Í 100 g — Prótein {0} g · Fita {1} g · Kolvetni {2} g · {3} kcal"},
+}
+I18N_IS = {  # words used by site.js on the Icelandic page
+    "ingredients": "Innihald:", "seeAngles": "⤢ fleiri myndir", "details": "⤢ nánar",
+    "dateMsg": "Veldu dagsetningu með minnst 3 daga fyrirvara.",
+    "qtySmall": "Litlar kökur: minnst 6 stykki.", "qtyWhole": "Fjöldi heilla kakna.",
+}
+
+
+def load_cakes(lang="en"):
+    """Cakes for one language. Icelandic fields end in _is; an empty one falls back to English."""
+    L = LANG[lang]
+
+    def t(d, field):
+        if lang != "en":
+            v = d.get(field + "_" + lang)
+            if v not in (None, "") and str(v).strip():
+                return str(v).strip()
+        return (d.get(field) or "").strip()
+
+    def nfmt(v):
+        return str(v).replace(".", ",") if lang == "is" else str(v)
+
     cakes = []
     for f in sorted((ROOT / "content" / "cakes").glob("*.md")):
         d, _ = read_md(f)
@@ -83,46 +110,49 @@ def load_cakes():
         if d.get("vegan", True):
             badges.append(("Vegan", 0))
         if d.get("gluten_free", True):
-            badges.append(("Gluten-free", 0))
-        if (d.get("allergen") or "").strip():
-            badges.append((d["allergen"].strip(), 1))
-        if (d.get("note") or "").strip():
-            badges.append((d["note"].strip(), 2))
+            badges.append((L["gluten_free"], 0))
+        if t(d, "allergen"):
+            badges.append((t(d, "allergen"), 1))
+        if t(d, "note"):
+            badges.append((t(d, "note"), 2))
         nut = [num(d.get(k)) for k in ("protein", "fat", "carbs", "kcal")]
         nutr = ""
         if all(v is not None for v in nut):
-            nutr = (f"Per 100 g — Protein {nut[0]} g · Fat {nut[1]} g · "
-                    f"Carbs {nut[2]} g · {nut[3]} kcal")
-        elif any(v is not None for v in nut):
+            nutr = L["nutr"].format(*[nfmt(v) for v in nut])
+        elif lang == "en" and any(v is not None for v in nut):
             warn(f"{f.name}: nutrition needs all four numbers (protein, fat, carbs, kcal) — not shown")
-        photos = [{"src": img(p.get("image")), "cap": (p.get("caption") or "").strip()}
+        photos = [{"src": img(p.get("image")), "cap": t(p, "caption")}
                   for p in (d.get("photos") or []) if p and p.get("image")]
         card_image = img(d.get("card_image")) or (photos[0]["src"] if photos else "")
-        if not card_image:
+        if not card_image and lang == "en":
             warn(f"{f.name}: no card photo")
         cakes.append({
             "key": key, "title": title, "section": sec,
             "position": num(d.get("position")) or 999,
-            "card_text": (d.get("card_text") or "").strip(),
-            "desc": (d.get("description") or d.get("card_text") or "").strip(),
-            "ing": (d.get("ingredients") or "").strip(),
+            "card_text": t(d, "card_text"),
+            # Icelandic page: own description, else own card text (not the English description)
+            "desc": ((t(d, "description") if lang == "en" or str(d.get("description_" + lang) or "").strip()
+                      else t(d, "card_text")) or t(d, "card_text")),
+            "ing": t(d, "ingredients"),
             "nutr": nutr,
             "price": num(d.get("price_per_100g")),
             "card_image": card_image,
-            "card_alt": (d.get("card_alt") or title).strip(),
+            "card_alt": t(d, "card_alt") or title,
             "photos": photos,
             "badges": [{"label": l, "type": t, "cls": ["", " nut", " tag"][t]} for l, t in badges],
+            # the form always sends the English name, so Katya's emails look the same in both languages
             "order_name": title + (" (small)" if sec == "small" else ""),
+            "order_label": title + (L["small"] if sec == "small" else ""),
         })
     cakes.sort(key=lambda c: (SECTIONS.index(c["section"]), c["position"], c["title"]))
     names = [c["order_name"] for c in cakes]
-    for n in set(names):
+    for n in set(names if lang == "en" else []):
         if names.count(n) > 1:
             warn(f"two cakes with the same name in the order form: {n!r}")
     return cakes
 
 
-def cakes_js(cakes):
+def cakes_js(cakes, prefix="", i18n=None):
     out = {}
     for c in cakes:
         e = {"title": c["title"], "order": c["order_name"], "desc": c["desc"],
@@ -131,10 +161,14 @@ def cakes_js(cakes):
             e["ing"] = c["ing"]
         if c["nutr"]:
             e["nutr"] = c["nutr"]
-        e["photos"] = c["photos"]
+        e["photos"] = [{"src": prefix + p["src"] if not p["src"].startswith("http") else p["src"],
+                        "cap": p["cap"]} for p in c["photos"]]
         out[c["key"]] = e
-    return ("/* GENERATED by build.py from content/cakes/*.md — do not edit by hand. */\n"
-            "window.CAKES = " + json.dumps(out, ensure_ascii=False, indent=1) + ";\n")
+    js = ("/* GENERATED by build.py from content/cakes/*.md — do not edit by hand. */\n"
+          "window.CAKES = " + json.dumps(out, ensure_ascii=False, indent=1) + ";\n")
+    if i18n:
+        js += "window.I18N = " + json.dumps(i18n, ensure_ascii=False, indent=1) + ";\n"
+    return js
 
 
 def schema(cakes, site):
@@ -241,16 +275,24 @@ def main():
     out = {
         "index.html": env.get_template("index.html").render(
             site=site, cakes=by["cakes"], small=by["small"], friday=by["friday"],
-            friday_text=friday, schema_json=schema(cakes, site)),
+            friday_text=friday, schema_json=schema(cakes, site), root="", lang="en"),
         "blog.html": env.get_template("blog.html").render(site=site, posts=posts),
         "cakes-data.js": cakes_js(cakes),
     }
+    # Icelandic main page → is/index.html (+ its own cake data with Icelandic texts)
+    cakes_is = load_cakes("is")
+    by_is = {s: [c for c in cakes_is if c["section"] == s] for s in SECTIONS}
+    out["is/index.html"] = env.get_template("index.is.html").render(
+        site=site, cakes=by_is["cakes"], small=by_is["small"], friday=by_is["friday"],
+        friday_text=by_is["friday"][0]["card_text"] if by_is["friday"] else "",
+        schema_json="", root="../", lang="is")
+    out["is/cakes-data.js"] = cakes_js(cakes_is, prefix="../", i18n=I18N_IS)
     post_t = env.get_template("post.html")
     for p in posts:
         out[f"blog/{p['slug']}.html"] = post_t.render(site=site, p=p)
 
     newest = max([p["date"] for p in posts] + [datetime.date(2026, 8, 26)]).isoformat()
-    urls = [("", newest, "1.0"), ("blog.html", newest, "0.7")] + \
+    urls = [("", newest, "1.0"), ("is/", newest, "0.9"), ("blog.html", newest, "0.7")] + \
            [(f"blog/{p['slug']}.html", p["date"].isoformat(), "0.5") for p in posts]
     out["sitemap.xml"] = ('<?xml version="1.0" encoding="UTF-8"?>\n'
                           '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +

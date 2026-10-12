@@ -51,14 +51,26 @@ content:
         type: text
         required: true
         description: "One sentence, shown on the card (and to Google)"
+      - name: card_text_is
+        label: Card text (Icelandic)
+        type: text
+        description: "Empty = English card text is used on the Icelandic page"
       - name: description
         label: Description
         type: text
         description: "2–3 sentences in the cake pop-up. Empty = card text is used"
+      - name: description_is
+        label: Description (Icelandic)
+        type: text
+        description: "Empty = Icelandic card text is used"
       - name: ingredients
         label: Ingredients
         type: text
         description: "Comma-separated, ending with a full stop"
+      - name: ingredients_is
+        label: Ingredients (Icelandic)
+        type: text
+        description: "Check carefully — allergy information. Empty = English list is used"
       - name: vegan
         label: Vegan badge
         type: boolean
@@ -71,10 +83,17 @@ content:
         label: Allergen badge
         type: string
         description: "e.g. Contains nuts · Peanut · Pistachio · nuts. Empty = no badge"
+      - name: allergen_is
+        label: Allergen badge (Icelandic)
+        type: string
+        description: "e.g. Inniheldur hnetur · Jarðhnetur"
       - name: note
         label: Extra badge
         type: string
         description: "Optional, e.g. New · Seasonal"
+      - name: note_is
+        label: Extra badge (Icelandic)
+        type: string
       - name: price_per_100g
         label: Price per 100 g (ISK)
         type: number
@@ -100,6 +119,9 @@ content:
         label: Card photo description
         type: string
         description: "What the photo shows, e.g. Raw carrot cake with pecans (for Google and screen readers)"
+      - name: card_alt_is
+        label: Card photo description (Icelandic)
+        type: string
       - name: photos
         label: Gallery
         type: object
@@ -116,6 +138,10 @@ content:
             label: Caption
             type: string
             description: "Short: The whole cake · A slice · From the side"
+          - name: caption_is
+            label: Caption (Icelandic)
+            type: string
+            description: "e.g. Öll kakan · Sneið · Frá hlið"
 
   - name: blog
     label: Blog

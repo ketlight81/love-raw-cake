@@ -763,6 +763,10 @@
   <meta property="og:image" content="https://loverawcake.is/images/chocbanana-2.jpg" />
 <meta property="og:url" content="https://loverawcake.is/" />
 <meta property="og:locale" content="en_GB" />
+<meta property="og:locale:alternate" content="is_IS" />
+<link rel="alternate" hreflang="en" href="https://loverawcake.is/" />
+<link rel="alternate" hreflang="is" href="https://loverawcake.is/is/" />
+<link rel="alternate" hreflang="x-default" href="https://loverawcake.is/" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Love Raw Cake — healthy raw cakes, made with love · Reykjavík" />
 <meta name="twitter:description" content="Vegan, gluten-free raw cakes handmade in Reykjavík. Pleasure without the guilt." />
@@ -790,6 +794,7 @@
             <a class="nav-ig" href="https://instagram.com/love.raw.cake" target="_blank" rel="noopener" aria-label="Love Raw Cake on Instagram" title="@love.raw.cake"><svg viewBox="0 0 24 24" aria-hidden="true"><defs><radialGradient id="igGrad" cx="30%" cy="107%" r="150%"><stop offset="0%" stop-color="#fdf497"/><stop offset="5%" stop-color="#fdf497"/><stop offset="45%" stop-color="#fd5949"/><stop offset="60%" stop-color="#d6249f"/><stop offset="90%" stop-color="#285aeb"/></radialGradient></defs><rect x="1" y="1" width="22" height="22" rx="6.4" fill="url(#igGrad)"/><circle cx="12" cy="12" r="4.6" fill="none" stroke="#fff" stroke-width="1.9"/><circle cx="17.7" cy="6.4" r="1.3" fill="#fff"/></svg></a>
       <a href="#order" class="btn btn-primary" style="padding:.55rem 1.1rem">Order a cake</a>
     </nav>
+    <div class="lang-switch" aria-label="Language / Tungumál"><b aria-current="true">EN</b><a href="is/" hreflang="is" lang="is" title="Íslenska">IS</a></div>
     <button class="nav-toggle" id="navtoggle" aria-label="Menu">☰</button>
   </div>
 </header>
@@ -1066,13 +1071,13 @@
         <div class="field"><label>Which cake?</label>
           <select id="orderSelect" name="cake" required>
             <option value="" disabled selected>Choose a cake…</option>
-            <optgroup label="Cakes">
+            <optgroup label="Cakes" data-group="cakes">
               <option>Chocolate Banana</option><option>Dubai Chocolate Cake</option><option>Macadamia Salted Caramel Cheesecake</option><option>Tiramisu Cake</option><option>Chocolate Hazelnut Tart</option><option>Mango-Passion Fruit Cake</option><option>Carrot Cake</option><option>Lemon Cake</option><option>Matcha Ananas</option><option>Blueberry Chocolate Cheesecake</option>
             </optgroup>
-            <optgroup label="Small cakes">
+            <optgroup label="Small cakes" data-group="small">
               <option>Matcha Ananas (small)</option><option>Blackcurrant Banana (small)</option><option>Salted Peanut Ball (small)</option><option>Mixed small-cakes plate</option>
             </optgroup>
-            <optgroup label="Other">
+            <optgroup label="Other" data-group="other">
               <option>Friday Box</option><option>Event / large order</option>
               <option>Not sure — help me choose</option>
             </optgroup>
