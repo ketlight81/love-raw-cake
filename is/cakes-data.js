@@ -104,7 +104,7 @@ window.CAKES = {
   "ing": "Gerjaður kasjúrjómi, kókosmjólk, agavesíróp, döðlur, möndlur, kókossmjör, vatn, síkoría, kakóduft, husk, agar, sojalesitín, vanilludropar, salt.",
   "photos": [
    {
-    "src": "../images/images_20.08.2026/tiramisu_gal.jpeg",
+    "src": "../images/images_15.10.2026/tiramisu_gal.jpeg",
     "cap": "Öll kakan"
    }
   ]

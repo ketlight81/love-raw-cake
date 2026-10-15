@@ -20,11 +20,11 @@ fat: null
 carbs: null
 kcal: null
 price_per_100g: 1100
-card_image: images/images_20.08.2026/tiramisu_card.jpeg
+card_image: images/images_15.10.2026/tiramisu_card.jpeg
 card_alt: Raw tiramisu cake
 card_alt_is: Hrá tiramisu-kaka
 photos:
-- image: images/images_20.08.2026/tiramisu_gal.jpeg
+- image: images/images_15.10.2026/tiramisu_gal.jpeg
   caption: The whole cake
   caption_is: Öll kakan
 ---

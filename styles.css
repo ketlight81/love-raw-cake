@@ -30,8 +30,8 @@
 
   header.nav{position:sticky;top:0;z-index:50;background:rgba(247,242,234,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
   .nav-inner{display:flex;align-items:center;justify-content:space-between;height:92px;max-width:1220px}
-  /* brand mark — bottom-right of the footer */
-  .foot-mark{height:76px;width:76px;align-self:flex-end;margin-left:auto}
+  /* brand mark — sits at the end of the footer row (never on a line of its own) */
+  .foot-mark{height:64px;width:64px;flex:0 0 auto;align-self:flex-end;margin-bottom:-.35rem}
   .logo{font-family:var(--serif);font-size:1.4rem;font-weight:600;color:var(--ink);display:flex;align-items:center;gap:0}
   .logo span{margin:0 .1em;color:var(--berry)}
   .logo.on-dark span{color:var(--gold)}
@@ -61,7 +61,7 @@
   .slide.s3{background-image:url('images/images_20.08.2026/chochazelnut_hero.jpeg');background-position:center 56%}
   .slide.s4{background-image:url('images/images_20.08.2026/carrot_hero.jpeg');background-position:center 22%}
   .slide.s5{background-image:url('images/images_20.08.2026/lemon_hero.jpeg');background-position:center 55%}
-  .slide.s6{background-image:url('images/images_20.08.2026/tiramisu_hero.jpeg');background-position:center 58%}
+  .slide.s6{background-image:url('images/images_15.10.2026/tiramisu_hero.jpeg');background-position:center 50%}
   .slide.s7{background-image:url('images/images_20.08.2026/macadamia_hero.jpeg');background-position:center 55%}
   .slide.s8{background-image:url('images/images_20.08.2026/matcha_hero.jpeg');background-position:center 68%}
   /* soft scrim on the left only — the type stays readable and the cake keeps its own colour */
@@ -243,11 +243,26 @@
   details[open] summary::after{content:"–"}
   details p{padding-bottom:1rem}
 
-  footer{background:var(--ink);color:var(--cream);padding:3rem 0 2rem}
-  .foot-grid{display:flex;justify-content:space-between;flex-wrap:wrap;gap:2rem}
+  footer{background:var(--ink);color:var(--cream);padding:2.5rem 0 1.25rem}
+  .foot-grid{display:flex;justify-content:space-between;align-items:center;flex-wrap:nowrap;gap:1.5rem 1.25rem}
   footer a{color:var(--cream)}
   footer .muted{color:#9a8f81;font-size:.85rem}
-  .foot-links{display:flex;gap:1.2rem;flex-wrap:wrap}
+  /* builder credit — reads as a signature, not a badge */
+  .credit{color:inherit;text-decoration:none;position:relative;white-space:nowrap;transition:color .25s ease}
+  .credit::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:1px;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform .35s cubic-bezier(.2,.7,.3,1)}
+  .credit:hover,.credit:focus-visible{color:var(--cream)}
+  .credit:hover::after,.credit:focus-visible::after{transform:scaleX(1)}
+  .credit-arrow{display:inline-block;margin-left:.3em;opacity:0;transform:translateX(-4px);transition:opacity .3s ease,transform .3s ease}
+  .credit:hover .credit-arrow,.credit:focus-visible .credit-arrow{opacity:1;transform:translateX(2px)}
+  @media(prefers-reduced-motion:reduce){.credit::after,.credit-arrow{transition:none}}
+  .foot-links{display:flex;gap:.6rem .72rem;flex-wrap:wrap;justify-content:flex-end;flex:1 1 auto;font-size:.93rem}
+  .foot-links a{white-space:nowrap}
+  /* phones: let the three blocks stack again */
+  @media(max-width:760px){
+    .foot-grid{flex-wrap:wrap;align-items:flex-start;gap:1.25rem 2rem}
+    .foot-links{justify-content:flex-start}
+    .foot-mark{height:56px;width:56px;margin-left:auto}
+  }
   .center{text-align:center;margin-inline:auto}
   .mt{margin-top:1.6rem}
 

@@ -104,7 +104,7 @@ window.CAKES = {
   "ing": "Fermented cashew cream, coconut milk, agave syrup, dates, almond, coconut butter, water, chicory, cocoa powder, psyllium, agar, soy lecithin, vanilla extract, salt.",
   "photos": [
    {
-    "src": "images/images_20.08.2026/tiramisu_gal.jpeg",
+    "src": "images/images_15.10.2026/tiramisu_gal.jpeg",
     "cap": "The whole cake"
    }
   ]
