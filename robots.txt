@@ -1,4 +1,4 @@
-# Love Raw Cake — https://loverawcake.is
+# Love Raw Cake — https://loverawcake.com
 # We want to be found, including by AI assistants.
 
 User-agent: *
@@ -20,4 +20,4 @@ Allow: /
 User-agent: CCBot
 Allow: /
 
-Sitemap: https://ketlight81.github.io/love-raw-cake/sitemap.xml
+Sitemap: https://loverawcake.com/sitemap.xml
