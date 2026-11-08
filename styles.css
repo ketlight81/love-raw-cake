@@ -197,6 +197,8 @@
   /* courses.jpg is 1024×559; .about-photo would force it square and cut ~45% off
      the sides, clipping the people at the table. let it keep its own shape */
   #courses .about-photo{aspect-ratio:auto;height:auto}
+  /* desktop: taller 4:3 crop (cuts ~13% each side, people stay in) and top-aligned with the heading */
+  @media(min-width:761px){#courses .split{align-items:start}#courses .about-photo{aspect-ratio:4/3;height:auto;object-fit:cover;object-position:center;align-self:start;margin-top:2rem}}
   /* photo gets ~60% of the row on desktop, text ~40% */
   #courses .split{grid-template-columns:1.5fr 1fr}
   @media(max-width:760px){#courses .split{grid-template-columns:1fr}}
