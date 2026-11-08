@@ -31,7 +31,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="{{ root }}images/logo-32.png" />
   <link rel="icon" type="image/png" sizes="192x192" href="{{ root }}images/logo-192.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="{{ root }}images/logo-180.png" />
-  <meta property="og:image" content="{{ site.url }}/{{ M.share_image|img }}" />
+  <meta property="og:image" content="{{ site.url }}/{{ (M.share_image or 'images/share-loverawcake.jpg')|img }}" />
 {% if not site.draft %}<link rel="canonical" href="{{ site.url }}/{{ page_path }}" />
 {% endif %}<meta property="og:url" content="{{ site.url }}/{{ page_path }}" />
 <meta property="og:locale" content="{{ 'is_IS' if lang == 'is' else 'en_GB' }}" />
@@ -42,7 +42,7 @@
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="{{ M.share_title }}" />
 <meta name="twitter:description" content="{{ M.share_description_short }}" />
-<meta name="twitter:image" content="{{ site.url }}/{{ M.share_image|img }}" />
+<meta name="twitter:image" content="{{ site.url }}/{{ (M.share_image or 'images/share-loverawcake.jpg')|img }}" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

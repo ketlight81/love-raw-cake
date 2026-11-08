@@ -17,7 +17,7 @@ import datetime, html, json, pathlib, re, sys
 
 import markdown
 import yaml
-from jinja2 import Environment, FileSystemLoader, StrictUndefined
+from jinja2 import Environment, FileSystemLoader, StrictUndefined, Undefined
 from markupsafe import Markup
 
 ROOT = pathlib.Path(__file__).resolve().parent
@@ -73,6 +73,19 @@ LANG = {
            "nutr": "Í 100 g — Prótein {0} g · Fita {1} g · Kolvetni {2} g · {3} kcal"},
 }
 # ---------------------------------------------------------------- page texts
+class MissingText(Undefined):
+    """A text field missing from content/text/*.yml (e.g. dropped by an editor tab that was
+    opened before the field existed) renders as empty and is reported — it never breaks the build."""
+    def _warn(self):
+        warn(f"missing text field: {self._undefined_name!r} — add it back in Pages CMS")
+        return ""
+    def __str__(self): return self._warn()
+    def __html__(self): return self._warn()
+    def __iter__(self): self._warn(); return iter(())
+    def __bool__(self): return False
+
+
+# ---------------------------------------------------------------- page texts
 # Every visible text on the main page and the blog pages lives in content/text/*.yml
 # (Katya edits it in Pages CMS). A field ending in _is is the Icelandic version;
 # an empty Icelandic field falls back to the English one. List items with show: false are skipped.
@@ -99,13 +112,17 @@ def resolve(d, lang):
 def load_text(lang):
     T = {}
     for f in sorted(TEXT_DIR.glob("*.yml")):
-        key = re.sub(r"^\d+-", "", f.stem).replace("-", "_")
+        key = re.sub(r"^\d+[a-z]?-", "", f.stem).replace("-", "_")
         try:
             d = yaml.safe_load(f.read_text(encoding="utf-8")) or {}
         except yaml.YAMLError as e:
             warn(f"content/text/{f.name}: not valid ({e})")
             d = {}
         T[key] = resolve(d, lang)
+    # 04b (Small Cakes tab + tile) and 04c (Friday Box tile) are separate in the editor,
+    # next to their cake lists, but belong to the same page section
+    for extra in ("small_cakes_tab", "friday_box_tile"):
+        T.setdefault("cakes_section", {}).update(T.pop(extra, {}))
     return T
 
 
@@ -414,7 +431,7 @@ def main():
     friday = by["friday"][0]["card_text"] if by["friday"] else ""
 
     env = Environment(loader=FileSystemLoader(ROOT / "templates"), autoescape=True,
-                      undefined=StrictUndefined, keep_trailing_newline=True)
+                      undefined=MissingText, keep_trailing_newline=True)
     env.filters["md"] = md
     env.filters["img"] = img
     texts = {lang: load_text(lang) for lang in ("en", "is")}

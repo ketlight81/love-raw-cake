@@ -13,7 +13,6 @@ media:
   extensions: [jpg, jpeg, png, webp]
 
 content:
-  # Editor menu = the page, top to bottom. Generated text sections come from content/text/; cake lists from content/cakes/<section>/.
   - name: menu_footer
     label: Site · Menu, footer & page title
     type: file
@@ -329,7 +328,7 @@ content:
         type: boolean
         description: Off = hidden, not deleted
   - name: cakes_section
-    label: Page · 3 Cakes — texts and tiles around the cake cards
+    label: Page · 3 Cakes — heading, intro, order note, counter
     type: file
     path: content/text/04-cakes-section.yml
     format: yaml
@@ -363,87 +362,6 @@ content:
       label: Line before the Prices & Delivery button (Icelandic)
       type: string
       description: Empty = the English text is used on the Icelandic page
-    - name: small_tile_title
-      label: 'Small Cakes tile: title'
-      type: string
-    - name: small_tile_title_is
-      label: 'Small Cakes tile: title (Icelandic)'
-      type: string
-      description: Empty = the English text is used on the Icelandic page
-    - name: small_tile_text
-      label: 'Small Cakes tile: text'
-      type: text
-    - name: small_tile_text_is
-      label: 'Small Cakes tile: text (Icelandic)'
-      type: text
-      description: Empty = the English text is used on the Icelandic page
-    - name: small_tile_link
-      label: 'Small Cakes tile: link text'
-      type: string
-    - name: small_tile_link_is
-      label: 'Small Cakes tile: link text (Icelandic)'
-      type: string
-      description: Empty = the English text is used on the Icelandic page
-    - name: small_tile_photo
-      label: 'Small Cakes tile: photo'
-      type: image
-      description: Landscape 4:3, about 1600 × 1200 px, JPG. Cropped to 4:3.
-    - name: small_tile_alt
-      label: 'Small Cakes tile: photo description'
-      type: string
-      description: What the photo shows, for Google and screen readers
-    - name: small_tile_alt_is
-      label: 'Small Cakes tile: photo description (Icelandic)'
-      type: string
-      description: Empty = the English text is used on the Icelandic page
-    - name: friday_tile_link
-      label: 'Friday Box tile: link text'
-      type: string
-      description: The Friday Box text itself is in Cakes › Friday Box › Card text
-    - name: friday_tile_link_is
-      label: 'Friday Box tile: link text (Icelandic)'
-      type: string
-      description: Empty = the English text is used on the Icelandic page
-    - name: friday_tile_photo
-      label: 'Friday Box tile: photo'
-      type: image
-      description: Landscape 4:3, about 1600 × 1200 px, JPG. Cropped to 4:3.
-    - name: friday_tile_alt
-      label: 'Friday Box tile: photo description'
-      type: string
-      description: What the photo shows, for Google and screen readers
-    - name: friday_tile_alt_is
-      label: 'Friday Box tile: photo description (Icelandic)'
-      type: string
-      description: Empty = the English text is used on the Icelandic page
-    - name: small_intro
-      label: 'Small Cakes tab: text under the photos'
-      type: text
-      description: 'Light formatting: **bold**, [link text](https://…).'
-    - name: small_intro_is
-      label: 'Small Cakes tab: text under the photos (Icelandic)'
-      type: text
-      description: Empty = the English text is used on the Icelandic page
-    - name: small_photos
-      label: 'Small Cakes tab: photo strip'
-      type: object
-      list:
-        collapsible:
-          collapsed: false
-          summary: '{fields.alt}'
-      fields:
-      - name: image
-        label: Photo
-        type: image
-        description: Landscape 4:3, about 1200 × 900 px, JPG. Cropped to 4:3.
-      - name: alt
-        label: Photo description
-        type: string
-        description: What the photo shows, for Google and screen readers
-      - name: alt_is
-        label: Photo description (Icelandic)
-        type: string
-        description: Empty = the English text is used on the Icelandic page
     - name: order_note
       label: Note under the cakes (order ahead)
       type: text
@@ -468,7 +386,7 @@ content:
       type: string
       description: Empty = the English text is used on the Icelandic page
   - name: cakes
-    label: 'Page · 3a Cakes (the cake cards)'
+    label: Page · 3a Cakes — the cake cards
     type: collection
     path: content/cakes/cakes
     format: yaml-frontmatter
@@ -564,18 +482,18 @@ content:
       label: Kcal per 100 g
       type: number
     - name: card_image
-      label: Card photo
+      label: Card photo — the picture on the cake's card in the list
       type: image
-      description: Landscape 4:3, about 1600 × 1200 px, JPG. Cropped to 4:3 — keep the cake in the middle. Upload the file (no Google Drive / Instagram links). Empty = first gallery photo is used
+      description: Seen first, in the list of cakes. Landscape 4:3, about 1600 × 1200 px, JPG — cropped to 4:3, keep the cake in the middle. Upload the file (no Google Drive / Instagram links). Empty = the first photo of the window below is used.
     - name: card_alt
-      label: Card photo description
+      label: Card photo — what it shows
       type: string
       description: What the photo shows, e.g. Raw carrot cake with pecans (for Google and screen readers)
     - name: card_alt_is
-      label: Card photo description (Icelandic)
+      label: Card photo — what it shows (Icelandic)
       type: string
     - name: photos
-      label: Gallery
+      label: Window photos — open when a customer clicks the cake
       type: object
       list:
         collapsible:
@@ -586,18 +504,19 @@ content:
         label: Photo
         type: image
         required: true
-        description: Square 1:1, about 1600 × 1600 px, JPG. Shown as a square — the edges of a landscape photo are cut off
+        description: Square 1:1, about 1600 × 1600 px, JPG. Shown as a square — the sides of a landscape photo are cut off.
       - name: caption
-        label: Caption
+        label: Caption under this photo
         type: string
         description: 'Short: The whole cake · A slice · From the side'
       - name: caption_is
-        label: Caption (Icelandic)
+        label: Caption under this photo (Icelandic)
         type: string
         description: e.g. Öll kakan · Sneið · Frá hlið
+      description: The window that opens on a click shows these photos; customers swipe through them. Square 1:1, about 1600 × 1600 px. First photo = shown first. Add an item = one more photo.
     description: Whole cakes — add as many as you like
   - name: small_cakes
-    label: 'Page · 3b Small Cakes'
+    label: Page · 3b Small Cakes — the cake cards
     type: collection
     path: content/cakes/small
     format: yaml-frontmatter
@@ -605,8 +524,75 @@ content:
     view: *id001
     fields: *id002
     description: Small cakes by the plate — add as many as you like
+  - name: small_cakes_tab
+    label: Page · 3b Small Cakes — tab text, photo strip and tile
+    type: file
+    path: content/text/04b-small-cakes-tab.yml
+    format: yaml
+    fields:
+    - name: small_tile_title
+      label: 'Small Cakes tile: title'
+      type: string
+    - name: small_tile_title_is
+      label: 'Small Cakes tile: title (Icelandic)'
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: small_tile_text
+      label: 'Small Cakes tile: text'
+      type: text
+    - name: small_tile_text_is
+      label: 'Small Cakes tile: text (Icelandic)'
+      type: text
+      description: Empty = the English text is used on the Icelandic page
+    - name: small_tile_link
+      label: 'Small Cakes tile: link text'
+      type: string
+    - name: small_tile_link_is
+      label: 'Small Cakes tile: link text (Icelandic)'
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: small_tile_photo
+      label: 'Small Cakes tile: photo'
+      type: image
+      description: Landscape 4:3, about 1600 × 1200 px, JPG. Cropped to 4:3.
+    - name: small_tile_alt
+      label: 'Small Cakes tile: photo description'
+      type: string
+      description: What the photo shows, for Google and screen readers
+    - name: small_tile_alt_is
+      label: 'Small Cakes tile: photo description (Icelandic)'
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: small_intro
+      label: 'Small Cakes tab: text under the photos'
+      type: text
+      description: 'Light formatting: **bold**, [link text](https://…).'
+    - name: small_intro_is
+      label: 'Small Cakes tab: text under the photos (Icelandic)'
+      type: text
+      description: Empty = the English text is used on the Icelandic page
+    - name: small_photos
+      label: 'Small Cakes tab: photo strip'
+      type: object
+      list:
+        collapsible:
+          collapsed: false
+          summary: '{fields.alt}'
+      fields:
+      - name: image
+        label: Photo
+        type: image
+        description: Landscape 4:3, about 1200 × 900 px, JPG. Cropped to 4:3.
+      - name: alt
+        label: Photo description
+        type: string
+        description: What the photo shows, for Google and screen readers
+      - name: alt_is
+        label: Photo description (Icelandic)
+        type: string
+        description: Empty = the English text is used on the Icelandic page
   - name: friday_box
-    label: 'Page · 3c Friday Box'
+    label: Page · 3c Friday Box — the box card
     type: collection
     path: content/cakes/friday
     format: yaml-frontmatter
@@ -614,6 +600,32 @@ content:
     view: *id001
     fields: *id002
     description: The Friday Box
+  - name: friday_box_tile
+    label: Page · 3c Friday Box — tile
+    type: file
+    path: content/text/04c-friday-box-tile.yml
+    format: yaml
+    fields:
+    - name: friday_tile_link
+      label: 'Friday Box tile: link text'
+      type: string
+      description: The Friday Box text itself is in Page · 3c Friday Box › Friday Box › Card text
+    - name: friday_tile_link_is
+      label: 'Friday Box tile: link text (Icelandic)'
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: friday_tile_photo
+      label: 'Friday Box tile: photo'
+      type: image
+      description: Landscape 4:3, about 1600 × 1200 px, JPG. Cropped to 4:3.
+    - name: friday_tile_alt
+      label: 'Friday Box tile: photo description'
+      type: string
+      description: What the photo shows, for Google and screen readers
+    - name: friday_tile_alt_is
+      label: 'Friday Box tile: photo description (Icelandic)'
+      type: string
+      description: Empty = the English text is used on the Icelandic page
   - name: events
     label: Page · 4 Events
     type: file
@@ -1256,66 +1268,66 @@ content:
     type: collection
     path: content/blog
     format: yaml-frontmatter
-    filename: "{year}-{month}-{primary}.md"
+    filename: '{year}-{month}-{primary}.md'
     view:
       primary: title
-      fields: [title, date, show]
+      fields:
+      - title
+      - date
+      - show
       sort: date
       order: desc
     fields:
-      - name: title
-        label: Title
-        type: string
-        required: true
-      - name: date
-        label: Date
-        type: date
-        required: true
-      - name: show
-        label: Show on site
-        type: boolean
-        default: true
-        description: "Off while the post is a draft"
-      - name: excerpt
-        label: Excerpt
-        type: text
-        required: true
-        description: "1–2 sentences shown in the blog list"
-      - name: description
-        label: Google description
-        type: text
-        description: "One sentence for search results. Empty = excerpt is used"
-      - name: image
-        label: Main photo
-        type: image
-        description: "Landscape 4:3, about 1600 × 1200 px, JPG. Whole photo at the top of the post; cropped to 4:3 in the blog list"
-      - name: image_alt
-        label: Photo description
-        type: string
-      - name: body
-        label: Text
-        type: rich-text
-      # ---- Icelandic version (optional). The post appears in Icelandic on the IS blog once
-      #      BOTH "Title (Icelandic)" and "Text (Icelandic)" are filled; until then it is listed there in English.
-      - name: title_is
-        label: Title (Icelandic)
-        type: string
-        description: "Fill this and Text (Icelandic) to publish the Icelandic version"
-      - name: excerpt_is
-        label: Excerpt (Icelandic)
-        type: text
-        description: "Empty = English excerpt"
-      - name: description_is
-        label: Google description (Icelandic)
-        type: text
-        description: "Empty = Icelandic excerpt"
-      - name: image_alt_is
-        label: Photo description (Icelandic)
-        type: string
-      - name: body_is
-        label: Text (Icelandic)
-        type: rich-text
-
+    - name: title
+      label: Title
+      type: string
+      required: true
+    - name: date
+      label: Date
+      type: date
+      required: true
+    - name: show
+      label: Show on site
+      type: boolean
+      default: true
+      description: Off while the post is a draft
+    - name: excerpt
+      label: Excerpt
+      type: text
+      required: true
+      description: 1–2 sentences shown in the blog list
+    - name: description
+      label: Google description
+      type: text
+      description: One sentence for search results. Empty = excerpt is used
+    - name: image
+      label: Main photo
+      type: image
+      description: Landscape 4:3, about 1600 × 1200 px, JPG. Whole photo at the top of the post; cropped to 4:3 in the blog list
+    - name: image_alt
+      label: Photo description
+      type: string
+    - name: body
+      label: Text
+      type: rich-text
+    - name: title_is
+      label: Title (Icelandic)
+      type: string
+      description: Fill this and Text (Icelandic) to publish the Icelandic version
+    - name: excerpt_is
+      label: Excerpt (Icelandic)
+      type: text
+      description: Empty = English excerpt
+    - name: description_is
+      label: Google description (Icelandic)
+      type: text
+      description: Empty = Icelandic excerpt
+    - name: image_alt_is
+      label: Photo description (Icelandic)
+      type: string
+    - name: body_is
+      label: Text (Icelandic)
+      type: rich-text
   - name: blog_page
     label: Blog · Page texts
     type: file
