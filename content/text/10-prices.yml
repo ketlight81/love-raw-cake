@@ -1,0 +1,27 @@
+button_label: Prices & Delivery
+button_label_is: Verð & afhending
+heading: Simple pricing, by weight.
+heading_is: Einfalt verð, eftir þyngd.
+prices:
+- text: '**Cakes — from 1,100 ISK per 100 g.** A whole cake is usually 800–1,200 g.'
+  text_is: '**Kökur — frá 1.100 kr. fyrir 100 g.** Heil kaka er yfirleitt 800–1.200 g.'
+  show: true
+- text: '**Small cakes — from 1,100 ISK per 100 g.** S / M / L (30 g · 50 g · 100 g). Minimum order 600 g of one kind.'
+  text_is: '**Litlar kökur — frá 1.100 kr. fyrir 100 g.** S / M / L (30 g · 50 g · 100 g). Lágmarkspöntun 600 g af einni tegund.'
+  show: true
+- text: '**Writing on the cake — from 1,500 ISK.**'
+  text_is: '**Áletrun á kökuna — frá 1.500 kr.**'
+  show: true
+price_note: Prices may change if the cost of ingredients rises at the time of your order.
+price_note_is: Verð getur breyst ef hráefnisverð hefur hækkað þegar pantað er.
+delivery_heading: Delivery
+delivery_heading_is: Afhending
+delivery:
+- text: '**Free** in the Reykjavík capital area on orders of **15,000 ISK and over**.'
+  text_is: '**Frí heimsending** á höfuðborgarsvæðinu fyrir pantanir **15.000 kr. og yfir**.'
+  show: true
+- text: Otherwise, delivery is **from 2,000 ISK**, depending on where you are.
+  text_is: Annars kostar heimsending **frá 2.000 kr.**, eftir því hvar þú ert.
+  show: true
+button: Order a cake →
+button_is: Panta köku →

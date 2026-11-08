@@ -401,3 +401,11 @@ window.CAKES = {
   ]
  }
 };
+window.I18N = {
+ "ingredients": "Ingredients:",
+ "seeAngles": "⤢ see angles",
+ "details": "⤢ details",
+ "dateMsg": "Please choose a date at least 3 days from today.",
+ "qtySmall": "Small cakes: minimum 6 pieces.",
+ "qtyWhole": "Number of whole cakes."
+};

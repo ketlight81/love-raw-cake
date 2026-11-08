@@ -2,9 +2,14 @@
 # Labels in English, matching the site. Field names must stay as they are — build.py reads them.
 # After every "Save" GitHub runs build.py (.github/workflows/build.yml) and the site updates in ~1–2 min.
 
+settings:
+  commit:
+    identity: user          # the commit history shows who edited (Katya / Marina), not "Pages CMS"
+
 media:
   input: images/uploads
   output: /images/uploads
+  rename: true              # upload names made safe (Latin, lowercase, no spaces) — same as Natasha's site
   extensions: [jpg, jpeg, png, webp]
 
 content:
@@ -118,7 +123,7 @@ content:
       - name: card_image
         label: Card photo
         type: image
-        description: "Landscape, about 4:3. Empty = first gallery photo is used"
+        description: "Landscape 4:3, about 1600 × 1200 px, JPG. Cropped to 4:3 — keep the cake in the middle. Upload the file (no Google Drive / Instagram links). Empty = first gallery photo is used"
       - name: card_alt
         label: Card photo description
         type: string
@@ -138,6 +143,7 @@ content:
             label: Photo
             type: image
             required: true
+            description: "Square 1:1, about 1600 × 1600 px, JPG. Shown as a square — the edges of a landscape photo are cut off"
           - name: caption
             label: Caption
             type: string
@@ -184,6 +190,7 @@ content:
       - name: image
         label: Main photo
         type: image
+        description: "Landscape 4:3, about 1600 × 1200 px, JPG. Whole photo at the top of the post; cropped to 4:3 in the blog list"
       - name: image_alt
         label: Photo description
         type: string
@@ -210,3 +217,1141 @@ content:
       - name: body_is
         label: Text (Icelandic)
         type: rich-text
+
+  # ===== Page texts (generated from content/text/ by mk_pages.py) =====
+  # Every visible text on the site. Each field has an (Icelandic) twin; empty = English is used.
+  - name: menu_footer
+    label: Site · Menu, footer & page title
+    type: file
+    path: content/text/01-menu-footer.yml
+    format: yaml
+    fields:
+    - name: page_title
+      label: Browser tab title
+      type: string
+      description: Also the title Google shows
+    - name: page_title_is
+      label: Browser tab title (Icelandic)
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: google_description
+      label: Google description
+      type: text
+      description: One or two sentences shown under the title in Google
+    - name: google_description_is
+      label: Google description (Icelandic)
+      type: text
+      description: Empty = the English text is used on the Icelandic page
+    - name: share_title
+      label: Title when the link is shared (Facebook, WhatsApp)
+      type: string
+    - name: share_title_is
+      label: Title when the link is shared (Facebook, WhatsApp) (Icelandic)
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: share_description
+      label: Text when the link is shared
+      type: text
+    - name: share_description_is
+      label: Text when the link is shared (Icelandic)
+      type: text
+      description: Empty = the English text is used on the Icelandic page
+    - name: share_description_short
+      label: Short text when shared (X/Twitter)
+      type: text
+    - name: share_description_short_is
+      label: Short text when shared (X/Twitter) (Icelandic)
+      type: text
+      description: Empty = the English text is used on the Icelandic page
+    - name: menu_story
+      label: 'Menu: My story'
+      type: string
+    - name: menu_story_is
+      label: 'Menu: My story (Icelandic)'
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: menu_cakes
+      label: 'Menu: Cakes (also the first tab)'
+      type: string
+    - name: menu_cakes_is
+      label: 'Menu: Cakes (also the first tab) (Icelandic)'
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: menu_small
+      label: 'Menu: Small Cakes (also the second tab)'
+      type: string
+    - name: menu_small_is
+      label: 'Menu: Small Cakes (also the second tab) (Icelandic)'
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: menu_friday
+      label: 'Menu: Friday Box (also the third tab and card title)'
+      type: string
+    - name: menu_friday_is
+      label: 'Menu: Friday Box (also the third tab and card title) (Icelandic)'
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: menu_events
+      label: 'Menu: Events'
+      type: string
+    - name: menu_events_is
+      label: 'Menu: Events (Icelandic)'
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: menu_courses
+      label: 'Menu: Courses'
+      type: string
+    - name: menu_courses_is
+      label: 'Menu: Courses (Icelandic)'
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: menu_blog
+      label: 'Menu: Blog'
+      type: string
+    - name: menu_blog_is
+      label: 'Menu: Blog (Icelandic)'
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: menu_order
+      label: 'Menu button: Order a cake'
+      type: string
+    - name: menu_order_is
+      label: 'Menu button: Order a cake (Icelandic)'
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: menu_button
+      label: Phone menu button (read aloud by screen readers)
+      type: string
+    - name: menu_button_is
+      label: Phone menu button (read aloud by screen readers) (Icelandic)
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: instagram_label
+      label: Instagram icon (read aloud by screen readers)
+      type: string
+    - name: instagram_label_is
+      label: Instagram icon (read aloud by screen readers) (Icelandic)
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: footer_tagline
+      label: 'Footer: one line under the logo'
+      type: string
+    - name: footer_tagline_is
+      label: 'Footer: one line under the logo (Icelandic)'
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: footer_place
+      label: 'Footer: place after ©'
+      type: string
+    - name: footer_place_is
+      label: 'Footer: place after © (Icelandic)'
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: logo_alt
+      label: Footer logo description
+      type: string
+    - name: logo_alt_is
+      label: Footer logo description (Icelandic)
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+  - name: top
+    label: Page · 1 Top (big photo)
+    type: file
+    path: content/text/02-top.yml
+    format: yaml
+    fields:
+    - name: heading
+      label: Big heading
+      type: string
+    - name: heading_is
+      label: Big heading (Icelandic)
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: text
+      label: Text under the heading
+      type: text
+      description: 'Light formatting: **bold**, [link text](https://…).'
+    - name: text_is
+      label: Text under the heading (Icelandic)
+      type: text
+      description: Empty = the English text is used on the Icelandic page
+    - name: button_order
+      label: Button 1 (goes to the order form)
+      type: string
+    - name: button_order_is
+      label: Button 1 (goes to the order form) (Icelandic)
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: button_cakes
+      label: Button 2 (goes to the cakes)
+      type: string
+    - name: button_cakes_is
+      label: Button 2 (goes to the cakes) (Icelandic)
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+  - name: my_story
+    label: Page · 2 My story
+    type: file
+    path: content/text/03-my-story.yml
+    format: yaml
+    fields:
+    - name: photo
+      label: Photo of Katya
+      type: image
+      description: Square 1:1, about 1200 × 1200 px, JPG. Cropped to a square. Keep the face in the middle.
+    - name: photo_alt
+      label: Photo description
+      type: string
+      description: What the photo shows, for Google and screen readers
+    - name: photo_alt_is
+      label: Photo description (Icelandic)
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: eyebrow
+      label: Small label above the heading
+      type: string
+    - name: eyebrow_is
+      label: Small label above the heading (Icelandic)
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: heading
+      label: Heading
+      type: string
+    - name: heading_is
+      label: Heading (Icelandic)
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: intro
+      label: First paragraph (large text)
+      type: text
+      description: 'Light formatting: **bold**, [link text](https://…).'
+    - name: intro_is
+      label: First paragraph (large text) (Icelandic)
+      type: text
+      description: Empty = the English text is used on the Icelandic page
+    - name: story_start
+      label: Story — always visible
+      type: text
+      description: 'Shown before the word ''more''. Light formatting: **bold**, [link text](https://…).'
+    - name: story_start_is
+      label: Story — always visible (Icelandic)
+      type: text
+      description: Empty = the English text is used on the Icelandic page
+    - name: story_more
+      label: Story — continues after 'more'
+      type: text
+      description: Same paragraph, shown after clicking 'more'. Empty = no 'more' button if the last part is empty too.
+    - name: story_more_is
+      label: Story — continues after 'more' (Icelandic)
+      type: text
+      description: Empty = the English text is used on the Icelandic page
+    - name: story_end
+      label: Story — last paragraph after 'more'
+      type: text
+      description: 'Light formatting: **bold**, [link text](https://…).'
+    - name: story_end_is
+      label: Story — last paragraph after 'more' (Icelandic)
+      type: text
+      description: Empty = the English text is used on the Icelandic page
+    - name: more_label
+      label: Word 'more'
+      type: string
+    - name: more_label_is
+      label: Word 'more' (Icelandic)
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: less_label
+      label: Word 'less'
+      type: string
+    - name: less_label_is
+      label: Word 'less' (Icelandic)
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: read_more_label
+      label: '''Read the rest'' (read aloud by screen readers)'
+      type: string
+    - name: read_more_label_is
+      label: '''Read the rest'' (read aloud by screen readers) (Icelandic)'
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: blog_line
+      label: Line pointing to the blog
+      type: text
+      description: 'Link: [Blog](blog.html). Empty = no line.'
+    - name: blog_line_is
+      label: Line pointing to the blog (Icelandic)
+      type: text
+      description: Empty = the English text is used on the Icelandic page
+    - name: values
+      label: Three values under the story
+      type: object
+      list:
+        collapsible:
+          collapsed: true
+          summary: '{fields.title}'
+      fields:
+      - name: title
+        label: Title
+        type: string
+      - name: title_is
+        label: Title (Icelandic)
+        type: string
+        description: Empty = the English text is used on the Icelandic page
+      - name: text
+        label: Text
+        type: text
+        description: 'Light formatting: **bold**, [link text](https://…).'
+      - name: text_is
+        label: Text (Icelandic)
+        type: text
+        description: Empty = the English text is used on the Icelandic page
+      - name: show
+        label: Show on site
+        type: boolean
+        description: Off = hidden, not deleted
+  - name: cakes_section
+    label: Page · 3 Cakes section (texts around the cakes)
+    type: file
+    path: content/text/04-cakes-section.yml
+    format: yaml
+    fields:
+    - name: eyebrow
+      label: Small label above the heading
+      type: string
+    - name: eyebrow_is
+      label: Small label above the heading (Icelandic)
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: heading
+      label: Heading
+      type: string
+    - name: heading_is
+      label: Heading (Icelandic)
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: intro
+      label: Text under the heading
+      type: text
+      description: 'Light formatting: **bold**, [link text](https://…).'
+    - name: intro_is
+      label: Text under the heading (Icelandic)
+      type: text
+      description: Empty = the English text is used on the Icelandic page
+    - name: pricing_line
+      label: Line before the Prices & Delivery button
+      type: string
+    - name: pricing_line_is
+      label: Line before the Prices & Delivery button (Icelandic)
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: small_tile_title
+      label: 'Small Cakes tile: title'
+      type: string
+    - name: small_tile_title_is
+      label: 'Small Cakes tile: title (Icelandic)'
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: small_tile_text
+      label: 'Small Cakes tile: text'
+      type: text
+    - name: small_tile_text_is
+      label: 'Small Cakes tile: text (Icelandic)'
+      type: text
+      description: Empty = the English text is used on the Icelandic page
+    - name: small_tile_link
+      label: 'Small Cakes tile: link text'
+      type: string
+    - name: small_tile_link_is
+      label: 'Small Cakes tile: link text (Icelandic)'
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: small_tile_photo
+      label: 'Small Cakes tile: photo'
+      type: image
+      description: Landscape 4:3, about 1600 × 1200 px, JPG. Cropped to 4:3.
+    - name: small_tile_alt
+      label: 'Small Cakes tile: photo description'
+      type: string
+      description: What the photo shows, for Google and screen readers
+    - name: small_tile_alt_is
+      label: 'Small Cakes tile: photo description (Icelandic)'
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: friday_tile_link
+      label: 'Friday Box tile: link text'
+      type: string
+      description: The Friday Box text itself is in Cakes › Friday Box › Card text
+    - name: friday_tile_link_is
+      label: 'Friday Box tile: link text (Icelandic)'
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: friday_tile_photo
+      label: 'Friday Box tile: photo'
+      type: image
+      description: Landscape 4:3, about 1600 × 1200 px, JPG. Cropped to 4:3.
+    - name: friday_tile_alt
+      label: 'Friday Box tile: photo description'
+      type: string
+      description: What the photo shows, for Google and screen readers
+    - name: friday_tile_alt_is
+      label: 'Friday Box tile: photo description (Icelandic)'
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: small_intro
+      label: 'Small Cakes tab: text under the photos'
+      type: text
+      description: 'Light formatting: **bold**, [link text](https://…).'
+    - name: small_intro_is
+      label: 'Small Cakes tab: text under the photos (Icelandic)'
+      type: text
+      description: Empty = the English text is used on the Icelandic page
+    - name: small_photos
+      label: 'Small Cakes tab: photo strip'
+      type: object
+      list:
+        collapsible:
+          collapsed: true
+          summary: '{fields.alt}'
+      fields:
+      - name: image
+        label: Photo
+        type: image
+        description: Landscape 4:3, about 1200 × 900 px, JPG. Cropped to 4:3.
+      - name: alt
+        label: Photo description
+        type: string
+        description: What the photo shows, for Google and screen readers
+      - name: alt_is
+        label: Photo description (Icelandic)
+        type: string
+        description: Empty = the English text is used on the Icelandic page
+    - name: order_note
+      label: Note under the cakes (order ahead)
+      type: text
+      description: 'Light formatting: **bold**, [link text](https://…).'
+    - name: order_note_is
+      label: Note under the cakes (order ahead) (Icelandic)
+      type: text
+      description: Empty = the English text is used on the Icelandic page
+    - name: counter_show
+      label: Show the cake counter
+      type: boolean
+      description: Off = the counter strip disappears
+    - name: counter_number
+      label: 'Cake counter: number'
+      type: number
+      description: Only a real number. It counts up from 0 when the strip comes into view.
+    - name: counter_text
+      label: 'Cake counter: text under the number'
+      type: string
+    - name: counter_text_is
+      label: 'Cake counter: text under the number (Icelandic)'
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+  - name: events
+    label: Page · 4 Events
+    type: file
+    path: content/text/05-events.yml
+    format: yaml
+    fields:
+    - name: eyebrow
+      label: Small label above the heading
+      type: string
+    - name: eyebrow_is
+      label: Small label above the heading (Icelandic)
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: heading
+      label: Heading
+      type: string
+    - name: heading_is
+      label: Heading (Icelandic)
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: intro
+      label: Text under the heading
+      type: text
+      description: 'Light formatting: **bold**, [link text](https://…).'
+    - name: intro_is
+      label: Text under the heading (Icelandic)
+      type: text
+      description: Empty = the English text is used on the Icelandic page
+    - name: points
+      label: Points
+      type: object
+      list:
+        collapsible:
+          collapsed: true
+          summary: '{fields.text}'
+      fields:
+      - name: text
+        label: Text
+        type: text
+        description: 'Light formatting: **bold**, [link text](https://…).'
+      - name: text_is
+        label: Text (Icelandic)
+        type: text
+        description: Empty = the English text is used on the Icelandic page
+      - name: show
+        label: Show on site
+        type: boolean
+        description: Off = hidden, not deleted
+    - name: button
+      label: Button (goes to the order form with 'Event' chosen)
+      type: string
+    - name: button_is
+      label: Button (goes to the order form with 'Event' chosen) (Icelandic)
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: photos
+      label: Photo slideshow
+      type: object
+      list:
+        collapsible:
+          collapsed: true
+          summary: '{fields.alt}'
+      fields:
+      - name: image
+        label: Photo
+        type: image
+        description: Square 1:1, about 1200 × 1200 px, JPG. Cropped to a square.
+      - name: alt
+        label: Photo description
+        type: string
+        description: What the photo shows, for Google and screen readers
+      - name: alt_is
+        label: Photo description (Icelandic)
+        type: string
+        description: Empty = the English text is used on the Icelandic page
+      description: Changes every few seconds. First photo shows first.
+  - name: courses
+    label: Page · 5 Courses + waitlist
+    type: file
+    path: content/text/06-courses.yml
+    format: yaml
+    fields:
+    - name: photo
+      label: Photo
+      type: image
+      description: Any shape, about 1200 px wide, JPG. Shown whole.
+    - name: photo_alt
+      label: Photo description
+      type: string
+      description: What the photo shows, for Google and screen readers
+    - name: photo_alt_is
+      label: Photo description (Icelandic)
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: eyebrow
+      label: Small label above the heading
+      type: string
+    - name: eyebrow_is
+      label: Small label above the heading (Icelandic)
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: heading
+      label: Heading
+      type: string
+    - name: heading_is
+      label: Heading (Icelandic)
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: intro
+      label: Text under the heading
+      type: text
+      description: 'Light formatting: **bold**, [link text](https://…).'
+    - name: intro_is
+      label: Text under the heading (Icelandic)
+      type: text
+      description: Empty = the English text is used on the Icelandic page
+    - name: name_placeholder
+      label: 'Waitlist: name box'
+      type: string
+    - name: name_placeholder_is
+      label: 'Waitlist: name box (Icelandic)'
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: email_placeholder
+      label: 'Waitlist: email box'
+      type: string
+    - name: email_placeholder_is
+      label: 'Waitlist: email box (Icelandic)'
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: button
+      label: 'Waitlist: button'
+      type: string
+    - name: button_is
+      label: 'Waitlist: button (Icelandic)'
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: small_print
+      label: 'Waitlist: small print'
+      type: string
+    - name: small_print_is
+      label: 'Waitlist: small print (Icelandic)'
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: auto_reply
+      label: Automatic email to the person who signs up
+      type: text
+      description: Sent by FormSubmit right after they join
+    - name: auto_reply_is
+      label: Automatic email to the person who signs up (Icelandic)
+      type: text
+      description: Empty = the English text is used on the Icelandic page
+  - name: reviews
+    label: Page · 6 Reviews
+    type: file
+    path: content/text/07-reviews.yml
+    format: yaml
+    fields:
+    - name: show
+      label: Show the reviews section
+      type: boolean
+      description: Off = the whole section disappears
+    - name: eyebrow
+      label: Small label above the heading
+      type: string
+    - name: eyebrow_is
+      label: Small label above the heading (Icelandic)
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: heading
+      label: Heading
+      type: string
+    - name: heading_is
+      label: Heading (Icelandic)
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: intro
+      label: Text under the heading
+      type: string
+    - name: intro_is
+      label: Text under the heading (Icelandic)
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: reviews
+      label: Reviews
+      type: object
+      list:
+        collapsible:
+          collapsed: true
+          summary: '{fields.who}'
+      fields:
+      - name: quote
+        label: What they said (no quote marks)
+        type: text
+        description: Only real words from real customers, with their permission
+      - name: quote_is
+        label: What they said (no quote marks) (Icelandic)
+        type: text
+        description: Empty = the English text is used on the Icelandic page
+      - name: who
+        label: Name and occasion
+        type: string
+        description: e.g. Elín G., Reykjavík
+      - name: who_is
+        label: Name and occasion (Icelandic)
+        type: string
+        description: Empty = the English text is used on the Icelandic page
+      - name: show
+        label: Show on site
+        type: boolean
+        description: Off = hidden, not deleted
+  - name: order
+    label: Page · 7 How to order + order form
+    type: file
+    path: content/text/08-order.yml
+    format: yaml
+    fields:
+    - name: eyebrow
+      label: Small label above the heading
+      type: string
+    - name: eyebrow_is
+      label: Small label above the heading (Icelandic)
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: heading
+      label: Heading
+      type: string
+    - name: heading_is
+      label: Heading (Icelandic)
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: intro
+      label: Text next to the form
+      type: text
+      description: 'Light formatting: **bold**, [link text](https://…).'
+    - name: intro_is
+      label: Text next to the form (Icelandic)
+      type: text
+      description: Empty = the English text is used on the Icelandic page
+    - name: steps
+      label: Steps 1-2-3
+      type: object
+      list:
+        collapsible:
+          collapsed: true
+          summary: '{fields.text}'
+      fields:
+      - name: text
+        label: Step
+        type: text
+        description: 'Light formatting: **bold**, [link text](https://…).'
+      - name: text_is
+        label: Step (Icelandic)
+        type: text
+        description: Empty = the English text is used on the Icelandic page
+    - name: pricing_line
+      label: Line before the Prices & Delivery button
+      type: string
+    - name: pricing_line_is
+      label: Line before the Prices & Delivery button (Icelandic)
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: direct_line
+      label: Line before the Instagram link
+      type: string
+    - name: direct_line_is
+      label: Line before the Instagram link (Icelandic)
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: label_name
+      label: 'Form: Name label'
+      type: string
+    - name: label_name_is
+      label: 'Form: Name label (Icelandic)'
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: placeholder_name
+      label: 'Form: Name example (grey)'
+      type: string
+    - name: placeholder_name_is
+      label: 'Form: Name example (grey) (Icelandic)'
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: label_email
+      label: 'Form: Email label'
+      type: string
+    - name: label_email_is
+      label: 'Form: Email label (Icelandic)'
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: placeholder_email
+      label: 'Form: Email example (grey)'
+      type: string
+    - name: placeholder_email_is
+      label: 'Form: Email example (grey) (Icelandic)'
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: label_phone
+      label: 'Form: Phone label'
+      type: string
+    - name: label_phone_is
+      label: 'Form: Phone label (Icelandic)'
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: phone_error
+      label: 'Form: message when the phone number is wrong'
+      type: string
+    - name: phone_error_is
+      label: 'Form: message when the phone number is wrong (Icelandic)'
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: label_cake
+      label: 'Form: Cake label'
+      type: string
+    - name: label_cake_is
+      label: 'Form: Cake label (Icelandic)'
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: choose_cake
+      label: 'Form: ''Choose a cake…'''
+      type: string
+    - name: choose_cake_is
+      label: 'Form: ''Choose a cake…'' (Icelandic)'
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: group_cakes
+      label: 'Form list: group ''Cakes'''
+      type: string
+    - name: group_cakes_is
+      label: 'Form list: group ''Cakes'' (Icelandic)'
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: group_small
+      label: 'Form list: group ''Small cakes'''
+      type: string
+    - name: group_small_is
+      label: 'Form list: group ''Small cakes'' (Icelandic)'
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: group_other
+      label: 'Form list: group ''Other'''
+      type: string
+    - name: group_other_is
+      label: 'Form list: group ''Other'' (Icelandic)'
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: option_mixed
+      label: 'Form list: mixed small-cakes plate'
+      type: string
+    - name: option_mixed_is
+      label: 'Form list: mixed small-cakes plate (Icelandic)'
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: option_event
+      label: 'Form list: event / large order'
+      type: string
+    - name: option_event_is
+      label: 'Form list: event / large order (Icelandic)'
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: option_unsure
+      label: 'Form list: not sure'
+      type: string
+    - name: option_unsure_is
+      label: 'Form list: not sure (Icelandic)'
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: label_quantity
+      label: 'Form: Quantity label'
+      type: string
+    - name: label_quantity_is
+      label: 'Form: Quantity label (Icelandic)'
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: hint_whole
+      label: 'Form: hint for whole cakes'
+      type: string
+    - name: hint_whole_is
+      label: 'Form: hint for whole cakes (Icelandic)'
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: hint_small
+      label: 'Form: hint for small cakes'
+      type: string
+    - name: hint_small_is
+      label: 'Form: hint for small cakes (Icelandic)'
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: label_date
+      label: 'Form: Date label'
+      type: string
+    - name: label_date_is
+      label: 'Form: Date label (Icelandic)'
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: hint_date
+      label: 'Form: hint under the date'
+      type: string
+    - name: hint_date_is
+      label: 'Form: hint under the date (Icelandic)'
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: date_error
+      label: 'Form: message when the date is too soon'
+      type: string
+    - name: date_error_is
+      label: 'Form: message when the date is too soon (Icelandic)'
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: label_message
+      label: 'Form: Message label'
+      type: string
+    - name: label_message_is
+      label: 'Form: Message label (Icelandic)'
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: placeholder_message
+      label: 'Form: Message example (grey)'
+      type: string
+    - name: placeholder_message_is
+      label: 'Form: Message example (grey) (Icelandic)'
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: button
+      label: 'Form: Send button'
+      type: string
+    - name: button_is
+      label: 'Form: Send button (Icelandic)'
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: auto_reply
+      label: Automatic email to the customer
+      type: text
+      description: Sent by FormSubmit right after they send a request
+    - name: auto_reply_is
+      label: Automatic email to the customer (Icelandic)
+      type: text
+      description: Empty = the English text is used on the Icelandic page
+  - name: questions
+    label: Page · 8 Questions & answers
+    type: file
+    path: content/text/09-questions.yml
+    format: yaml
+    fields:
+    - name: eyebrow
+      label: Small label above the heading
+      type: string
+    - name: eyebrow_is
+      label: Small label above the heading (Icelandic)
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: heading
+      label: Heading
+      type: string
+    - name: heading_is
+      label: Heading (Icelandic)
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: questions
+      label: Questions
+      type: object
+      list:
+        collapsible:
+          collapsed: true
+          summary: '{fields.question}'
+      fields:
+      - name: question
+        label: Question
+        type: string
+      - name: question_is
+        label: Question (Icelandic)
+        type: string
+        description: Empty = the English text is used on the Icelandic page
+      - name: answer
+        label: Answer
+        type: text
+        description: '[[Prices & Delivery]] = button that opens the prices window. [text](#events) = link to a section. Light formatting: **bold**, [link text](https://…).'
+      - name: answer_is
+        label: Answer (Icelandic)
+        type: text
+        description: Empty = the English text is used on the Icelandic page
+      - name: show
+        label: Show on site
+        type: boolean
+        description: Off = hidden, not deleted
+      description: The first one is shown open. Google gets the same questions automatically.
+  - name: prices
+    label: Page · 9 Prices & Delivery window
+    type: file
+    path: content/text/10-prices.yml
+    format: yaml
+    fields:
+    - name: button_label
+      label: Button and window label
+      type: string
+      description: The 'Prices & Delivery' buttons all over the page
+    - name: button_label_is
+      label: Button and window label (Icelandic)
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: heading
+      label: Heading in the window
+      type: string
+    - name: heading_is
+      label: Heading in the window (Icelandic)
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: prices
+      label: Prices
+      type: object
+      list:
+        collapsible:
+          collapsed: true
+          summary: '{fields.text}'
+      fields:
+      - name: text
+        label: Line
+        type: text
+        description: 'Light formatting: **bold**, [link text](https://…).'
+      - name: text_is
+        label: Line (Icelandic)
+        type: text
+        description: Empty = the English text is used on the Icelandic page
+      - name: show
+        label: Show on site
+        type: boolean
+        description: Off = hidden, not deleted
+    - name: price_note
+      label: Small note under the prices
+      type: text
+    - name: price_note_is
+      label: Small note under the prices (Icelandic)
+      type: text
+      description: Empty = the English text is used on the Icelandic page
+    - name: delivery_heading
+      label: Delivery heading
+      type: string
+    - name: delivery_heading_is
+      label: Delivery heading (Icelandic)
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: delivery
+      label: Delivery lines
+      type: object
+      list:
+        collapsible:
+          collapsed: true
+          summary: '{fields.text}'
+      fields:
+      - name: text
+        label: Line
+        type: text
+        description: 'Light formatting: **bold**, [link text](https://…).'
+      - name: text_is
+        label: Line (Icelandic)
+        type: text
+        description: Empty = the English text is used on the Icelandic page
+      - name: show
+        label: Show on site
+        type: boolean
+        description: Off = hidden, not deleted
+    - name: button
+      label: Button at the bottom
+      type: string
+    - name: button_is
+      label: Button at the bottom (Icelandic)
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+  - name: cake_popup
+    label: Page · 10 Cake window (opens when a cake is clicked)
+    type: file
+    path: content/text/11-cake-popup.yml
+    format: yaml
+    fields:
+    - name: photo_note
+      label: Note under the photos
+      type: text
+    - name: photo_note_is
+      label: Note under the photos (Icelandic)
+      type: text
+      description: Empty = the English text is used on the Icelandic page
+    - name: heading
+      label: Heading if a cake has no name
+      type: string
+    - name: heading_is
+      label: Heading if a cake has no name (Icelandic)
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: button
+      label: Order button
+      type: string
+    - name: button_is
+      label: Order button (Icelandic)
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: ingredients_label
+      label: Word before the ingredients
+      type: string
+    - name: ingredients_label_is
+      label: Word before the ingredients (Icelandic)
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: more_photos
+      label: Label on cards with several photos
+      type: string
+    - name: more_photos_is
+      label: Label on cards with several photos (Icelandic)
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: details
+      label: Label on cards with one photo
+      type: string
+    - name: details_is
+      label: Label on cards with one photo (Icelandic)
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: close
+      label: Close button (read aloud)
+      type: string
+    - name: close_is
+      label: Close button (read aloud) (Icelandic)
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: previous_photo
+      label: Previous photo (read aloud)
+      type: string
+    - name: previous_photo_is
+      label: Previous photo (read aloud) (Icelandic)
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: next_photo
+      label: Next photo (read aloud)
+      type: string
+    - name: next_photo_is
+      label: Next photo (read aloud) (Icelandic)
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+  - name: blog_page
+    label: Blog · Page texts
+    type: file
+    path: content/text/12-blog-page.yml
+    format: yaml
+    fields:
+    - name: title
+      label: Browser tab title
+      type: string
+    - name: title_is
+      label: Browser tab title (Icelandic)
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: google_description
+      label: Google description
+      type: text
+    - name: google_description_is
+      label: Google description (Icelandic)
+      type: text
+      description: Empty = the English text is used on the Icelandic page
+    - name: eyebrow
+      label: Small label above the heading
+      type: string
+    - name: eyebrow_is
+      label: Small label above the heading (Icelandic)
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: heading
+      label: Heading
+      type: string
+    - name: heading_is
+      label: Heading (Icelandic)
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: intro
+      label: Text under the heading
+      type: text
+    - name: intro_is
+      label: Text under the heading (Icelandic)
+      type: text
+      description: Empty = the English text is used on the Icelandic page
+    - name: read_more
+      label: Link on each post card
+      type: string
+    - name: read_more_is
+      label: Link on each post card (Icelandic)
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: more_coming
+      label: Line under the posts
+      type: string
+    - name: more_coming_is
+      label: Line under the posts (Icelandic)
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: all_posts
+      label: Link back from a post
+      type: string
+    - name: all_posts_is
+      label: Link back from a post (Icelandic)
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: in_english
+      label: Label on posts not yet translated
+      type: string
+      description: Icelandic page only, e.g. Á ensku
+    - name: in_english_is
+      label: Label on posts not yet translated (Icelandic)
+      type: string
+      description: Empty = the English text is used on the Icelandic page

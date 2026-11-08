@@ -1,0 +1,43 @@
+eyebrow: Cakes
+eyebrow_is: Kökur
+heading: Choose your cake.
+heading_is: Veldu þína köku.
+intro: Katya’s real range — each one built from whole, raw ingredients. **Tap any cake** to see it up close, with its full ingredient list and nutrition.
+intro_is: Kökurnar hennar Katyu — hver og ein úr hreinum, hráum hráefnum. **Smelltu á köku** til að skoða hana nánar, með öllum innihaldsefnum og næringargildi.
+pricing_line: Clear, simple pricing.
+pricing_line_is: Skýrt og einfalt verð.
+small_tile_title: Small Cakes
+small_tile_title_is: Litlar kökur
+small_tile_text: Individual portions by the plate — matcha ananas, blackcurrant banana and salted peanut balls. Made for events and sharing.
+small_tile_text_is: Einstakir bitar á diski — matcha og ananas, sólber og banani og saltaðar jarðhnetukúlur. Gerðar fyrir viðburði og til að deila.
+small_tile_link: See all small cakes →
+small_tile_link_is: Sjá allar litlar kökur →
+small_tile_photo: images/images_20.08.2026/smallcakes_buffet_web.jpeg
+small_tile_alt: Raw mini-cakes plated on a buffet table
+small_tile_alt_is: Litlar hrákökur á hlaðborði
+friday_tile_link: See the Friday Box →
+friday_tile_link_is: Sjá Föstudagsboxið →
+friday_tile_photo: images/images_20.08.2026/fridaybox_card.jpeg
+friday_tile_alt: A Friday Box of four raw mini-cakes
+friday_tile_alt_is: Föstudagsbox með fjórum litlum hrákökum
+small_intro: Small cakes are made by the plate — mix and match any of the flavours below. Platters from 6 pieces.
+small_intro_is: Litlar kökur eru gerðar á diski — blandaðu saman bragðtegundunum hér fyrir neðan. Bakkar frá 6 stykkjum.
+small_photos:
+- image: images/images_20.08.2026/smallcakes_fingers_web.jpeg
+  alt: A board of raw mini-cakes with berries
+  alt_is: Bakki með litlum hrákökum og berjum
+- image: images/images_20.08.2026/smallcakes_main_web.jpeg
+  alt: Board of raw mini-cakes with berries
+  alt_is: Litlar hrákökur og ber á bakka
+- image: images/images_20.08.2026/smallcakes_square1_web.jpeg
+  alt: Raw mini-cakes with strawberries on plates
+  alt_is: Litlar hrákökur með jarðarberjum á diskum
+- image: images/images_20.08.2026/smallcakes_buffet_web.jpeg
+  alt: Raw mini-cakes plated on a buffet table at an event
+  alt_is: Litlar hrákökur á hlaðborði á viðburði
+order_note: 🕒 Please order **at least 3 days ahead** — every cake is made to order (some, like fermented-cashew recipes, need 24h to ferment). Whole cakes, or small cakes by the plate.
+order_note_is: 🕒 Pantaðu **með minnst 3 daga fyrirvara** — hver kaka er gerð eftir pöntun (sumar uppskriftir, t.d. með gerjuðum kasjúhnetum, þurfa 24 klst. til að gerjast). Heilar kökur, eða litlar kökur á diski.
+counter_show: true
+counter_number: 842
+counter_text: cakes made with love since 2020 — and counting
+counter_text_is: kökur gerðar af ást síðan 2020 — og þeim fjölgar enn

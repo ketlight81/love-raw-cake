@@ -10,7 +10,7 @@
       <a href="{{ blog }}">{{ T.blog }}</a>
       <a href="{{ home }}#order" class="btn btn-primary" style="padding:.55rem 1.1rem">{{ T.order }}</a>
     </nav>
-    <div class="lang-switch" aria-label="{{ T.switch_label }}">
+    <div class="lang-switch" role="group" aria-label="{{ T.switch_label }}">
       {%- if switch["en"] %}<a href="{{ switch["en"] }}" hreflang="en" lang="en" title="English">EN</a>{% else %}<b aria-current="true">EN</b>{% endif -%}
       {%- if switch["is"] %}<a href="{{ switch["is"] }}" hreflang="is" lang="is" title="Íslenska">IS</a>{% else %}<b aria-current="true">IS</b>{% endif -%}
     </div>

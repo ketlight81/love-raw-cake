@@ -1,0 +1,30 @@
+eyebrow: Good to know
+eyebrow_is: Gott að vita
+heading: Questions, answered.
+heading_is: Spurningar og svör.
+questions:
+- question: Are the cakes really healthy?
+  question_is: Eru kökurnar í alvöru hollar?
+  answer: 'Yes — they’re built from whole, real ingredients: home-made plant milks, nuts, fruit, berries, cacao and coconut butter. No refined sugar, no flour, no dairy, no eggs. Naturally vegan and gluten-free.'
+  answer_is: 'Já — þær eru gerðar úr hreinum, alvöru hráefnum: heimagerðri jurtamjólk, hnetum, ávöxtum, berjum, kakói og kókossmjöri. Enginn hvítur sykur, ekkert hveiti, engar mjólkurvörur, engin egg. Náttúrulega vegan og glútenlausar.'
+  show: true
+- question: Do you cater to nut allergies?
+  question_is: Henta kökurnar fólki með hnetuofnæmi?
+  answer: Honestly, no — nuts are a core ingredient in almost everything I make, so if you have a serious nut allergy these cakes aren’t safe for you, and I’d never want to risk it.
+  answer_is: Satt best að segja ekki — hnetur eru grunnhráefni í nánast öllu sem ég geri, svo ef þú ert með alvarlegt hnetuofnæmi eru þessar kökur ekki öruggar fyrir þig, og ég myndi aldrei vilja taka þá áhættu.
+  show: true
+- question: How much notice do you need?
+  question_is: Hversu mikinn fyrirvara þarftu?
+  answer: At least 3 days. Every cake is made to order, and some recipes ferment for 24 hours. For events, the more notice the better.
+  answer_is: Minnst 3 daga. Hver kaka er gerð eftir pöntun og sumar uppskriftir þurfa að gerjast í 24 klukkustundir. Fyrir viðburði er betra að hafa samband sem fyrst.
+  show: true
+- question: How do I pay and collect?
+  question_is: Hvernig greiði ég og fæ kökuna?
+  answer: Pickup or delivery — the delivery costs are in [[Prices & Delivery]] above. We agree the day, the time and how you’d like to pay when you get in touch.
+  answer_is: Sótt eða sent — sendingarkostnaðinn finnurðu í [[Verð & afhending]] hér fyrir ofan. Við ákveðum daginn, tímann og hvernig þú vilt greiða þegar þú hefur samband.
+  show: true
+- question: Can I order for a company or event?
+  question_is: Get ég pantað fyrir fyrirtæki eða viðburð?
+  answer: Absolutely — see the [events section](#events). Finger-food minis, platters, and larger orders from ~50 pieces.
+  answer_is: Að sjálfsögðu — sjá [kaflann um viðburði](#events). Litlar kökur sem smáréttir, bakkar og stærri pantanir frá u.þ.b. 50 stykkjum.
+  show: true

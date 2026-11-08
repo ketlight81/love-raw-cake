@@ -1,0 +1,65 @@
+eyebrow: How to order
+eyebrow_is: Svona pantar þú
+heading: Let’s make your cake.
+heading_is: Búum til kökuna þína.
+intro: There is no online checkout — simply send me a message. I prefer to discuss each order personally, so your cake is exactly right and I can confirm that I am available on your date.
+intro_is: Það er engin netverslun — sendu mér einfaldlega skilaboð. Ég vil ræða hverja pöntun persónulega, svo kakan verði nákvæmlega eins og þú vilt og ég geti staðfest að ég sé laus á þeim degi sem þú óskar.
+steps:
+- text: '**Send a request** — the cake, the date and the quantity.'
+  text_is: '**Sendu fyrirspurn** — kakan, dagsetningin og fjöldinn.'
+- text: '**I confirm** availability, the details and the price.'
+  text_is: '**Ég staðfesti** að ég sé laus, smáatriðin og verðið.'
+- text: '**Collection or delivery** — on the agreed day.'
+  text_is: '**Sótt eða sent** — á umsömdum degi.'
+pricing_line: Clear, simple pricing.
+pricing_line_is: Skýrt og einfalt verð.
+direct_line: Prefer to message directly?
+direct_line_is: Viltu frekar senda skilaboð beint?
+label_name: Your name
+label_name_is: Nafn
+placeholder_name: Name
+placeholder_name_is: Nafn
+label_email: Your email
+label_email_is: Netfang
+placeholder_email: you@example.com
+placeholder_email_is: netfang@daemi.is
+label_phone: Your phone
+label_phone_is: Sími
+phone_error: Please enter a phone number (at least 7 digits).
+phone_error_is: Sláðu inn símanúmer (minnst 7 tölustafir).
+label_cake: Which cake?
+label_cake_is: Hvaða kaka?
+choose_cake: Choose a cake…
+choose_cake_is: Veldu köku…
+group_cakes: Cakes
+group_cakes_is: Kökur
+group_small: Small cakes
+group_small_is: Litlar kökur
+group_other: Other
+group_other_is: Annað
+option_mixed: Mixed small-cakes plate
+option_mixed_is: Blandaður diskur af litlum kökum
+option_event: Event / large order
+option_event_is: Viðburður / stór pöntun
+option_unsure: Not sure — help me choose
+option_unsure_is: Veit ekki — hjálpaðu mér að velja
+label_quantity: Quantity
+label_quantity_is: Fjöldi
+hint_whole: Number of whole cakes.
+hint_whole_is: Fjöldi heilla kakna.
+hint_small: 'Small cakes: minimum 6 pieces.'
+hint_small_is: 'Litlar kökur: minnst 6 stykki.'
+label_date: When do you need it?
+label_date_is: Hvenær þarftu hana?
+hint_date: At least 3 days ahead.
+hint_date_is: Með minnst 3 daga fyrirvara.
+date_error: Please choose a date at least 3 days from today.
+date_error_is: Veldu dagsetningu með minnst 3 daga fyrirvara.
+label_message: Anything else?
+label_message_is: Eitthvað fleira?
+placeholder_message: Another cake too? Allergies, occasion…
+placeholder_message_is: Önnur kaka líka? Ofnæmi, tilefni…
+button: Send my request
+button_is: Senda fyrirspurn
+auto_reply: Hi! Thank you so much for your cake request — I've got it. I'll get back to you soon to confirm the date, the price and how you'd like to receive your cake. With love, Katya · Love Raw Cake · @love.raw.cake
+auto_reply_is: Hæ! Kærar þakkir fyrir kökupöntunina — ég hef fengið hana. Ég hef samband fljótlega til að staðfesta dagsetninguna, verðið og hvernig þú vilt fá kökuna. Með ást, Katya · Love Raw Cake · @love.raw.cake

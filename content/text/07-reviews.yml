@@ -1,0 +1,23 @@
+show: true
+eyebrow: Kind words
+eyebrow_is: Hlý orð
+heading: Loved by customers since 2020.
+heading_is: Í uppáhaldi hjá viðskiptavinum síðan 2020.
+intro: Real words from real people.
+intro_is: Orð frá viðskiptavinum.
+reviews:
+- quote: The most beautiful cake I’ve ever ordered — and somehow it’s actually good for you. My guests couldn’t believe it was vegan.
+  quote_is: Fallegasta kaka sem ég hef pantað — og samt er hún í alvöru holl. Gestirnir mínir trúðu ekki að hún væri vegan.
+  who: Elín G., Reykjavík
+  who_is: Elín G., Reykjavík
+  show: true
+- quote: Katya made a gluten-free birthday cake my daughter could finally eat. It made her day.
+  quote_is: Katya gerði glútenlausa afmælisköku sem dóttir mín gat loksins borðað. Það gerði daginn hennar.
+  who: Sigrún H., birthday order
+  who_is: Sigrún H., afmælispöntun
+  show: true
+- quote: Ordered for our office and the vegan team felt so thought of. We’ll absolutely order again.
+  quote_is: Við pöntuðum fyrir skrifstofuna og vegan-fólkinu fannst virkilega hugsað til sín. Við pöntum alveg örugglega aftur.
+  who: Anna Katrín B., corporate event
+  who_is: Anna Katrín B., fyrirtækjaviðburður
+  show: true

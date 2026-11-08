@@ -1,83 +1,77 @@
 {#- ============================================================================
-    TEMPLATE for index.html. Edit THIS file, never index.html (index.html is generated).
-    Cake cards, the order-form cake list and the Google product data come from
-    content/cakes/*.md. After editing: `python3 build.py`, check, then push.
+    ONE TEMPLATE for both languages: index.html (English) and is/index.html (Icelandic).
+    Every visible text comes from content/text/*.yml (Katya edits it in Pages CMS);
+    cakes come from content/cakes/*.md. This file holds layout only — Marina edits it.
+    Text fields: T.<file>.<field>. |md = light Markdown (**bold**, [link](url),
+    [[Prices & Delivery]] = the button that opens the prices window).
+    After editing: python3 build.py, check both pages, then push.
     ============================================================================ -#}
+{%- set M = T.menu_footer -%}
 {%- macro card(c) -%}
 <article class="card"{% if c.key == 'fridaybox' %} id="fridaybox"{% endif %} data-cake="{{ c.key }}"><div class="pic"><img src="{{ root }}{{ c.card_image }}" alt="{{ c.card_alt }}" loading="lazy" /></div><div class="body">
         <h3>{{ c.title }}</h3><p class="desc">{{ c.card_text }}</p>
         <div class="badges">{% for b in c.badges %}<span class="badge{{ b.cls }}">{{ b.label }}</span>{% endfor %}</div></div></article>
 {%- endmacro -%}
+{%- macro prices_pill() -%}<button type="button" class="info-pill" data-open-prices>{{ T.prices.button_label }}</button>{%- endmacro -%}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ lang }}">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Love Raw Cake — healthy raw cakes made with love · Reykjavík</title>
-<meta name="description" content="Vegan, gluten-free raw cakes handmade in Reykjavík with whole, real ingredients. Cake as nourishment — no guilt, no waste, made with love." />
-
+<title>{{ M.page_title }}</title>
+<meta name="description" content="{{ M.google_description }}" />
+{% if schema_json %}
 <script type="application/ld+json">
 {{ schema_json|safe }}
   </script>
-
-<!--
-=====================================================================
-  RawCakes website — VERSION 2026-08-12
-  • Menu rebuilt to match Katya's own "Ingredients" doc: her exact cake
-    names, real ingredient lists and nutrition (per 100 g) where given.
-  • Real cake photos from Katya's Drive + Telegram; "photo coming soon"
-    where she hasn't shared a shot yet.
-  • Tap any cake -> square note with description, ingredients, nutrition,
-    a swipeable photo gallery, and an Order button.
-  Placeholders still to confirm: [P1]colours [P2]logo [P4]prices
-  [P6]contact/order channel [P7]cakes-made count. Photos to add: the
-  cakes marked "photo coming".
-=====================================================================
--->
-
+{% endif %}
 <meta property="og:type" content="website" />
-<meta property="og:title" content="Love Raw Cake — healthy raw cakes, made with love · Reykjavík" />
-<meta property="og:description" content="Vegan, gluten-free raw cakes handmade in Reykjavík from whole, real ingredients. Pleasure without the guilt." />
-  <link rel="icon" type="image/png" sizes="32x32" href="images/logo-32.png" />
-  <link rel="icon" type="image/png" sizes="192x192" href="images/logo-192.png" />
-  <link rel="apple-touch-icon" sizes="180x180" href="images/logo-180.png" />
+<meta property="og:title" content="{{ M.share_title }}" />
+<meta property="og:description" content="{{ M.share_description }}" />
+  <link rel="icon" type="image/png" sizes="32x32" href="{{ root }}images/logo-32.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="{{ root }}images/logo-192.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ root }}images/logo-180.png" />
   <meta property="og:image" content="{{ site.url }}/images/chocbanana-2.jpg" />
-{% if not site.draft %}<link rel="canonical" href="{{ site.url }}/" />
-{% endif %}<meta property="og:url" content="{{ site.url }}/" />
-<meta property="og:locale" content="en_GB" />
-<meta property="og:locale:alternate" content="is_IS" />
+{% if not site.draft %}<link rel="canonical" href="{{ site.url }}/{{ page_path }}" />
+{% endif %}<meta property="og:url" content="{{ site.url }}/{{ page_path }}" />
+<meta property="og:locale" content="{{ 'is_IS' if lang == 'is' else 'en_GB' }}" />
+<meta property="og:locale:alternate" content="{{ 'en_GB' if lang == 'is' else 'is_IS' }}" />
 <link rel="alternate" hreflang="en" href="{{ site.url }}/" />
 <link rel="alternate" hreflang="is" href="{{ site.url }}/is/" />
 <link rel="alternate" hreflang="x-default" href="{{ site.url }}/" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Love Raw Cake — healthy raw cakes, made with love · Reykjavík" />
-<meta name="twitter:description" content="Vegan, gluten-free raw cakes handmade in Reykjavík. Pleasure without the guilt." />
+<meta name="twitter:title" content="{{ M.share_title }}" />
+<meta name="twitter:description" content="{{ M.share_description_short }}" />
 <meta name="twitter:image" content="{{ site.url }}/images/chocbanana-2.jpg" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&family=Neucha&display=swap" rel="stylesheet" />
 
-<link rel="stylesheet" href="styles.css" />
+<link rel="stylesheet" href="{{ root }}styles.css" />
 </head>
 <body>
 
 <header class="nav">
   <div class="wrap nav-inner">
-    <a href="#top" class="logo"><img src="images/logo-192.png" alt="" class="logo-mark" />Love<span>·</span>Raw<span>·</span>Cake</a>
+    <a href="#top" class="logo"><img src="{{ root }}images/logo-192.png" alt="" class="logo-mark" />Love<span>·</span>Raw<span>·</span>Cake</a>
     <nav class="nav-links" id="navlinks">
-      <a href="#about">My story</a>
-      <a href="#cakes">Cakes</a>
-      <a href="#smallcakes">Small Cakes</a>
-      <a href="#fridaybox">Friday Box</a>
-      <a href="#events">Events</a>
-      <a href="#courses">Courses</a>
-      <a href="blog.html">Blog</a>
-            <a class="nav-ig" href="https://instagram.com/love.raw.cake" target="_blank" rel="noopener" aria-label="Love Raw Cake on Instagram" title="@love.raw.cake"><svg viewBox="0 0 24 24" aria-hidden="true"><defs><radialGradient id="igGrad" cx="30%" cy="107%" r="150%"><stop offset="0%" stop-color="#fdf497"/><stop offset="5%" stop-color="#fdf497"/><stop offset="45%" stop-color="#fd5949"/><stop offset="60%" stop-color="#d6249f"/><stop offset="90%" stop-color="#285aeb"/></radialGradient></defs><rect x="1" y="1" width="22" height="22" rx="6.4" fill="url(#igGrad)"/><circle cx="12" cy="12" r="4.6" fill="none" stroke="#fff" stroke-width="1.9"/><circle cx="17.7" cy="6.4" r="1.3" fill="#fff"/></svg></a>
-      <a href="#order" class="btn btn-primary" style="padding:.55rem 1.1rem">Order a cake</a>
+      <a href="#about">{{ M.menu_story }}</a>
+      <a href="#cakes">{{ M.menu_cakes }}</a>
+      <a href="#smallcakes">{{ M.menu_small }}</a>
+      <a href="#fridaybox">{{ M.menu_friday }}</a>
+      <a href="#events">{{ M.menu_events }}</a>
+      <a href="#courses">{{ M.menu_courses }}</a>
+      <a href="blog.html">{{ M.menu_blog }}</a>
+            <a class="nav-ig" href="https://instagram.com/love.raw.cake" target="_blank" rel="noopener" aria-label="{{ M.instagram_label }}" title="@love.raw.cake"><svg viewBox="0 0 24 24" aria-hidden="true"><defs><radialGradient id="igGrad" cx="30%" cy="107%" r="150%"><stop offset="0%" stop-color="#fdf497"/><stop offset="5%" stop-color="#fdf497"/><stop offset="45%" stop-color="#fd5949"/><stop offset="60%" stop-color="#d6249f"/><stop offset="90%" stop-color="#285aeb"/></radialGradient></defs><rect x="1" y="1" width="22" height="22" rx="6.4" fill="url(#igGrad)"/><circle cx="12" cy="12" r="4.6" fill="none" stroke="#fff" stroke-width="1.9"/><circle cx="17.7" cy="6.4" r="1.3" fill="#fff"/></svg></a>
+      <a href="#order" class="btn btn-primary" style="padding:.55rem 1.1rem">{{ M.menu_order }}</a>
     </nav>
+{% if lang == 'is' %}
+    <div class="lang-switch" role="group" aria-label="Tungumál / Language"><a href="../" hreflang="en" lang="en" title="English">EN</a><b aria-current="true">IS</b></div>
+{% else %}
     <div class="lang-switch" role="group" aria-label="Language / Tungumál"><b aria-current="true">EN</b><a href="is/" hreflang="is" lang="is" title="Íslenska">IS</a></div>
-    <button class="nav-toggle" id="navtoggle" aria-label="Menu">☰</button>
+{% endif %}
+    <button class="nav-toggle" id="navtoggle" aria-label="{{ M.menu_button }}">☰</button>
   </div>
 </header>
 
@@ -93,49 +87,59 @@
     <div class="slide s8"></div>
   </div>
   <div class="wrap">
-    <h1>Cake that loves you back.</h1>
-    <p>Handmade raw cakes in Reykjavík — vegan, gluten-free, and made only from whole, real ingredients. Pleasure without the guilt.</p>
+    <h1>{{ T.top.heading }}</h1>
+    <p>{{ T.top.text|md }}</p>
     <div style="display:flex;gap:.8rem;flex-wrap:wrap">
-      <a href="#order" class="btn btn-primary">I want cake :)</a>
-      <a href="#cakes" class="btn btn-ghost">See the cakes</a>
+      <a href="#order" class="btn btn-primary">{{ T.top.button_order }}</a>
+      <a href="#cakes" class="btn btn-ghost">{{ T.top.button_cakes }}</a>
     </div>
   </div>
 </section>
+
+{%- set S = T.my_story %}
 
 <section id="about">
   <div class="wrap">
     <div class="split rev">
-      <img class="about-photo" src="images/katya.png" alt="Katya, founder of Love Raw Cake" loading="lazy" />
+      <img class="about-photo" src="{{ root }}{{ S.photo|img }}" alt="{{ S.photo_alt }}" loading="lazy" />
       <div class="txt">
-        <span class="eyebrow">My story</span>
-        <h2>Made by someone who really cares.</h2>
-        <p class="lead">My name is Katya. I love people and their stories. I’m a trained raw-cake crafter and I’m training as a coach because I care about both how we treat our bodies and how we treat our minds — they’re connected.</p>
-        <div class="story-expand" id="storyExpand" role="button" tabindex="0" aria-expanded="false" aria-label="Read the rest of Katya’s story">
-          <p>My first impulse was to learn to make raw cakes for my own and my family’s health. Then I thought of everyone who can’t eat the usual cakes — allergies, sugar, dairy — and wanted them to have a beautiful, healthier choice too.<span class="more-inline"> That’s when I realised I wanted to change how cake is seen. For most of us, “cake” means sugar, guilt, something to regret later. I truly believe it can mean the opposite: real nourishment that happens to taste incredible.</span><span class="dots"> …</span> <span class="story-toggle more-label">more</span></p>
-          <p class="more-block">Raw Love Cakes are built from good ingredients — and good ingredients are the only way to a good result. That’s what goes into every box: healthy ingredients, care for the person who’ll open it, and no waste behind it — in raw-cake making it’s easy to use every last ingredient, so it’s care twice over: for you and for the planet. <span class="story-toggle less-label">less</span></p>
+        <span class="eyebrow">{{ S.eyebrow }}</span>
+        <h2>{{ S.heading }}</h2>
+        <p class="lead">{{ S.intro|md }}</p>
+{% if S.story_more or S.story_end %}
+        <div class="story-expand" id="storyExpand" role="button" tabindex="0" aria-expanded="false" aria-label="{{ S.read_more_label }}">
+          <p>{{ S.story_start|md }}{% if S.story_more %}<span class="more-inline"> {{ S.story_more|md }}</span>{% endif %}<span class="dots"> …</span> <span class="story-toggle more-label">{{ S.more_label }}</span></p>
+          <p class="more-block">{{ S.story_end|md }} <span class="story-toggle less-label">{{ S.less_label }}</span></p>
         </div>
-        <p class="story-blog">If you’d like to learn more about Katya and her cakes, please see the <a href="blog.html">Blog</a>.</p>
+{% elif S.story_start %}
+        <p>{{ S.story_start|md }}</p>
+{% endif %}
+{% if S.blog_line %}
+        <p class="story-blog">{{ S.blog_line|md }}</p>
+{% endif %}
       </div>
     </div>
     <div class="values">
-      <div class="value"><span class="dot">•</span><h3>Whole &amp; real</h3><p>Plant milks I make myself from soaked nuts, cacao butter, fruit and berries — no refined sugar, no flour, no dairy, no eggs.</p></div>
-      <div class="value"><span class="dot">•</span><h3>Nothing wasted</h3><p>Even the pulp left from making nut milk goes back into the cake. Made to order, frozen beautifully, never thrown away.</p></div>
-      <div class="value"><span class="dot">•</span><h3>Made with love</h3><p>I believe only something made with love can truly do you good. That belief is in the name.</p></div>
+{% for v in S["values"] %}
+      <div class="value"><span class="dot">•</span><h3>{{ v.title }}</h3><p>{{ v.text|md }}</p></div>
+{% endfor %}
     </div>
   </div>
 </section>
 
+{%- set C = T.cakes_section %}
+
 <section class="menu" id="cakes">
   <div class="wrap">
-    <span class="eyebrow">Cakes</span>
-    <h2>Choose your cake.</h2>
-    <p class="lead">Katya’s real range — each one built from whole, raw ingredients. <b>Tap any cake</b> to see it up close, with its full ingredient list and nutrition.</p>
+    <span class="eyebrow">{{ C.eyebrow }}</span>
+    <h2>{{ C.heading }}</h2>
+    <p class="lead">{{ C.intro|md }}</p>
 
     <div class="tabs">
-      <button class="tab active" data-tab="full">Cakes</button>
-      <button class="tab" data-tab="mini">Small Cakes</button>
-      <button class="tab" data-tab="friday">Friday Box</button>
-      <p class="info-lines">Clear, simple pricing. <button type="button" class="info-pill" data-open-prices>Prices &amp; Delivery</button></p>
+      <button class="tab active" data-tab="full">{{ M.menu_cakes }}</button>
+      <button class="tab" data-tab="mini">{{ M.menu_small }}</button>
+      <button class="tab" data-tab="friday">{{ M.menu_friday }}</button>
+      <p class="info-lines">{{ C.pricing_line }} {{ prices_pill() }}</p>
     </div>
 
     <!-- CAKES & TARTS -->
@@ -144,26 +148,25 @@
       {{ card(c) }}
 
 {% endfor %}
-      <article class="card smallcakes-card" data-goto-tab="mini" tabindex="0"><div class="pic"><img src="images/images_20.08.2026/smallcakes_buffet_web.jpeg" alt="Raw mini-cakes plated on a buffet table" loading="lazy" /></div><div class="body">
-        <h3>Small Cakes</h3><p class="desc">Individual portions by the plate — matcha ananas, blackcurrant banana and salted peanut balls. Made for events and sharing.</p>
-        <div class="badges"><span class="badge">Vegan</span><span class="badge">Gluten-free</span></div>
-        <p class="desc smallcakes-cta"><b>See all small cakes →</b></p></div></article>
-      <article class="card smallcakes-card" data-goto-tab="friday" tabindex="0"><div class="pic"><img src="images/images_20.08.2026/fridaybox_card.jpeg" alt="A Friday Box of four raw mini-cakes" loading="lazy" /></div><div class="body">
-        <h3>Friday Box</h3><p class="desc">{{ friday_text }}</p>
-        <div class="badges"><span class="badge">Vegan</span><span class="badge">Gluten-free</span></div>
-        <p class="desc smallcakes-cta"><b>See the Friday Box →</b></p></div></article>
+      <article class="card smallcakes-card" data-goto-tab="mini" tabindex="0"><div class="pic"><img src="{{ root }}{{ C.small_tile_photo|img }}" alt="{{ C.small_tile_alt }}" loading="lazy" /></div><div class="body">
+        <h3>{{ C.small_tile_title }}</h3><p class="desc">{{ C.small_tile_text|md }}</p>
+        <div class="badges"><span class="badge">Vegan</span><span class="badge">{{ L.gluten_free }}</span></div>
+        <p class="desc smallcakes-cta"><b>{{ C.small_tile_link }}</b></p></div></article>
+      <article class="card smallcakes-card" data-goto-tab="friday" tabindex="0"><div class="pic"><img src="{{ root }}{{ C.friday_tile_photo|img }}" alt="{{ C.friday_tile_alt }}" loading="lazy" /></div><div class="body">
+        <h3>{{ M.menu_friday }}</h3><p class="desc">{{ friday_text }}</p>
+        <div class="badges"><span class="badge">Vegan</span><span class="badge">{{ L.gluten_free }}</span></div>
+        <p class="desc smallcakes-cta"><b>{{ C.friday_tile_link }}</b></p></div></article>
     </div>
 
     <!-- SMALL CAKES -->
     <div class="grid hide" id="grid-mini">
       <div class="mini-strip">
         <div class="shots">
-          <img src="images/images_20.08.2026/smallcakes_fingers_web.jpeg" alt="A board of raw mini-cakes with berries" loading="lazy" />
-          <img src="images/images_20.08.2026/smallcakes_main_web.jpeg" alt="Board of raw mini-cakes with berries" loading="lazy" />
-          <img src="images/images_20.08.2026/smallcakes_square1_web.jpeg" alt="Raw mini-cakes with strawberries on plates" loading="lazy" />
-          <img src="images/images_20.08.2026/smallcakes_buffet_web.jpeg" alt="Raw mini-cakes plated on a buffet table at an event" loading="lazy" />
+{% for p in C.small_photos %}
+          <img src="{{ root }}{{ p.image|img }}" alt="{{ p.alt }}" loading="lazy" />
+{% endfor %}
         </div>
-        <p>Small cakes are made by the plate — mix and match any of the flavours below. Platters from 6 pieces.</p>
+        <p>{{ C.small_intro|md }}</p>
       </div>
 
 
@@ -180,225 +183,238 @@
     </div>
 
 
-    <p class="menu-note">🕒 Please order <b>at least 3 days ahead</b> — every cake is made to order (some, like fermented-cashew recipes, need 24h to ferment). Whole cakes, or small cakes by the plate. <button type="button" class="info-pill" data-open-prices>Prices &amp; Delivery</button></p>
+    <p class="menu-note">{{ C.order_note|md }} {{ prices_pill() }}</p>
   </div>
 </section>
+{% if C.counter_show and C.counter_number %}
 
 <div class="counter">
   <div class="wrap">
-    <div class="num" id="cakeCount">0</div>
-    <p>cakes made with love since 2020 — and counting</p>
+    <div class="num" id="cakeCount" data-target="{{ C.counter_number|int }}">0</div>
+    <p>{{ C.counter_text }}</p>
   </div>
 </div>
+{% endif %}
+
+{%- set E = T.events %}
 
 <section id="events">
   <div class="wrap split">
     <div class="txt">
-      <span class="eyebrow">For events</span>
-      <h2>Beautiful, healthy treats for any gathering.</h2>
-      <p class="lead">Got vegan or health-conscious guests? Make sure they’re thought of. I cater corporate events, receptions and celebrations with finger-food minis and platters — the same real ingredients, scaled up.</p>
+      <span class="eyebrow">{{ E.eyebrow }}</span>
+      <h2>{{ E.heading }}</h2>
+      <p class="lead">{{ E.intro|md }}</p>
       <div class="steps">
-        <div class="step"><span class="n">•</span><p>Mini-cakes &amp; finger-food in reception-friendly sizes</p></div>
-        <div class="step"><span class="n">•</span><p>Platters from 6 pieces; larger orders from ~50 pieces</p></div>
-        <div class="step"><span class="n">•</span><p>Trusted by <b>Nordic House</b>, <b>Vigdís House</b>, the <b>University of Iceland</b> café and <b>Iðnó</b></p></div>
+{% for p in E.points %}
+        <div class="step"><span class="n">•</span><p>{{ p.text|md }}</p></div>
+{% endfor %}
       </div>
-      <a href="#order" class="btn btn-primary mt" data-order="Event / large order">Plan an event order</a>
+      <a href="#order" class="btn btn-primary mt" data-order="Event / large order">{{ E.button }}</a>
     </div>
     <div class="carousel" id="eventCarousel">
-      <img class="active" src="images/event-p1.jpg" alt="Raw dessert platter and mini-cakes at an event" loading="lazy" />
-      <img src="images/event-p2.jpg" alt="Mini raw cakes on wooden boards for a reception" loading="lazy" />
-      <img src="images/event-p3.jpg" alt="Finger-food raw desserts spread for a gathering" loading="lazy" />
-      <img src="images/event-p4.jpg" alt="Chocolate-dipped strawberries and treats on a platter" loading="lazy" />
-      <img src="images/event-p5.jpg" alt="Raw mini-cakes and chocolate treats catering spread" loading="lazy" />
+{% for p in E.photos %}
+      <img{% if loop.first %} class="active"{% endif %} src="{{ root }}{{ p.image|img }}" alt="{{ p.alt }}" loading="lazy" />
+{% endfor %}
       <div class="dots"></div>
     </div>
   </div>
 </section>
 
+{%- set K = T.courses %}
+
 <section class="courses" id="courses">
   <div class="wrap">
     <div class="split rev">
-      <img class="about-photo" src="images/courses.jpg" alt="Katya teaching how to make raw cakes" loading="lazy" />
+      <img class="about-photo" src="{{ root }}{{ K.photo|img }}" alt="{{ K.photo_alt }}" loading="lazy" />
       <div class="txt">
-        <span class="eyebrow">Courses</span>
-        <h2>Learn to make them yourself.</h2>
-        <p class="lead">I love passing on what I know. Raw cakes are simpler than they look — and there’s real joy in making something this good with your own hands. Courses are on the way. Want first access?</p>
-        <!-- Course waitlist: its own small form (name + email only) so people don't have to fill in
-             the cake-order fields. Goes to Katya through FormSubmit, like the order form. -->
-        <form class="waitlist mt" action="https://formsubmit.co/ketlight@gmail.com" method="POST">
-          <input type="hidden" name="_subject" value="Course waitlist — Love Raw Cake" />
+        <span class="eyebrow">{{ K.eyebrow }}</span>
+        <h2>{{ K.heading }}</h2>
+        <p class="lead">{{ K.intro|md }}</p>
+        <!-- Course waitlist: its own small form (name + email only). Goes to Katya through FormSubmit. -->
+        <form class="waitlist mt" action="https://formsubmit.co/{{ site.email }}" method="POST">
+          <input type="hidden" name="_subject" value="Course waitlist{{ ' (IS)' if lang == 'is' }} — Love Raw Cake" />
           <input type="hidden" name="_template" value="table" />
-          <input type="hidden" name="_autoresponse" value="Thank you for joining the waitlist for my raw-cake courses! I&#39;ll write to you as soon as the first dates are set. With love, Katya · Love Raw Cake · @love.raw.cake" />
+          <input type="hidden" name="_autoresponse" value="{{ K.auto_reply }}" />
           <input type="hidden" name="request" value="Course waitlist" />
           <div class="waitlist-row">
-            <input type="text" name="name" required placeholder="Your name" aria-label="Your name" autocomplete="name" />
-            <input type="email" name="email" required placeholder="Your email" aria-label="Your email" autocomplete="email" />
-            <button type="submit" class="btn btn-primary">Join the waitlist</button>
+            <input type="text" name="name" required placeholder="{{ K.name_placeholder }}" aria-label="{{ K.name_placeholder }}" autocomplete="name" />
+            <input type="email" name="email" required placeholder="{{ K.email_placeholder }}" aria-label="{{ K.email_placeholder }}" autocomplete="email" />
+            <button type="submit" class="btn btn-primary">{{ K.button }}</button>
           </div>
-          <small class="muted">I&#39;ll only email you about courses.</small>
+          <small class="muted">{{ K.small_print }}</small>
         </form>
       </div>
     </div>
   </div>
 </section>
 
+{%- set R = T.reviews %}
+{% if R.show and R.reviews %}
+
 <section id="reviews">
   <div class="wrap">
-    <span class="eyebrow">Kind words</span>
-    <h2>Loved by customers since 2020.</h2>
-    <p class="lead">Real words from real people.</p>
+    <span class="eyebrow">{{ R.eyebrow }}</span>
+    <h2>{{ R.heading }}</h2>
+    <p class="lead">{{ R.intro }}</p>
     <div class="quotes">
-      <figure class="quote"><div class="stars">★★★★★</div><p>“The most beautiful cake I’ve ever ordered — and somehow it’s actually good for you. My guests couldn’t believe it was vegan.”</p><figcaption class="who">— Elín G., Reykjavík</figcaption></figure>
-      <figure class="quote"><div class="stars">★★★★★</div><p>“Katya made a gluten-free birthday cake my daughter could finally eat. It made her day.”</p><figcaption class="who">— Sigrún H., birthday order</figcaption></figure>
-      <figure class="quote"><div class="stars">★★★★★</div><p>“Ordered for our office and the vegan team felt so thought of. We’ll absolutely order again.”</p><figcaption class="who">— Anna Katrín B., corporate event</figcaption></figure>
+{% for r in R.reviews %}
+      <figure class="quote"><div class="stars">★★★★★</div><p>{{ L.q_open }}{{ r.quote }}{{ L.q_close }}</p><figcaption class="who">— {{ r.who }}</figcaption></figure>
+{% endfor %}
     </div>
     {#- Hidden until Katya has a Google Business Profile. Then put the review link in and restore:
     <p class="menu-note">⭐ Ordered before? <a href="GOOGLE-REVIEW-LINK">Leave a review on Google</a> — it helps more people find healthy cake. Thank you!</p> -#}
   </div>
 </section>
+{% endif %}
+
+{%- set O = T.order %}
 
 <section class="order" id="order">
   <div class="wrap">
-    <span class="eyebrow">How to order</span>
-    <h2>Let’s make your cake.</h2>
+    <span class="eyebrow">{{ O.eyebrow }}</span>
+    <h2>{{ O.heading }}</h2>
     <div class="order-grid mt">
       <div>
-        <p class="lead">There is no online checkout — simply send me a message. I prefer to discuss each order personally, so your cake is exactly right and I can confirm that I am available on your date.</p>
+        <p class="lead">{{ O.intro|md }}</p>
         <div class="steps">
-          <div class="step"><span class="n">1</span><p><b>Send a request</b> — the cake, the date and the quantity.</p></div>
-          <div class="step"><span class="n">2</span><p><b>I confirm</b> availability, the details and the price.</p></div>
-          <div class="step"><span class="n">3</span><p><b>Collection or delivery</b> — on the agreed day.</p></div>
+{% for s in O.steps %}
+          <div class="step"><span class="n">{{ loop.index }}</span><p>{{ s.text|md }}</p></div>
+{% endfor %}
         </div>
-        <p class="info-lines">Clear, simple pricing. <button type="button" class="info-pill" data-open-prices>Prices &amp; Delivery</button></p>
+        <p class="info-lines">{{ O.pricing_line }} {{ prices_pill() }}</p>
         <div class="direct">
-          <span>Prefer to message directly?</span>
-          <!-- email + phone removed 26 Aug: ask Katya how she wants people to reach her (see TASKS.md [P6]) -->
+          <span>{{ O.direct_line }}</span>
           <a href="https://instagram.com/love.raw.cake" target="_blank" rel="noopener">⌾ @love.raw.cake</a>
         </div>
       </div>
-      <form class="contact-card" action="https://formsubmit.co/ketlight@gmail.com" method="POST">
-        <!-- FormSubmit (no account). First real submission sends Katya a one-time activation email; nothing arrives until she clicks it.
-             After activation FormSubmit offers a random alias — swap it in for the address above to hide the email from spam bots. -->
-        <input type="hidden" name="_subject" value="New cake request — loverawcake.com" />
+      <form class="contact-card" action="https://formsubmit.co/{{ site.email }}" method="POST">
+        <input type="hidden" name="_subject" value="New cake request{{ ' (IS)' if lang == 'is' }} — loverawcake.com" />
         <input type="hidden" name="_template" value="table" />
-        <input type="hidden" name="_autoresponse" value="Hi! Thank you so much for your cake request — I&#39;ve got it. I&#39;ll get back to you soon to confirm the date, the price and how you&#39;d like to receive your cake. With love, Katya · Love Raw Cake · @love.raw.cake" />
+        <input type="hidden" name="_autoresponse" value="{{ O.auto_reply }}" />
         <div class="field-row">
-        <div class="field"><label>Your name</label><input type="text" name="name" required placeholder="Name" /></div>
-        <div class="field"><label>Your email</label><input type="email" name="email" required autocomplete="email" placeholder="you@example.com" /></div>
+        <div class="field"><label>{{ O.label_name }}</label><input type="text" name="name" required placeholder="{{ O.placeholder_name }}" /></div>
+        <div class="field"><label>{{ O.label_email }}</label><input type="email" name="email" required autocomplete="email" placeholder="{{ O.placeholder_email }}" /></div>
         </div>
         <div class="field-row">
-        <div class="field"><label>Your phone</label><input type="tel" name="phone" required autocomplete="tel" inputmode="tel" pattern="\+?[0-9 ]{7,20}" title="Please enter a phone number (at least 7 digits)." placeholder="+354 …" /></div>
-        <div class="field"><label>Which cake?</label>
+        <div class="field"><label>{{ O.label_phone }}</label><input type="tel" name="phone" required autocomplete="tel" inputmode="tel" pattern="\+?[0-9 ]{7,20}" title="{{ O.phone_error }}" placeholder="+354 …" /></div>
+        <div class="field"><label>{{ O.label_cake }}</label>
           <select id="orderSelect" name="cake" required>
-            <option value="" disabled selected>Choose a cake…</option>
-            <optgroup label="Cakes" data-group="cakes">
-              {% for c in cakes %}<option>{{ c.order_name }}</option>{% endfor %}
+            <option value="" disabled selected>{{ O.choose_cake }}</option>
+            <optgroup label="{{ O.group_cakes }}" data-group="cakes">
+              {% for c in cakes %}<option value="{{ c.order_name }}">{{ c.order_label }}</option>{% endfor %}
             </optgroup>
-            <optgroup label="Small cakes" data-group="small">
-              {% for c in small %}<option>{{ c.order_name }}</option>{% endfor %}<option>Mixed small-cakes plate</option>
+            <optgroup label="{{ O.group_small }}" data-group="small">
+              {% for c in small %}<option value="{{ c.order_name }}">{{ c.order_label }}</option>{% endfor %}<option value="Mixed small-cakes plate">{{ O.option_mixed }}</option>
             </optgroup>
-            <optgroup label="Other" data-group="other">
-              {% for c in friday %}<option>{{ c.order_name }}</option>{% endfor %}<option>Event / large order</option>
-              <option>Not sure — help me choose</option>
+            <optgroup label="{{ O.group_other }}" data-group="other">
+              {% for c in friday %}<option value="{{ c.order_name }}">{{ c.order_label }}</option>{% endfor %}<option value="Event / large order">{{ O.option_event }}</option>
+              <option value="Not sure — help me choose">{{ O.option_unsure }}</option>
             </optgroup>
           </select></div>
         </div>
         <div class="field-row">
-        <div class="field"><label>Quantity</label><input type="number" name="quantity" min="1" max="200" step="1" value="1" required inputmode="numeric" />
-          <small class="muted" id="qtyHint">Number of whole cakes.</small></div>
-        <div class="field"><label>When do you need it?</label><input type="date" id="orderDate" name="date_needed" required />
-          <small class="muted">At least 3 days ahead.</small></div>
+        <div class="field"><label>{{ O.label_quantity }}</label><input type="number" name="quantity" min="1" max="200" step="1" value="1" required inputmode="numeric" />
+          <small class="muted" id="qtyHint">{{ O.hint_whole }}</small></div>
+        <div class="field"><label>{{ O.label_date }}</label><input type="date" id="orderDate" name="date_needed" required />
+          <small class="muted">{{ O.hint_date }}</small></div>
         </div>
-        <div class="field"><label>Anything else?</label><textarea name="message" rows="3" required placeholder="Another cake too? Allergies, occasion…"></textarea></div>
-        <button type="submit" class="btn btn-primary" style="width:100%">Send my request</button>
+        <div class="field"><label>{{ O.label_message }}</label><textarea name="message" rows="3" required placeholder="{{ O.placeholder_message }}"></textarea></div>
+        <button type="submit" class="btn btn-primary" style="width:100%">{{ O.button }}</button>
       </form>
     </div>
   </div>
 </section>
 
+{%- set Q = T.questions %}
+{% if Q.questions %}
+
 <section id="faq">
   <div class="wrap" style="max-width:760px">
-    <span class="eyebrow">Good to know</span>
-    <h2>Questions, answered.</h2>
+    <span class="eyebrow">{{ Q.eyebrow }}</span>
+    <h2>{{ Q.heading }}</h2>
     <div class="mt">
-      <details open><summary>Are the cakes really healthy?</summary><p>Yes — they’re built from whole, real ingredients: home-made plant milks, nuts, fruit, berries, cacao and coconut butter. No refined sugar, no flour, no dairy, no eggs. Naturally vegan and gluten-free.</p></details>
-      <details><summary>Do you cater to nut allergies?</summary><p>Honestly, no — nuts are a core ingredient in almost everything I make, so if you have a serious nut allergy these cakes aren’t safe for you, and I’d never want to risk it.</p></details>
-      <details><summary>How much notice do you need?</summary><p>At least 3 days. Every cake is made to order, and some recipes ferment for 24 hours. For events, the more notice the better.</p></details>
-      <details><summary>How do I pay and collect?</summary><p>Pickup or delivery — the delivery costs are in <button type="button" class="link-btn" data-open-prices>Prices &amp; Delivery</button> above. We agree the day, the time and how you’d like to pay when you get in touch.<!-- payment method still to confirm with Katya — see TASKS.md [P6] --></p></details>
-      <details><summary>Can I order for a company or event?</summary><p>Absolutely — see the <a href="#events">events section</a>. Finger-food minis, platters, and larger orders from ~50 pieces.</p></details>
+{% for q in Q.questions %}
+      <details{% if loop.first %} open{% endif %}><summary>{{ q.question }}</summary><p>{{ q.answer|md("link-btn") }}</p></details>
+{% endfor %}
     </div>
   </div>
 </section>
+{% endif %}
 
 <footer>
   <div class="wrap foot-grid">
     <div>
       <div class="logo on-dark" style="color:var(--cream)">Love<span>·</span>Raw<span>·</span>Cake</div>
-      <p class="muted" style="margin-top:.6rem;max-width:30ch">Healthy raw cakes, handmade with love in Reykjavík.</p>
+      <p class="muted" style="margin-top:.6rem;max-width:30ch">{{ M.footer_tagline }}</p>
     </div>
     <div class="foot-links">
-      <a href="#about">My story</a>
-      <a href="#cakes">Cakes</a>
-      <a href="#smallcakes">Small Cakes</a>
-      <a href="#fridaybox">Friday Box</a>
-      <a href="#events">Events</a>
-      <a href="#courses">Courses</a>
-      <a href="blog.html">Blog</a>
+      <a href="#about">{{ M.menu_story }}</a>
+      <a href="#cakes">{{ M.menu_cakes }}</a>
+      <a href="#smallcakes">{{ M.menu_small }}</a>
+      <a href="#fridaybox">{{ M.menu_friday }}</a>
+      <a href="#events">{{ M.menu_events }}</a>
+      <a href="#courses">{{ M.menu_courses }}</a>
+      <a href="blog.html">{{ M.menu_blog }}</a>
       <a href="https://instagram.com/love.raw.cake" target="_blank" rel="noopener">Instagram</a>
-      <a href="#order">Order a cake</a>
+      <a href="#order">{{ M.menu_order }}</a>
     </div>
-    <img class="foot-mark" src="images/logo.svg" alt="Love Raw Cake logo" />
+    <img class="foot-mark" src="{{ root }}images/logo.svg" alt="{{ M.logo_alt }}" />
   </div>
-  <div class="wrap" style="margin-top:1.25rem"><p class="muted">© <span id="yr"></span> Love Raw Cake · Reykjavík, Iceland{% if site.draft %} · Draft site · {{ site.version }}{% endif %} · <a class="credit" href="https://mermina.github.io/#p-rawcake" target="_blank" rel="noopener">Site by Marina Ermina<span class="credit-arrow" aria-hidden="true">&rarr;</span></a></p></div>
+  <div class="wrap" style="margin-top:1.25rem"><p class="muted">© <span id="yr"></span> Love Raw Cake · {{ M.footer_place }}{% if site.draft %} · {{ 'Drög' if lang == 'is' else 'Draft site' }} · {{ site.version }}{% endif %} · <a class="credit" href="https://mermina.github.io/#p-rawcake" target="_blank" rel="noopener">{{ 'Vefur eftir Marinu Erminu' if lang == 'is' else 'Site by Marina Ermina' }}<span class="credit-arrow" aria-hidden="true">&rarr;</span></a></p></div>
 </footer>
+
+{%- set P = T.prices %}
 
 <div class="modal" id="priceModal" aria-hidden="true">
   <div class="modal-backdrop" data-info-close></div>
   <div class="note" role="dialog" aria-modal="true" aria-labelledby="priceTitle">
-    <button class="note-close" data-info-close aria-label="Close">×</button>
+    <button class="note-close" data-info-close aria-label="{{ T.cake_popup.close }}">×</button>
     <div class="note-body">
-      <span class="eyebrow">Prices &amp; Delivery</span>
-      <h3 id="priceTitle">Simple pricing, by weight.</h3>
+      <span class="eyebrow">{{ P.button_label }}</span>
+      <h3 id="priceTitle">{{ P.heading }}</h3>
       <ul class="price-list">
-        <li><b>Cakes — from 1,100 ISK per 100 g.</b> A whole cake is usually 800–1,200 g.</li>
-        <li><b>Small cakes — from 1,100 ISK per 100 g.</b> S / M / L (30 g · 50 g · 100 g). Minimum order 600 g of one kind.</li>
-        <li><b>Writing on the cake — from 1,500 ISK.</b></li>
+{% for p in P.prices %}
+        <li>{{ p.text|md }}</li>
+{% endfor %}
       </ul>
-      <p class="note-nutr">Prices may change if the cost of ingredients rises at the time of your order.</p>
-      <h4>Delivery</h4>
+      <p class="note-nutr">{{ P.price_note|md }}</p>
+      <h4>{{ P.delivery_heading }}</h4>
       <ul class="price-list">
-        <li><b>Free</b> in the Reykjavík capital area on orders of <b>15,000 ISK and over</b>.</li>
-        <li>Otherwise, delivery is <b>from 2,000 ISK</b>, depending on where you are.</li>
+{% for p in P.delivery %}
+        <li>{{ p.text|md }}</li>
+{% endfor %}
       </ul>
-      <a href="#order" class="btn btn-primary note-order" data-info-close>Order a cake →</a>
+      <a href="#order" class="btn btn-primary note-order" data-info-close>{{ P.button }}</a>
     </div>
   </div>
 </div>
 
+{%- set U = T.cake_popup %}
+
 <div class="modal" id="cakeModal" aria-hidden="true">
   <div class="modal-backdrop" data-close></div>
   <div class="note" role="dialog" aria-modal="true" aria-labelledby="noteTitle">
-    <button class="note-close" data-close aria-label="Close">×</button>
+    <button class="note-close" data-close aria-label="{{ U.close }}">×</button>
     <div class="gallery">
       <div class="gal-track" id="galTrack"></div>
       <span class="gal-cap" id="galCap"></span>
-      <button class="gal-arrow prev" id="galPrev" aria-label="Previous photo">‹</button>
-      <button class="gal-arrow next" id="galNext" aria-label="Next photo">›</button>
+      <button class="gal-arrow prev" id="galPrev" aria-label="{{ U.previous_photo }}">‹</button>
+      <button class="gal-arrow next" id="galNext" aria-label="{{ U.next_photo }}">›</button>
       <div class="gal-dots" id="galDots"></div>
     </div>
     <div class="note-body">
-      <p class="note-photo">The photos show how this cake usually comes out. Every cake is made by hand, so decoration varies with the season and what I have that week — yours may look a little different.</p>
-      <h3 id="noteTitle">Cake details</h3>
+      <p class="note-photo">{{ U.photo_note|md }}</p>
+      <h3 id="noteTitle">{{ U.heading }}</h3>
       <p class="note-desc" id="noteDesc"></p>
       <div class="badges" id="noteBadges"></div>
       <p class="note-ing" id="noteIng"></p>
       <p class="note-nutr" id="noteNutr"></p>
-      <a href="#order" class="btn btn-primary note-order" id="noteOrder">Order this cake →</a>
+      <a href="#order" class="btn btn-primary note-order" id="noteOrder">{{ U.button }}</a>
     </div>
   </div>
 </div>
 
 <script src="cakes-data.js"></script>
-<script src="site.js"></script>
+<script src="{{ root }}site.js"></script>
 </body>
 </html>

@@ -18,6 +18,7 @@ import datetime, html, json, pathlib, re, sys
 import markdown
 import yaml
 from jinja2 import Environment, FileSystemLoader, StrictUndefined
+from markupsafe import Markup
 
 ROOT = pathlib.Path(__file__).resolve().parent
 SECTIONS = ("cakes", "small", "friday")
@@ -66,16 +67,87 @@ def num(v):
 # ---------------------------------------------------------------- cakes
 # Interface words that differ between the English and the Icelandic page.
 LANG = {
-    "en": {"gluten_free": "Gluten-free", "small": " (small)",
+    "en": {"gluten_free": "Gluten-free", "small": " (small)", "q_open": "“", "q_close": "”",
            "nutr": "Per 100 g — Protein {0} g · Fat {1} g · Carbs {2} g · {3} kcal"},
-    "is": {"gluten_free": "Glútenlaust", "small": " (lítil)",
+    "is": {"gluten_free": "Glútenlaust", "small": " (lítil)", "q_open": "„", "q_close": "“",
            "nutr": "Í 100 g — Prótein {0} g · Fita {1} g · Kolvetni {2} g · {3} kcal"},
 }
-I18N_IS = {  # words used by site.js on the Icelandic page
-    "ingredients": "Innihald:", "seeAngles": "⤢ fleiri myndir", "details": "⤢ nánar",
-    "dateMsg": "Veldu dagsetningu með minnst 3 daga fyrirvara.",
-    "qtySmall": "Litlar kökur: minnst 6 stykki.", "qtyWhole": "Fjöldi heilla kakna.",
-}
+# ---------------------------------------------------------------- page texts
+# Every visible text on the main page and the blog pages lives in content/text/*.yml
+# (Katya edits it in Pages CMS). A field ending in _is is the Icelandic version;
+# an empty Icelandic field falls back to the English one. List items with show: false are skipped.
+TEXT_DIR = ROOT / "content" / "text"
+
+
+def resolve(d, lang):
+    if isinstance(d, list):
+        return [resolve(x, lang) for x in d if not (isinstance(x, dict) and x.get("show") is False)]
+    if not isinstance(d, dict):
+        return "" if d is None else d
+    out = {}
+    for k, v in d.items():
+        if re.search(r"_(is)$", k):
+            continue
+        if lang != "en":
+            alt = d.get(f"{k}_{lang}")
+            if alt not in (None, "") and str(alt).strip():
+                v = alt
+        out[k] = resolve(v, lang)
+    return out
+
+
+def load_text(lang):
+    T = {}
+    for f in sorted(TEXT_DIR.glob("*.yml")):
+        key = re.sub(r"^\d+-", "", f.stem).replace("-", "_")
+        try:
+            d = yaml.safe_load(f.read_text(encoding="utf-8")) or {}
+        except yaml.YAMLError as e:
+            warn(f"content/text/{f.name}: not valid ({e})")
+            d = {}
+        T[key] = resolve(d, lang)
+    return T
+
+
+_MD = markdown.Markdown(extensions=["extra"])
+
+
+def md(text, pill="info-pill"):
+    """Light Markdown for one paragraph: **bold**, *italic*, [link](url).
+    [[Prices & Delivery]] becomes the button that opens the prices window."""
+    _MD.reset()
+    h = _MD.convert(str(text or "").strip())
+    h = re.sub(r"^<p>(.*)</p>$", r"\1", h, flags=re.S)
+    h = h.replace("<strong>", "<b>").replace("</strong>", "</b>")
+    h = re.sub(r"\[\[(.+?)\]\]", lambda m: f'<button type="button" class="{pill}" data-open-prices>{m.group(1)}</button>', h)
+    return Markup(h)
+
+
+def plain(text):
+    """Text for Google's data: Markdown and buttons removed."""
+    h = str(md(text))
+    return html.unescape(re.sub(r"<[^>]+>", "", h)).strip()
+
+
+def i18n(T):
+    """Words site.js needs (cake pop-up, order-form hints), from the page texts."""
+    U, O = T["cake_popup"], T["order"]
+    return {"ingredients": U["ingredients_label"], "seeAngles": U["more_photos"], "details": U["details"],
+            "dateMsg": O["date_error"], "qtySmall": O["hint_small"], "qtyWhole": O["hint_whole"]}
+
+
+def blog_t(T, lang):
+    M, B = T["menu_footer"], T["blog_page"]
+    return {"lang": lang, "title": B["title"], "desc": B["google_description"],
+            "eyebrow": B["eyebrow"], "h1": B["heading"], "lead": B["intro"],
+            "read": B["read_more"], "more": B["more_coming"], "all": B["all_posts"],
+            "in_en": B["in_english"], "menu": M["menu_button"], "tagline": M["footer_tagline"],
+            "nav": [("about", M["menu_story"]), ("cakes", M["menu_cakes"]), ("smallcakes", M["menu_small"]),
+                    ("fridaybox", M["menu_friday"]), ("events", M["menu_events"]), ("courses", M["menu_courses"])],
+            "blog": M["menu_blog"], "order": M["menu_order"],
+            "switch_label": "Tungumál / Language" if lang == "is" else "Language / Tungumál"}
+
+
 
 
 def load_cakes(lang="en"):
@@ -171,10 +243,16 @@ def cakes_js(cakes, prefix="", i18n=None):
     return js
 
 
-def schema(cakes, site):
+def schema(cakes, site, T=None):
     base = (ROOT / "templates" / "schema-base.json").read_text(encoding="utf-8")
     base = base.replace("__SITE_URL__", site["url"]).replace("__EMAIL__", site["email"])
     data = json.loads(base)
+    if T is not None:   # the FAQ in Google's data = the questions on the page, always in sync
+        for node in data["@graph"]:
+            if node.get("@type") == "FAQPage":
+                node["mainEntity"] = [{"@type": "Question", "name": plain(q["question"]),
+                                       "acceptedAnswer": {"@type": "Answer", "text": plain(q["answer"])}}
+                                      for q in T["questions"]["questions"]]
     biz = {"@id": f"{site['url']}/#business"}
     for c in cakes:
         p = {"@type": "Product", "name": c["title"], "brand": dict(biz),
@@ -204,29 +282,6 @@ def schema(cakes, site):
 # ---------------------------------------------------------------- blog
 MONTHS_IS = ["janúar", "febrúar", "mars", "apríl", "maí", "júní", "júlí", "ágúst",
              "september", "október", "nóvember", "desember"]
-
-# Words on the blog pages, per language
-BLOG_T = {
-    "en": {"lang": "en", "title": "Blog — Love Raw Cake",
-           "desc": "Notes on raw cakes, ingredients and the small things behind them — from Katya at Love Raw Cake in Reykjavík.",
-           "eyebrow": "Blog", "h1": "Notes from the kitchen.",
-           "lead": "Recipes, ingredients and the thinking behind the cakes — written by Katya.",
-           "read": "Read the post →", "more": "More posts coming soon.", "all": "← All posts",
-           "in_en": "", "menu": "Menu", "tagline": "Healthy raw cakes, handmade with love in Reykjavík.",
-           "nav": [("about", "My story"), ("cakes", "Cakes"), ("smallcakes", "Small Cakes"),
-                   ("fridaybox", "Friday Box"), ("events", "Events"), ("courses", "Courses")],
-           "blog": "Blog", "order": "Order a cake", "switch_label": "Language / Tungumál"},
-    "is": {"lang": "is", "title": "Blogg — Love Raw Cake",
-           "desc": "Hugleiðingar um hrákökur, hráefni og smáatriðin á bak við þær — frá Katyu hjá Love Raw Cake í Reykjavík.",
-           "eyebrow": "Blogg", "h1": "Úr eldhúsinu.",
-           "lead": "Uppskriftir, hráefni og hugsunin á bak við kökurnar — Katya skrifar.",
-           "read": "Lesa færsluna →", "more": "Fleiri færslur væntanlegar.", "all": "← Allar færslur",
-           "in_en": "Á ensku", "menu": "Valmynd", "tagline": "Hollar hrákökur, handgerðar af ást í Reykjavík.",
-           "nav": [("about", "Sagan mín"), ("cakes", "Kökur"), ("smallcakes", "Litlar kökur"),
-                   ("fridaybox", "Föstudagsbox"), ("events", "Viðburðir"), ("courses", "Námskeið")],
-           "blog": "Blogg", "order": "Panta köku", "switch_label": "Tungumál / Language"},
-}
-
 
 def load_posts():
     """Every visible post, with its English text and (if written) its Icelandic text.
@@ -277,12 +332,12 @@ def fix_links(body_html, up):
     return "\n\n  ".join(body_html.split("\n\n"))
 
 
-def render_blog(env, site, posts):
+def render_blog(env, site, posts, texts):
     """blog.html, blog/*.html (English) and is/blog.html, is/blog/*.html (Icelandic)."""
     out = {}
     list_t, post_t = env.get_template("blog.html"), env.get_template("post.html")
     for lang in ("en", "is"):
-        T = BLOG_T[lang]
+        T = blog_t(texts[lang], lang)
         is_ = lang == "is"
         # paths seen from the blog list page
         r = "../" if is_ else ""
@@ -357,21 +412,21 @@ def main():
 
     env = Environment(loader=FileSystemLoader(ROOT / "templates"), autoescape=True,
                       undefined=StrictUndefined, keep_trailing_newline=True)
-    out = {
-        "index.html": env.get_template("index.html").render(
-            site=site, cakes=by["cakes"], small=by["small"], friday=by["friday"],
-            friday_text=friday, schema_json=schema(cakes, site), root="", lang="en"),
-        "cakes-data.js": cakes_js(cakes),
-    }
-    # Icelandic main page → is/index.html (+ its own cake data with Icelandic texts)
-    cakes_is = load_cakes("is")
-    by_is = {s: [c for c in cakes_is if c["section"] == s] for s in SECTIONS}
-    out["is/index.html"] = env.get_template("index.is.html").render(
-        site=site, cakes=by_is["cakes"], small=by_is["small"], friday=by_is["friday"],
-        friday_text=by_is["friday"][0]["card_text"] if by_is["friday"] else "",
-        schema_json="", root="../", lang="is")
-    out["is/cakes-data.js"] = cakes_js(cakes_is, prefix="../", i18n=I18N_IS)
-    out.update(render_blog(env, site, posts))
+    env.filters["md"] = md
+    env.filters["img"] = img
+    texts = {lang: load_text(lang) for lang in ("en", "is")}
+    page = env.get_template("index.html")
+    out = {}
+    # One template, two languages: index.html (English) and is/index.html (Icelandic)
+    for lang, path, root, lang_cakes in (("en", "", "", cakes), ("is", "is/", "../", load_cakes("is"))):
+        by_l = {s: [c for c in lang_cakes if c["section"] == s] for s in SECTIONS}
+        out[path + "index.html"] = page.render(
+            site=site, T=texts[lang], L=LANG[lang], lang=lang, root=root, page_path=path,
+            cakes=by_l["cakes"], small=by_l["small"], friday=by_l["friday"],
+            friday_text=by_l["friday"][0]["card_text"] if by_l["friday"] else "",
+            schema_json=schema(cakes, site, texts["en"]) if lang == "en" else "")
+        out[path + "cakes-data.js"] = cakes_js(lang_cakes, prefix=root, i18n=i18n(texts[lang]))
+    out.update(render_blog(env, site, posts, texts))
 
     newest = max([p["date"] for p in posts] + [datetime.date(2026, 8, 26)]).isoformat()
     urls = [("", newest, "1.0"), ("is/", newest, "0.9"), ("blog.html", newest, "0.7"),

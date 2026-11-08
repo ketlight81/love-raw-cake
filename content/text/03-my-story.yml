@@ -1,0 +1,39 @@
+photo: images/katya.png
+photo_alt: Katya, founder of Love Raw Cake
+photo_alt_is: Katya, stofnandi Love Raw Cake
+eyebrow: My story
+eyebrow_is: Sagan mín
+heading: Made by someone who really cares.
+heading_is: Gerðar af manneskju sem er virkilega annt um þig.
+intro: My name is Katya. I love people and their stories. I’m a trained raw-cake crafter and I’m training as a coach because I care about both how we treat our bodies and how we treat our minds — they’re connected.
+intro_is: Ég heiti Katya. Ég elska fólk og sögurnar þess. Ég er menntuð í hrákökugerð og er í markþjálfanámi, því mér er annt bæði um hvernig við förum með líkamann og hvernig við förum með hugann — þetta tvennt tengist.
+story_start: My first impulse was to learn to make raw cakes for my own and my family’s health. Then I thought of everyone who can’t eat the usual cakes — allergies, sugar, dairy — and wanted them to have a beautiful, healthier choice too.
+story_start_is: Fyrsti hvati minn var að læra að gera hrákökur fyrir heilsu mína og fjölskyldunnar. Svo hugsaði ég til allra sem geta ekki borðað venjulegar kökur — vegna ofnæmis, sykurs eða mjólkurvara — og vildi að þau fengju líka fallegan og hollari valkost.
+story_more: 'That’s when I realised I wanted to change how cake is seen. For most of us, “cake” means sugar, guilt, something to regret later. I truly believe it can mean the opposite: real nourishment that happens to taste incredible.'
+story_more_is: 'Þá áttaði ég mig á því að mig langaði að breyta því hvernig fólk lítur á kökur. Fyrir flest okkar þýðir „kaka“ sykur, samviskubit, eitthvað sem maður sér eftir. Ég trúi því í alvöru að hún geti þýtt hið gagnstæða: raunverulega næringu sem bragðast líka ótrúlega vel.'
+story_end: 'Raw Love Cakes are built from good ingredients — and good ingredients are the only way to a good result. That’s what goes into every box: healthy ingredients, care for the person who’ll open it, and no waste behind it — in raw-cake making it’s easy to use every last ingredient, so it’s care twice over: for you and for the planet.'
+story_end_is: 'Kökurnar mínar eru gerðar úr góðum hráefnum — og góð hráefni eru eina leiðin að góðri útkomu. Það er það sem fer í hvert box: holl hráefni, umhyggja fyrir manneskjunni sem opnar það og engin sóun á bak við — í hrákökugerð er auðvelt að nýta hvert einasta hráefni, svo umhyggjan er tvöföld: fyrir þig og fyrir jörðina.'
+more_label: more
+more_label_is: meira
+less_label: less
+less_label_is: minna
+read_more_label: Read the rest of Katya’s story
+read_more_label_is: Lesa restina af sögu Katyu
+blog_line: If you’d like to learn more about Katya and her cakes, please see the [Blog](blog.html).
+blog_line_is: Viltu vita meira um Katyu og kökurnar hennar? Kíktu á [bloggið](blog.html).
+values:
+- title: Whole & real
+  title_is: Hreint & alvöru
+  text: Plant milks I make myself from soaked nuts, cacao butter, fruit and berries — no refined sugar, no flour, no dairy, no eggs.
+  text_is: Jurtamjólk sem ég bý til sjálf úr útbleyttum hnetum, kakósmjör, ávextir og ber — enginn hvítur sykur, ekkert hveiti, engar mjólkurvörur, engin egg.
+  show: true
+- title: Nothing wasted
+  title_is: Engin sóun
+  text: Even the pulp left from making nut milk goes back into the cake. Made to order, frozen beautifully, never thrown away.
+  text_is: Jafnvel hratið sem verður eftir af hnetumjólkinni fer aftur í kökuna. Gert eftir pöntun, fryst fallega, aldrei hent.
+  show: true
+- title: Made with love
+  title_is: Gert af ást
+  text: I believe only something made with love can truly do you good. That belief is in the name.
+  text_is: Ég trúi því að aðeins það sem er gert af ást geti raunverulega gert þér gott. Sú trú býr í nafninu.
+  show: true
