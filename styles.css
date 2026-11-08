@@ -56,14 +56,7 @@
   .hero-media{position:absolute;inset:0;z-index:0}
   .hero-media .slide{position:absolute;inset:0;opacity:0;transition:opacity 1.4s ease;background-size:cover;background-position:center}
   .hero-media .slide.active{opacity:1}
-  .slide.s1{background-image:url('images/images_20.08.2026/chocbanana_hero.jpeg');background-position:center 64%}
-  .slide.s2{background-image:url('images/images_20.08.2026/dubai_hero.jpeg');background-position:center 62%}
-  .slide.s3{background-image:url('images/images_20.08.2026/chochazelnut_hero.jpeg');background-position:center 56%}
-  .slide.s4{background-image:url('images/images_20.08.2026/carrot_hero.jpeg');background-position:center 22%}
-  .slide.s5{background-image:url('images/images_20.08.2026/lemon_hero.jpeg');background-position:center 55%}
-  .slide.s6{background-image:url('images/images_15.10.2026/tiramisu_hero.jpeg');background-position:center 50%}
-  .slide.s7{background-image:url('images/images_20.08.2026/macadamia_hero.jpeg');background-position:center 55%}
-  .slide.s8{background-image:url('images/images_20.08.2026/matcha_hero.jpeg');background-position:center 68%}
+  /* hero photos + focus come from Pages CMS (content/text/02-top.yml), set inline in the template */
   /* soft scrim on the left only — the type stays readable and the cake keeps its own colour */
   .hero-media::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(20,16,14,.45) 0%,rgba(20,16,14,.16) 45%,rgba(20,16,14,0) 72%);z-index:1}
   .hero .wrap{position:relative;z-index:2}

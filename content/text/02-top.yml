@@ -6,3 +6,28 @@ button_order: I want cake :)
 button_order_is: Mig langar í köku :)
 button_cakes: See the cakes
 button_cakes_is: Sjá kökurnar
+slides:
+- image: images/images_20.08.2026/chocbanana_hero.jpeg
+  focus: 64
+  show: true
+- image: images/images_20.08.2026/dubai_hero.jpeg
+  focus: 62
+  show: true
+- image: images/images_20.08.2026/chochazelnut_hero.jpeg
+  focus: 56
+  show: true
+- image: images/images_20.08.2026/carrot_hero.jpeg
+  focus: 22
+  show: true
+- image: images/images_20.08.2026/lemon_hero.jpeg
+  focus: 55
+  show: true
+- image: images/images_15.10.2026/tiramisu_hero.jpeg
+  focus: 50
+  show: true
+- image: images/images_20.08.2026/macadamia_hero.jpeg
+  focus: 55
+  show: true
+- image: images/images_20.08.2026/matcha_hero.jpeg
+  focus: 68
+  show: true

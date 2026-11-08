@@ -31,7 +31,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="{{ root }}images/logo-32.png" />
   <link rel="icon" type="image/png" sizes="192x192" href="{{ root }}images/logo-192.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="{{ root }}images/logo-180.png" />
-  <meta property="og:image" content="{{ site.url }}/images/chocbanana-2.jpg" />
+  <meta property="og:image" content="{{ site.url }}/{{ M.share_image|img }}" />
 {% if not site.draft %}<link rel="canonical" href="{{ site.url }}/{{ page_path }}" />
 {% endif %}<meta property="og:url" content="{{ site.url }}/{{ page_path }}" />
 <meta property="og:locale" content="{{ 'is_IS' if lang == 'is' else 'en_GB' }}" />
@@ -42,7 +42,7 @@
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="{{ M.share_title }}" />
 <meta name="twitter:description" content="{{ M.share_description_short }}" />
-<meta name="twitter:image" content="{{ site.url }}/images/chocbanana-2.jpg" />
+<meta name="twitter:image" content="{{ site.url }}/{{ M.share_image|img }}" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -77,14 +77,9 @@
 
 <section class="hero" id="top">
   <div class="hero-media" id="heroMedia">
-    <div class="slide s1 active"></div>
-    <div class="slide s2"></div>
-    <div class="slide s3"></div>
-    <div class="slide s4"></div>
-    <div class="slide s5"></div>
-    <div class="slide s6"></div>
-    <div class="slide s7"></div>
-    <div class="slide s8"></div>
+{% for s in T.top.slides %}
+    <div class="slide{% if loop.first %} active{% endif %}" style="background-image:url('{{ root }}{{ s.image|img }}');background-position:center {{ s.focus|int }}%"></div>
+{% endfor %}
   </div>
   <div class="wrap">
     <h1>{{ T.top.heading }}</h1>

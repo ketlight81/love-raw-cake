@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Build the Love Raw Cake site from its content files.
 
-    content/cakes/*.md   one file per cake (Katya edits these in Pages CMS)
+    content/cakes/<section>/*.md   one file per cake; folder = section (cakes, small, friday)
     content/blog/*.md    one file per blog post (Katya edits these in Pages CMS)
     site.yml             address, public email, draft flag (Marina only)
     templates/           page design (Marina only)
@@ -165,10 +165,13 @@ def load_cakes(lang="en"):
         return str(v).replace(".", ",") if lang == "is" else str(v)
 
     cakes = []
-    for f in sorted((ROOT / "content" / "cakes").glob("*.md")):
+    # one folder per section (content/cakes/cakes, /small, /friday) = one list each in Pages CMS
+    for f in sorted((ROOT / "content" / "cakes").glob("**/*.md")):
         d, _ = read_md(f)
         if not d or d.get("show") is False:
             continue
+        if f.parent.name in SECTIONS:
+            d["section"] = f.parent.name
         key = f.stem
         title = (d.get("title") or "").strip()
         if not title:
@@ -415,6 +418,14 @@ def main():
     env.filters["md"] = md
     env.filters["img"] = img
     texts = {lang: load_text(lang) for lang in ("en", "is")}
+    # where order + waitlist forms send (FormSubmit). Editable by Katya in Pages CMS;
+    # a NEW address must be activated once — see output/08.11.2026_Order-email-for-Katya.md
+    oe = str(texts["en"].get("order_email", {}).get("order_email") or "").strip()
+    if oe:
+        if re.fullmatch(r"[^@\s]+@[^@\s]+\.[^@\s]+", oe):
+            site["email"] = oe
+        else:
+            warn(f"content/text/14-order-email.yml: {oe!r} is not an email address — kept {site['email']}")
     page = env.get_template("index.html")
     out = {}
     # One template, two languages: index.html (English) and is/index.html (Icelandic)
@@ -427,6 +438,8 @@ def main():
             schema_json=schema(cakes, site, texts["en"]) if lang == "en" else "")
         out[path + "cakes-data.js"] = cakes_js(lang_cakes, prefix=root, i18n=i18n(texts[lang]))
     out.update(render_blog(env, site, posts, texts))
+    # page for wrong addresses (GitHub Pages serves 404.html automatically); both languages on one page
+    out["404.html"] = env.get_template("404.html").render(E=texts["en"]["not_found"], I=texts["is"]["not_found"])
 
     newest = max([p["date"] for p in posts] + [datetime.date(2026, 8, 26)]).isoformat()
     urls = [("", newest, "1.0"), ("is/", newest, "0.9"), ("blog.html", newest, "0.7"),

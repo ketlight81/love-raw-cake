@@ -16,142 +16,150 @@ content:
   - name: cakes
     label: Cakes
     type: collection
-    path: content/cakes
+    path: content/cakes/cakes
     format: yaml-frontmatter
-    filename: "{primary}.md"
-    view:
+    filename: '{primary}.md'
+    view: &id001
       primary: title
-      fields: [title, section, show]
+      fields:
+      - title
+      - show
       sort: position
-    fields:
-      - name: title
-        label: Name
-        type: string
-        required: true
-        description: "As shown on the site, e.g. Carrot Cake"
-      - name: title_is
-        label: Name (Icelandic)
-        type: string
-        description: "Optional. Empty = the English name is used on the Icelandic page too"
-      - name: section
-        label: Section
-        type: select
-        required: true
-        default: cakes
-        options:
-          values:
-            - name: cakes
-              label: Cakes
-            - name: small
-              label: Small Cakes
-            - name: friday
-              label: Friday Box
-      - name: position
-        label: Position
-        type: number
-        description: "1 = first. To place a cake between 2 and 3, use 2.5"
-      - name: show
-        label: Show on site
-        type: boolean
-        default: true
-        description: "Off = hidden from the site and the order form, but not deleted"
-      - name: card_text
-        label: Card text
-        type: text
-        required: true
-        description: "One sentence, shown on the card (and to Google)"
-      - name: card_text_is
-        label: Card text (Icelandic)
-        type: text
-        description: "Empty = English card text is used on the Icelandic page"
-      - name: description
-        label: Description
-        type: text
-        description: "2–3 sentences in the cake pop-up. Empty = card text is used"
-      - name: description_is
-        label: Description (Icelandic)
-        type: text
-        description: "Empty = Icelandic card text is used"
-      - name: ingredients
-        label: Ingredients
-        type: text
-        description: "Comma-separated, ending with a full stop"
-      - name: ingredients_is
-        label: Ingredients (Icelandic)
-        type: text
-        description: "Check carefully — allergy information. Empty = English list is used"
-      - name: vegan
-        label: Vegan badge
-        type: boolean
-        default: true
-      - name: gluten_free
-        label: Gluten-free badge
-        type: boolean
-        default: true
-      - name: allergen
-        label: Allergen badge
-        type: string
-        description: "e.g. Contains nuts · Peanut · Pistachio · nuts. Empty = no badge"
-      - name: allergen_is
-        label: Allergen badge (Icelandic)
-        type: string
-        description: "e.g. Inniheldur hnetur · Jarðhnetur"
-      - name: note
-        label: Extra badge
-        type: string
-        description: "Optional, e.g. New · Seasonal"
-      - name: note_is
-        label: Extra badge (Icelandic)
-        type: string
-      - name: price_per_100g
-        label: Price per 100 g (ISK)
-        type: number
-        description: "Number only, e.g. 1100. Used for Google; customers see prices in Prices & Delivery"
-      - name: protein
-        label: Protein (g per 100 g)
-        type: number
-        description: "Nutrition — only your own measured figures. Fill all four or none"
-      - name: fat
-        label: Fat (g per 100 g)
-        type: number
-      - name: carbs
-        label: Carbs (g per 100 g)
-        type: number
-      - name: kcal
-        label: Kcal per 100 g
-        type: number
-      - name: card_image
-        label: Card photo
+    fields: &id002
+    - name: title
+      label: Name
+      type: string
+      required: true
+      description: As shown on the site, e.g. Carrot Cake
+    - name: title_is
+      label: Name (Icelandic)
+      type: string
+      description: Optional. Empty = the English name is used on the Icelandic page too
+    - name: position
+      label: Position
+      type: number
+      description: 1 = first. To place a cake between 2 and 3, use 2.5
+    - name: show
+      label: Show on site
+      type: boolean
+      default: true
+      description: Off = hidden from the site and the order form, but not deleted
+    - name: card_text
+      label: Card text
+      type: text
+      required: true
+      description: One sentence, shown on the card (and to Google)
+    - name: card_text_is
+      label: Card text (Icelandic)
+      type: text
+      description: Empty = English card text is used on the Icelandic page
+    - name: description
+      label: Description
+      type: text
+      description: 2–3 sentences in the cake pop-up. Empty = card text is used
+    - name: description_is
+      label: Description (Icelandic)
+      type: text
+      description: Empty = Icelandic card text is used
+    - name: ingredients
+      label: Ingredients
+      type: text
+      description: Comma-separated, ending with a full stop
+    - name: ingredients_is
+      label: Ingredients (Icelandic)
+      type: text
+      description: Check carefully — allergy information. Empty = English list is used
+    - name: vegan
+      label: Vegan badge
+      type: boolean
+      default: true
+    - name: gluten_free
+      label: Gluten-free badge
+      type: boolean
+      default: true
+    - name: allergen
+      label: Allergen badge
+      type: string
+      description: e.g. Contains nuts · Peanut · Pistachio · nuts. Empty = no badge
+    - name: allergen_is
+      label: Allergen badge (Icelandic)
+      type: string
+      description: e.g. Inniheldur hnetur · Jarðhnetur
+    - name: note
+      label: Extra badge
+      type: string
+      description: Optional, e.g. New · Seasonal
+    - name: note_is
+      label: Extra badge (Icelandic)
+      type: string
+    - name: price_per_100g
+      label: Price per 100 g (ISK)
+      type: number
+      description: Number only, e.g. 1100. Used for Google; customers see prices in Prices & Delivery
+    - name: protein
+      label: Protein (g per 100 g)
+      type: number
+      description: Nutrition — only your own measured figures. Fill all four or none
+    - name: fat
+      label: Fat (g per 100 g)
+      type: number
+    - name: carbs
+      label: Carbs (g per 100 g)
+      type: number
+    - name: kcal
+      label: Kcal per 100 g
+      type: number
+    - name: card_image
+      label: Card photo
+      type: image
+      description: Landscape 4:3, about 1600 × 1200 px, JPG. Cropped to 4:3 — keep the cake in the middle. Upload the file (no Google Drive / Instagram links). Empty = first gallery photo is used
+    - name: card_alt
+      label: Card photo description
+      type: string
+      description: What the photo shows, e.g. Raw carrot cake with pecans (for Google and screen readers)
+    - name: card_alt_is
+      label: Card photo description (Icelandic)
+      type: string
+    - name: photos
+      label: Gallery
+      type: object
+      list:
+        collapsible:
+          collapsed: false
+          summary: '{fields.caption}'
+      fields:
+      - name: image
+        label: Photo
         type: image
-        description: "Landscape 4:3, about 1600 × 1200 px, JPG. Cropped to 4:3 — keep the cake in the middle. Upload the file (no Google Drive / Instagram links). Empty = first gallery photo is used"
-      - name: card_alt
-        label: Card photo description
+        required: true
+        description: Square 1:1, about 1600 × 1600 px, JPG. Shown as a square — the edges of a landscape photo are cut off
+      - name: caption
+        label: Caption
         type: string
-        description: "What the photo shows, e.g. Raw carrot cake with pecans (for Google and screen readers)"
-      - name: card_alt_is
-        label: Card photo description (Icelandic)
+        description: 'Short: The whole cake · A slice · From the side'
+      - name: caption_is
+        label: Caption (Icelandic)
         type: string
-      - name: photos
-        label: Gallery
-        type: object
-        list:
-          collapsible:
-            collapsed: true
-            summary: "{fields.caption}"
-        fields:
-          - name: image
-            label: Photo
-            type: image
-            required: true
-            description: "Square 1:1, about 1600 × 1600 px, JPG. Shown as a square — the edges of a landscape photo are cut off"
-          - name: caption
-            label: Caption
-            type: string
-            description: "Short: The whole cake · A slice · From the side"
-          - name: caption_is
-            label: Caption (Icelandic)
-            type: string
-            description: "e.g. Öll kakan · Sneið · Frá hlið"
+        description: e.g. Öll kakan · Sneið · Frá hlið
+    description: Whole cakes — add as many as you like
+  - name: small_cakes
+    label: Small Cakes
+    type: collection
+    path: content/cakes/small
+    format: yaml-frontmatter
+    filename: '{primary}.md'
+    view: *id001
+    fields: *id002
+    description: Small cakes by the plate — add as many as you like
+  - name: friday_box
+    label: Friday Box
+    type: collection
+    path: content/cakes/friday
+    format: yaml-frontmatter
+    filename: '{primary}.md'
+    view: *id001
+    fields: *id002
+    description: The Friday Box
 
   - name: blog
     label: Blog
@@ -263,6 +271,10 @@ content:
       label: Short text when shared (X/Twitter) (Icelandic)
       type: text
       description: Empty = the English text is used on the Icelandic page
+    - name: share_image
+      label: Picture when the link is shared
+      type: image
+      description: Landscape 1.91:1, about 1200 × 630 px, JPG. Facebook/WhatsApp crop other shapes badly.
     - name: menu_story
       label: 'Menu: My story'
       type: string
@@ -389,6 +401,27 @@ content:
       label: Button 2 (goes to the cakes) (Icelandic)
       type: string
       description: Empty = the English text is used on the Icelandic page
+    - name: slides
+      label: Big photos (slideshow behind the heading)
+      type: object
+      list:
+        collapsible:
+          collapsed: false
+          summary: '{fields.image}'
+      fields:
+      - name: image
+        label: Photo
+        type: image
+        description: Landscape, about 2400 × 1600 px, JPG. Fills the whole screen; top and bottom are cut off on wide screens, the sides on phones.
+      - name: focus
+        label: Which part stays visible (0–100)
+        type: number
+        description: 0 = top of the photo, 50 = middle, 100 = bottom. Use it if the cake is cut off.
+      - name: show
+        label: Show on site
+        type: boolean
+        description: Off = hidden, not deleted
+      description: Changes every few seconds. The first photo shows first. White text sits on top, so darker or calmer photos read best.
   - name: my_story
     label: Page · 2 My story
     type: file
@@ -510,7 +543,7 @@ content:
         type: boolean
         description: Off = hidden, not deleted
   - name: cakes_section
-    label: Page · 3 Cakes section (texts around the cakes)
+    label: Page · 3 Cakes section — texts only (the cakes themselves are under Cakes, top of the menu)
     type: file
     path: content/text/04-cakes-section.yml
     format: yaml
@@ -610,7 +643,7 @@ content:
       type: object
       list:
         collapsible:
-          collapsed: true
+          collapsed: false
           summary: '{fields.alt}'
       fields:
       - name: image
@@ -708,7 +741,7 @@ content:
       type: object
       list:
         collapsible:
-          collapsed: true
+          collapsed: false
           summary: '{fields.alt}'
       fields:
       - name: image
@@ -1285,6 +1318,57 @@ content:
       label: Next photo (read aloud) (Icelandic)
       type: string
       description: Empty = the English text is used on the Icelandic page
+  - name: not_found
+    label: Site · Page for wrong addresses (404)
+    type: file
+    path: content/text/13-not-found.yml
+    format: yaml
+    fields:
+    - name: page_title
+      label: Browser tab title
+      type: string
+    - name: page_title_is
+      label: Browser tab title (Icelandic)
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: heading
+      label: Heading
+      type: string
+    - name: heading_is
+      label: Heading (Icelandic)
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: text
+      label: Text
+      type: string
+    - name: text_is
+      label: Text (Icelandic)
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: button_cakes
+      label: Button 1 (home page)
+      type: string
+    - name: button_cakes_is
+      label: Button 1 (home page) (Icelandic)
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+    - name: button_order
+      label: Button 2 (order form)
+      type: string
+    - name: button_order_is
+      label: Button 2 (order form) (Icelandic)
+      type: string
+      description: Empty = the English text is used on the Icelandic page
+  - name: order_email
+    label: Site · Email for orders
+    type: file
+    path: content/text/14-order-email.yml
+    format: yaml
+    fields:
+    - name: order_email
+      label: Email that receives orders and course sign-ups
+      type: string
+      description: 'After changing it: send a test order and click Activate in the email from FormSubmit — until then orders do NOT arrive. Guide: Order-email-for-Katya.pdf'
   - name: blog_page
     label: Blog · Page texts
     type: file
