@@ -843,6 +843,26 @@ content:
     path: content/text/08-order.yml
     format: yaml
     fields:
+    - name: min_days_ahead
+      label: 'Order rule: minimum days ahead'
+      type: number
+      required: true
+      description: How many days ahead people must order (e.g. 3). The form won't allow an earlier date. Texts that contain {days} show this number automatically.
+    - name: small_min_pieces
+      label: 'Order rule: minimum small cakes'
+      type: number
+      required: true
+      description: Minimum number of small cakes per order (e.g. 6). Texts that contain {small_min} show this number automatically.
+    - name: phone_required
+      label: 'Order rule: phone number required'
+      type: boolean
+      default: true
+      description: On = the form can't be sent without a phone number
+    - name: message_required
+      label: 'Order rule: ''Anything else?'' required'
+      type: boolean
+      default: true
+      description: On = the customer must write something in the message box
     - name: eyebrow
       label: Small label above the heading
       type: string
@@ -1010,6 +1030,7 @@ content:
     - name: hint_small
       label: 'Form: hint for small cakes'
       type: string
+      description: Write {days} or {small_min} where the number should go — it updates by itself when the rule changes
     - name: hint_small_is
       label: 'Form: hint for small cakes (Icelandic)'
       type: string
@@ -1024,6 +1045,7 @@ content:
     - name: hint_date
       label: 'Form: hint under the date'
       type: string
+      description: Write {days} or {small_min} where the number should go — it updates by itself when the rule changes
     - name: hint_date_is
       label: 'Form: hint under the date (Icelandic)'
       type: string
@@ -1031,6 +1053,7 @@ content:
     - name: date_error
       label: 'Form: message when the date is too soon'
       type: string
+      description: Write {days} or {small_min} where the number should go — it updates by itself when the rule changes
     - name: date_error_is
       label: 'Form: message when the date is too soon (Icelandic)'
       type: string
@@ -1448,4 +1471,4 @@ content:
     - name: order_email
       label: Email that receives orders and course sign-ups
       type: string
-      description: 'After changing it: send a test order and click Activate in the email from FormSubmit — until then orders do NOT arrive. Guide: Order-email-for-Katya.pdf'
+      description: 'After changing it: send a test order and click Activate in the email from FormSubmit — until then orders do NOT arrive. Guide: section 10 of the Pages CMS guide'

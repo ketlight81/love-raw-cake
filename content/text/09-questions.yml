@@ -15,8 +15,8 @@ questions:
   show: true
 - question: How much notice do you need?
   question_is: Hversu mikinn fyrirvara þarftu?
-  answer: At least 3 days. Every cake is made to order, and some recipes ferment for 24 hours. For events, the more notice the better.
-  answer_is: Minnst 3 daga. Hver kaka er gerð eftir pöntun og sumar uppskriftir þurfa að gerjast í 24 klukkustundir. Fyrir viðburði er betra að hafa samband sem fyrst.
+  answer: At least {days} days. Every cake is made to order, and some recipes ferment for 24 hours. For events, the more notice the better.
+  answer_is: Minnst {days} daga. Hver kaka er gerð eftir pöntun og sumar uppskriftir þurfa að gerjast í 24 klukkustundir. Fyrir viðburði er betra að hafa samband sem fyrst.
   show: true
 - question: How do I pay and collect?
   question_is: Hvernig greiði ég og fæ kökuna?

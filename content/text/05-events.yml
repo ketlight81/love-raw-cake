@@ -8,8 +8,8 @@ points:
 - text: Mini-cakes & finger-food in reception-friendly sizes
   text_is: Litlar kökur & smáréttir í hentugum stærðum fyrir móttökur
   show: true
-- text: Platters from 6 pieces; larger orders from ~50 pieces
-  text_is: Bakkar frá 6 stykkjum; stærri pantanir frá u.þ.b. 50 stykkjum
+- text: Platters from {small_min} pieces; larger orders from ~50 pieces
+  text_is: Bakkar frá {small_min} stykkjum; stærri pantanir frá u.þ.b. 50 stykkjum
   show: true
 - text: Trusted by **Nordic House**, **Vigdís House**, the **University of Iceland** café and **Iðnó**
   text_is: 'Meðal viðskiptavina: **Norræna húsið**, **Veröld – hús Vigdísar**, **kaffihús Háskóla Íslands** og **Iðnó**'

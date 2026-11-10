@@ -7,8 +7,8 @@ small_tile_link_is: Sjá allar litlar kökur →
 small_tile_photo: images/images_20.08.2026/smallcakes_buffet_web.jpeg
 small_tile_alt: Raw mini-cakes plated on a buffet table
 small_tile_alt_is: Litlar hrákökur á hlaðborði
-small_intro: Small cakes are made by the plate — mix and match any of the flavours below. Platters from 6 pieces.
-small_intro_is: Litlar kökur eru gerðar á diski — blandaðu saman bragðtegundunum hér fyrir neðan. Bakkar frá 6 stykkjum.
+small_intro: Small cakes are made by the plate — mix and match any of the flavours below. Platters from {small_min} pieces.
+small_intro_is: Litlar kökur eru gerðar á diski — blandaðu saman bragðtegundunum hér fyrir neðan. Bakkar frá {small_min} stykkjum.
 small_photos:
 - image: images/images_20.08.2026/smallcakes_fingers_web.jpeg
   alt: A board of raw mini-cakes with berries

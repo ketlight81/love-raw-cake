@@ -6,8 +6,8 @@ intro: Katya’s real range — each one built from whole, raw ingredients. **Ta
 intro_is: Kökurnar hennar Katyu — hver og ein úr hreinum, hráum hráefnum. **Smelltu á köku** til að skoða hana nánar, með öllum innihaldsefnum og næringargildi.
 pricing_line: Clear, simple pricing.
 pricing_line_is: Skýrt og einfalt verð.
-order_note: 🕒 Please order **at least 3 days ahead** — every cake is made to order (some, like fermented-cashew recipes, need 24h to ferment). Whole cakes, or small cakes by the plate.
-order_note_is: 🕒 Pantaðu **með minnst 3 daga fyrirvara** — hver kaka er gerð eftir pöntun (sumar uppskriftir, t.d. með gerjuðum kasjúhnetum, þurfa 24 klst. til að gerjast). Heilar kökur, eða litlar kökur á diski.
+order_note: 🕒 Please order **at least {days} days ahead** — every cake is made to order (some, like fermented-cashew recipes, need 24h to ferment). Whole cakes, or small cakes by the plate.
+order_note_is: 🕒 Pantaðu **með minnst {days} daga fyrirvara** — hver kaka er gerð eftir pöntun (sumar uppskriftir, t.d. með gerjuðum kasjúhnetum, þurfa 24 klst. til að gerjast). Heilar kökur, eða litlar kökur á diski.
 counter_show: true
 counter_number: 842
 counter_text: cakes made with love since 2020 — and counting

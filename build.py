@@ -123,7 +123,37 @@ def load_text(lang):
     # next to their cake lists, but belong to the same page section
     for extra in ("small_cakes_tab", "friday_box_tile"):
         T.setdefault("cakes_section", {}).update(T.pop(extra, {}))
-    return T
+    # order rules (Page · 7): numbers used by the form and inside texts as {days} / {small_min}
+    O = T.setdefault("order", {})
+    rules = {"days": rule_num(O.get("min_days_ahead"), 3, 0, 60, "min_days_ahead"),
+             "small_min": rule_num(O.get("small_min_pieces"), 6, 1, 200, "small_min_pieces")}
+    O["min_days_ahead"], O["small_min_pieces"] = rules["days"], rules["small_min"]
+    O["phone_required"] = O.get("phone_required") is not False
+    O["message_required"] = O.get("message_required") is not False
+    return fill(T, rules)
+
+
+def rule_num(v, default, lo, hi, name):
+    try:
+        n = int(float(v))
+        if lo <= n <= hi:
+            return n
+    except (TypeError, ValueError):
+        pass
+    if v not in (None, ""):
+        warn(f"content/text/08-order.yml: {name} must be a whole number {lo}–{hi}, got {v!r} — using {default}")
+    return default
+
+
+def fill(x, rules):
+    """Put the order-rule numbers into texts: {days} and {small_min}."""
+    if isinstance(x, dict):
+        return {k: fill(v, rules) for k, v in x.items()}
+    if isinstance(x, list):
+        return [fill(v, rules) for v in x]
+    if isinstance(x, str):
+        return x.replace("{days}", str(rules["days"])).replace("{small_min}", str(rules["small_min"]))
+    return x
 
 
 _MD = markdown.Markdown(extensions=["extra"])
@@ -436,7 +466,7 @@ def main():
     env.filters["img"] = img
     texts = {lang: load_text(lang) for lang in ("en", "is")}
     # where order + waitlist forms send (FormSubmit). Editable by Katya in Pages CMS;
-    # a NEW address must be activated once — see output/08.11.2026_Order-email-for-Katya.md
+    # a NEW address must be activated once — see output/09.11.2026_Pages-CMS-and-order-email-for-Katya.md (section 10)
     oe = str(texts["en"].get("order_email", {}).get("order_email") or "").strip()
     if oe:
         if re.fullmatch(r"[^@\s]+@[^@\s]+\.[^@\s]+", oe):

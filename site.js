@@ -243,11 +243,12 @@ window.L10N = Object.assign({
     });
   });
 
-/* Order date: earliest pickable day is 3 days from today (Katya's lead time).
+/* Order date: earliest pickable day is N days from today (Katya's lead time, set in Pages CMS).
    Uses the visitor's local date, not UTC, so the limit doesn't slip near midnight. */
 (function(){
   const d=document.getElementById('orderDate'); if(!d) return;
-  const LEAD_DAYS=3;
+  const form=d.closest('form');
+  const LEAD_DAYS=form?(parseInt(form.dataset.leadDays,10)||0):3;   /* Pages CMS · 7 › Order rules */
   const t=new Date(); t.setDate(t.getDate()+LEAD_DAYS);
   const pad=n=>String(n).padStart(2,'0');
   const min=t.getFullYear()+'-'+pad(t.getMonth()+1)+'-'+pad(t.getDate());
@@ -257,14 +258,14 @@ window.L10N = Object.assign({
   });
 })();
 
-/* Quantity: small cakes have a minimum of 6 pieces; everything else from 1.
+/* Quantity: small cakes have a minimum (set in Pages CMS); everything else from 1.
    Runs on every cake change, including when a card's "Order" button preselects it. */
 (function(){
   const sel=document.getElementById('orderSelect');
   const qty=document.querySelector('input[name="quantity"]');
   const hint=document.getElementById('qtyHint');
   if(!sel||!qty) return;
-  const SMALL_MIN=6;
+  const SMALL_MIN=parseInt((sel.closest('form')||{dataset:{}}).dataset.smallMin,10)||6;   /* Pages CMS · 7 › Order rules */
   function update(){
     const opt=sel.options[sel.selectedIndex];
     const small=!!(opt && opt.parentElement && opt.parentElement.dataset.group==='small');

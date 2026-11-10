@@ -1,3 +1,8 @@
+# Order rules (Katya can change these):
+min_days_ahead: 3
+small_min_pieces: 6
+phone_required: true
+message_required: true
 eyebrow: How to order
 eyebrow_is: Svona pantar þú
 heading: Let’s make your cake.
@@ -47,14 +52,14 @@ label_quantity: Quantity
 label_quantity_is: Fjöldi
 hint_whole: Number of whole cakes.
 hint_whole_is: Fjöldi heilla kakna.
-hint_small: 'Small cakes: minimum 6 pieces.'
-hint_small_is: 'Litlar kökur: minnst 6 stykki.'
+hint_small: 'Small cakes: minimum {small_min} pieces.'
+hint_small_is: 'Litlar kökur: minnst {small_min} stykki.'
 label_date: When do you need it?
 label_date_is: Hvenær þarftu hana?
-hint_date: At least 3 days ahead.
-hint_date_is: Með minnst 3 daga fyrirvara.
-date_error: Please choose a date at least 3 days from today.
-date_error_is: Veldu dagsetningu með minnst 3 daga fyrirvara.
+hint_date: At least {days} days ahead.
+hint_date_is: Með minnst {days} daga fyrirvara.
+date_error: Please choose a date at least {days} days from today.
+date_error_is: Veldu dagsetningu með minnst {days} daga fyrirvara.
 label_message: Anything else?
 label_message_is: Eitthvað fleira?
 placeholder_message: Another cake too? Allergies, occasion…

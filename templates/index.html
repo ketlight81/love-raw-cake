@@ -286,7 +286,7 @@
           <a href="https://instagram.com/love.raw.cake" target="_blank" rel="noopener">⌾ @love.raw.cake</a>
         </div>
       </div>
-      <form class="contact-card" action="https://formsubmit.co/{{ site.email }}" method="POST">
+      <form class="contact-card" action="https://formsubmit.co/{{ site.email }}" method="POST" data-lead-days="{{ O.min_days_ahead }}" data-small-min="{{ O.small_min_pieces }}">
         <input type="hidden" name="_subject" value="New cake request{{ ' (IS)' if lang == 'is' }} — loverawcake.com" />
         <input type="hidden" name="_template" value="table" />
         <input type="hidden" name="_autoresponse" value="{{ O.auto_reply }}" />
@@ -295,7 +295,7 @@
         <div class="field"><label>{{ O.label_email }}</label><input type="email" name="email" required autocomplete="email" placeholder="{{ O.placeholder_email }}" /></div>
         </div>
         <div class="field-row">
-        <div class="field"><label>{{ O.label_phone }}</label><input type="tel" name="phone" required autocomplete="tel" inputmode="tel" pattern="\+?[0-9 ]{7,20}" title="{{ O.phone_error }}" placeholder="+354 …" /></div>
+        <div class="field"><label>{{ O.label_phone }}</label><input type="tel" name="phone"{% if O.phone_required %} required{% endif %} autocomplete="tel" inputmode="tel" pattern="\+?[0-9 ]{7,20}" title="{{ O.phone_error }}" placeholder="+354 …" /></div>
         <div class="field"><label>{{ O.label_cake }}</label>
           <select id="orderSelect" name="cake" required>
             <option value="" disabled selected>{{ O.choose_cake }}</option>
@@ -317,7 +317,7 @@
         <div class="field"><label>{{ O.label_date }}</label><input type="date" id="orderDate" name="date_needed" required />
           <small class="muted">{{ O.hint_date }}</small></div>
         </div>
-        <div class="field"><label>{{ O.label_message }}</label><textarea name="message" rows="3" required placeholder="{{ O.placeholder_message }}"></textarea></div>
+        <div class="field"><label>{{ O.label_message }}</label><textarea name="message" rows="3"{% if O.message_required %} required{% endif %} placeholder="{{ O.placeholder_message }}"></textarea></div>
         <button type="submit" class="btn btn-primary" style="width:100%">{{ O.button }}</button>
       </form>
     </div>
